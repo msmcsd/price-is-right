@@ -4,10 +4,14 @@ const app = express();
 const port = 3000;
 
 app.get("/", (req, res) => {
-  res.render("index.ejs", {
-    dayType: "a weekday",
-    advice: "It's time to work hard."
-  })
+  res.render("index.ejs", {grocery_items: [
+    {
+      name: "nuts",
+      barcode: "12345",
+      price: 11.99,
+      date: "2022/1/1"
+    }
+    ]})
 });
 
 app.listen(port, () =>
