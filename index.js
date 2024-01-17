@@ -1,17 +1,15 @@
 import express from "express";
+import { getLatestPriceForEachItem } from "./database.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT;
 
-app.get("/", (req, res) => {
-  res.render("index.ejs", {grocery_items: [
-    {
-      name: "nuts",
-      barcode: "12345",
-      price: 11.99,
-      date: "2022/1/1"
-    }
-    ]})
+app.get("/", async (req, res) => {
+  const items = await getLatestPriceForEachItem();
+  res.render("index.ejs", {grocery_items: items})
 });
 
 app.listen(port, () =>
