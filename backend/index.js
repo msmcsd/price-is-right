@@ -21,6 +21,11 @@ app.get("/", async (req, res) => {
   res.render("index.ejs", {grocery_items: items})
 });
 
+app.get("/list", async (req, res) => {
+  const items = await getLatestPriceForEachItem();
+  res.send(items);
+})
+
 app.listen(port, () =>
   console.log(`Listening on port ${port}`)
 );

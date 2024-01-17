@@ -17,22 +17,24 @@
         <th>Price</th>
         <th>Date</th>
       </tr>
-      <% for (let i=0; i < grocery_items.length; i++) { %>
-        <tr>
-          <th>
-            <%= grocery_items[i].name %>
-          </th>
-          <th>
-            <%= grocery_items[i].barcode %>
-          </th>
-          <th>
-            <%= grocery_items[i].price %>
-          </th>
-          <th>
-            <%= grocery_items[i].date %>
-          </th>
-        </tr>
-        <% } %>
+      <% if (locals.grocery_items) {%>
+        <% for (let i=0; i < grocery_items.length; i++) { %>
+          <tr>
+            <th>
+              <%= grocery_items[i].name %>
+            </th>
+            <th>
+              <%= grocery_items[i].barcode %>
+            </th>
+            <th>
+              <%= grocery_items[i].price %>
+            </th>
+            <th>
+              <%= grocery_items[i].date %>
+            </th>
+          </tr>
+          <% } %>
+      <% } %>
     </tbody>
   </table>
 </body>
