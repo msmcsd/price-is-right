@@ -22,6 +22,7 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/list", async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
   const items = await getLatestPriceForEachItem();
   res.send(items);
 })
