@@ -14,7 +14,7 @@ const port = process.env.PORT;
 
 app.set("view engine", "ejs");    
 app.set("views", __dirname + "/views");
-
+app.use(express.static(__dirname + "/public"));
 
 app.get("/", async (req, res) => {
   const items = await getLatestPriceForEachItem();

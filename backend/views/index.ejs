@@ -4,39 +4,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles/index.css" type="text/css">
   <title>Price is Right</title>
 </head>
 
 <body>
   </h1>
-  <table>
-    <tbody>
-      <tr>
-        <th>Name</th>
-        <th>Barcode</th>
-        <th>Price</th>
-        <th>Date</th>
-      </tr>
+  <div class="container">
+    <ul class="responsive-table">
+      <li class="table-header">
+        <div class="col col-1">Barcode</div>
+        <div class="col col-2">Grocery Item Name</div>
+        <div class="col col-3">Last Price</div>
+        <div class="col col-4">Date of Last Price/div>
+      </li>
       <% if (locals.grocery_items) {%>
         <% for (let i=0; i < grocery_items.length; i++) { %>
-          <tr>
-            <th>
-              <%= grocery_items[i].name %>
-            </th>
-            <th>
+          <li class="table-row">
+            <div class="col col-1">
               <%= grocery_items[i].barcode %>
-            </th>
-            <th>
+            </div>
+            <div class="col col-2">
+              <%= grocery_items[i].name %>
+            </div>
+            <div class="col col-3">
               <%= grocery_items[i].price %>
-            </th>
-            <th>
+            </div>
+            <div class="col col-4">
               <%= grocery_items[i].date %>
-            </th>
-          </tr>
+            </div>
+          </li>
           <% } %>
       <% } %>
-    </tbody>
-  </table>
+        </ul>
+  </div>
 </body>
 
 </html>
