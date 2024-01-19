@@ -10,6 +10,7 @@ type GroceryItem = {
 
 function App() {
   const [items, setItems] = useState<GroceryItem[] | []>([])
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const loadItems = async () => {
     const list = await fetch(process.env.REACT_APP_PRICE_IS_RIGHT_SERVER as string + "/list", {
@@ -20,12 +21,14 @@ function App() {
     const json = await list.json();
     setItems(json);
   }
+
   useEffect(() => {
     loadItems();
+    setIsLoading(false);
   }, [])
 
-  return (
-    <div className="container">
+  const populateItems = () => {
+    return (
       <ul className="responsive-table">
         <li className="table-header">
           <div className="col col-1">Barcode</div>
@@ -33,25 +36,31 @@ function App() {
           <div className="col col-3">Last Price</div>
           <div className="col col-4">Date of Last Price </div>
         </li>
-        {items.map(i => 
-          (
-            <li className="table-row" key={i.barcode}>
-              <div className="col col-1">
-                {i.barcode}
-              </div>     
-              <div className="col col-2">
-                {i.name}
-              </div>     
-              <div className="col col-3">
-                {i.price}
-              </div>     
-              <div className="col col-4">
-                {i.date.toString()}
-              </div>     
-            </li>       
-          ))
-          }
-      </ul>
+        {items.map(i =>
+        (
+          <li className="table-row" key={i.barcode}>
+            <div className="col col-1">
+              {i.barcode}
+            </div>
+            <div className="col col-2">
+              {i.name}
+            </div>
+            <div className="col col-3">
+              {i.price}
+            </div>
+            <div className="col col-4">
+              {i.date.toString()}
+            </div>
+          </li>
+        ))
+        }
+      </ul>      
+    );
+  }
+
+  return (
+    <div className="container">
+      {isLoading ? <h1>Spinning server up. Will continue in about 30 seconds...</h1> : populateItems()}
     </div>
   );
 }
