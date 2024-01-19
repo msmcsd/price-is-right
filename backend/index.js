@@ -22,7 +22,18 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/list", async (req, res) => {
-  res.set("Access-Control-Allow-Origin", "*");
+  // res.set("Access-Control-Allow-Origin", "https://price-is-right-client.onrender.com");
+  res.set("Access-Control-Allow-Origin", "http://localhost:28");
+  const allowedOrigins = ["https://price-is-right-client.onrender.com", "http://localhost:28"]
+  let allowedOrigin = allowedOrigins[0];
+
+  const origin = req.get('origin');
+  if (origin && allowedOrigins.includes(origin)) {
+    allowedOrigin = origin;
+  }
+
+  res.set("Access-Control-Allow-Origin", allowedOrigin);
+
   const items = await getLatestPriceForEachItem();
   res.send(items);
 })
