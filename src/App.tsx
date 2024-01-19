@@ -1,24 +1,57 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 
+type GroceryItem = {
+  barcode: string,
+  name: string,
+  price: number,
+  date: Date
+}
+
 function App() {
+  const [items, setItems] = useState<GroceryItem[] | []>([])
+
+  const loadItems = async () => {
+    const list = await fetch(process.env.REACT_APP_PRICE_IS_RIGHT_SERVER as string + "/list", {
+      mode: "cors",
+      method: "GET"
+    });
+
+    const json = await list.json();
+    setItems(json);
+  }
+  useEffect(() => {
+    loadItems();
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <ul className="responsive-table">
+        <li className="table-header">
+          <div className="col col-1">Barcode</div>
+          <div className="col col-2">Grocery Item Name</div>
+          <div className="col col-3">Last Price</div>
+          <div className="col col-4">Date of Last Price </div>
+        </li>
+        {items.map(i => 
+          (
+            <li className="table-row" key={i.barcode}>
+              <div className="col col-1">
+                {i.barcode}
+              </div>     
+              <div className="col col-2">
+                {i.name}
+              </div>     
+              <div className="col col-3">
+                {i.price}
+              </div>     
+              <div className="col col-4">
+                {i.date.toString()}
+              </div>     
+            </li>       
+          ))
+          }
+      </ul>
     </div>
   );
 }
