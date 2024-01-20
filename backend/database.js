@@ -37,7 +37,8 @@ export async function getLatestPriceForEachItem() {
         _id: '$name',
         date: { $first: '$date' },
         barcode: { $first: '$barcode' },
-        price: { $first: '$price' }
+        price: { $first: '$price' },
+        coupon: { $first: '$coupon' }
       }
     },
     {
@@ -46,6 +47,7 @@ export async function getLatestPriceForEachItem() {
         name: '$_id',
         barcode: 1,
         price: 1,
+        coupon: 1,
         date: 1
       }
     }
