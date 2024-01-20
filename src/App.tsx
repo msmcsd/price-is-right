@@ -32,9 +32,9 @@ function App() {
       <ul className="responsive-table">
         <li className="table-header">
           <div className="col col-1">Barcode</div>
-          <div className="col col-2">Grocery Item Name</div>
-          <div className="col col-3">Last Price</div>
-          <div className="col col-4">Date of Last Price </div>
+          <div className="col col-2">Item Name</div>
+          <div className="col col-3">List Price</div>
+          <div className="col col-4">Date</div>
         </li>
         {items.map(i =>
         (
@@ -46,10 +46,10 @@ function App() {
               {i.name}
             </div>
             <div className="col col-3">
-              {i.price}
+              ${i.price}
             </div>
             <div className="col col-4">
-              {i.date.toString()}
+              {new Date(i.date).toLocaleDateString()}
             </div>
           </li>
         ))

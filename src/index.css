@@ -51,10 +51,12 @@ h2 {
 
   .col-3 {
     flex-basis: 25%;
+    text-align: right;
   }
 
   .col-4 {
     flex-basis: 25%;
+    text-align: right;
   }
 
   @media all and (max-width: 767px) {
