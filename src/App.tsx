@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-
-type GroceryItem = {
-  barcode: string,
-  name: string,
-  price: number,
-  date: Date,
-  coupon: number
-}
+import { GroceryItem } from './types/types';
 
 function App() {
   const [items, setItems] = useState<GroceryItem[] | []>([])
