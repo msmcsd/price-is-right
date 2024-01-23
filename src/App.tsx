@@ -1,24 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { GroceryItem } from './types/types';
+import { loadItems } from './database';
 
 function App() {
   const [items, setItems] = useState<GroceryItem[] | []>([])
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const loadItems = async () => {
-    const list = await fetch(process.env.REACT_APP_PRICE_IS_RIGHT_SERVER as string + "/list", {
-      mode: "cors",
-      method: "GET"
-    });
-
-    const json = await list.json();
-    setItems(json);
-    console.log(json);
-  }
-
   useEffect(() => {
-    loadItems();
+    const fetchData = async () => {
+      try {
+        const itemsData = await loadItems();
+        setItems(itemsData);
+      } catch (error) {
+        console.error('Error fetching items:', error);
+      }
+    };
+
+    fetchData(); 
     setIsLoading(false);
   }, [])
 
