@@ -11,6 +11,7 @@ type CardProps = {
 }
 
 const ItemCard = ({name, barcode, size, image_url, brands} : CardProps) => {
+  console.log("ItemCard", name)
   return (
     <div className="card">
       <img src={image_url} alt="image url" />

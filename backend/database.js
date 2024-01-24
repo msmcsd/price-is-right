@@ -57,4 +57,41 @@ export async function getLatestPriceForEachItem() {
   return result;
 }
 
+export async function loadItemHistory(barcode) {
+  console.log(barcode)
+  await client.connect();
 
+  const db = client.db(dbName);
+  const docs = db.collection(tableName).find(
+    {
+      barcode: {$eq: barcode}
+    }
+  ).sort({ date: -1 })
+  .project({ barcode: 1, name: 1, price: 1, coupon: 1, date: 1, image_url: 1 })
+  .toArray();
+
+  return docs;
+}
+
+export async function upsertItem(item) {
+  // Use connect method to connect to the server
+  await client.connect();
+  // await listDatabases(client);
+
+  console.log('Connected successfully to server');
+  const db = client.db(dbName);
+  const collection = db.collection(tableName);
+
+  const query = { barcode: "${item.barcode)" };
+  const update = { $set: { 
+    name: "${item.name)", 
+    barcode: "${item.barcode)",
+    price: "${item.price)",
+    coupon: "${item.coupon)",
+    image_url: "${item.image_url)",
+    brand: "${item.brand)",
+    date: "${item.date)"
+  } };
+  const options = { upsert: true };
+  collection.updateOne(query, update, options);
+}
