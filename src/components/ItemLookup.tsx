@@ -39,6 +39,10 @@ const ItemLookup = () => {
     setBarcodeText(e.currentTarget.value);
   }
 
+  const handleInput = (e: React.FormEvent<HTMLInputElement>) => {
+    e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, '');
+  }
+
   const populateResult = () => {
     // Populate item histories if found
     if (itemHistory && itemHistory.length > 0) {
@@ -72,7 +76,13 @@ const ItemLookup = () => {
   return (
     <div className="main">
       <form className="flex-form" onSubmit={handleSubmit}>
-        <input type="text" name="barcode" placeholder="Enter barcode" onChange={handleTextChange} ></input>
+        <input type="text" 
+               name="barcode" 
+               placeholder="Enter barcode" 
+               onChange={handleTextChange} 
+               onInput={handleInput}
+               required
+        />
         <input type="submit" value="Look up" />
       </form>
       <div className="gap"></div>
