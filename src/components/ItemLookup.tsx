@@ -9,6 +9,8 @@ const ItemLookup = () => {
   const [barcodeText, setBarcodeText] = useState<string>("");
   const [itemHistory, setItemHistory] = useState<GroceryItem[]>([]);
   const [item, setItem] = useState<FoodApiResult | null>();
+  const [price, setPrice] = useState<number>(0)
+  const [coupon, setCoupon] = useState<number>(0)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -53,6 +55,23 @@ const ItemLookup = () => {
     return populateItem();
   }
 
+  const handleSubmitPrice = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+  }
+
+  const handlePriceChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setPrice(Number(e.currentTarget.value))
+  }
+
+  const handleCouponChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setCoupon(Number(e.currentTarget.value))
+  }
+
+  const handlePriceInput = (e: React.FormEvent<HTMLInputElement>) => {
+    e.currentTarget.value = e.currentTarget.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
+  }
+
   // Populates lookup result from API
   const populateItem = () => {
     if (!item) {
@@ -65,11 +84,29 @@ const ItemLookup = () => {
 
     console.log("Populating item from API", item.code)
     return (
-      <ItemCard name={item.product.product_name} 
-                barcode={item.code}
-                size={item.product.quantity}
-                image_url={item.product.image_front_url}
-                brands={item.product.brands} />
+      <>
+        <ItemCard name={item.product.product_name} 
+                  barcode={item.code}
+                  size={item.product.quantity}
+                  image_url={item.product.image_front_url}
+                  brands={item.product.brands} />
+        <form className="flex-form" onSubmit={handleSubmitPrice}>
+          <input type="text" 
+                 name="price"
+                 placeholder="Current Price"
+                 onChange={handlePriceChange} 
+                 onInput={handlePriceInput} 
+                 required
+          />
+          <input type="text" 
+                 name="coupon" 
+                 placeholder="Coupon"
+                 onChange={handleCouponChange} 
+                 onInput={handlePriceInput}
+          />
+          <input type="submit" value="Add" />
+        </form>
+      </>
     );
   }
 
