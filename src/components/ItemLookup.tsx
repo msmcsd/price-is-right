@@ -8,22 +8,24 @@ import { loadItemHistory } from "../database";
 const ItemLookup = () => {
   const [barcodeText, setBarcodeText] = useState<string>("");
   const [itemHistory, setItemHistory] = useState<GroceryItem[]>([]);
-  const [item, setItem] = useState<FoodApiResult>();
+  const [item, setItem] = useState<FoodApiResult | null>();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      // console.log("b4 loadItemHistory")
+      console.log("b4 loadItemHistory")
+      setItem(null)
+      setItemHistory([])
       const history = await loadItemHistory(barcodeText);
-      console.log(history.length)
+      // console.log(history.length)
       if (history && history.length > 0) {
         setItemHistory(history)
         return;
       }
       
       const result = await fetch(`https://static.openfoodfacts.org/api/v0/product/${barcodeText}.json`);
-      console.log("API result", result)
+      // console.log("API result", result)
       const json = await result.json() as FoodApiResult;
       setItem(json);      
     }
