@@ -40,6 +40,7 @@ const ItemLookup = () => {
   }
 
   const populateResult = () => {
+    // Populate item histories if found
     if (itemHistory && itemHistory.length > 0) {
       console.log("Populating item history", itemHistory)
       return <ItemHistory histories={itemHistory} />
@@ -48,6 +49,7 @@ const ItemLookup = () => {
     return populateItem();
   }
 
+  // Populates lookup result from API
   const populateItem = () => {
     if (!item) {
       return <></>

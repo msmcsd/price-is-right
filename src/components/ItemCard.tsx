@@ -14,7 +14,7 @@ const ItemCard = ({name, barcode, size, image_url, brands} : CardProps) => {
   console.log("ItemCard", name)
   return (
     <div className="card">
-      <img src={image_url} alt="image url" />
+      <img src={image_url} alt="Image not available" />
       <div className="card-info">
          <h3 className="cap">{name}</h3>
           <label className="cap">{brands}</label><br />

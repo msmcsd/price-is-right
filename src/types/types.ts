@@ -5,7 +5,8 @@ export type GroceryItem = {
   coupon: number,
   date: Date,
   image_url: string,
-  size: string
+  size: string,
+  brand: string
 }
 
 export type FoodApiResult = {

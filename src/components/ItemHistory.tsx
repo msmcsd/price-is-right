@@ -14,7 +14,7 @@ console.log(item)
     <div>
       <ItemCard name={item.name} 
                 barcode={item.barcode} 
-                brands={item.barcode}
+                brands={item.brand}
                 image_url={item.image_url}
                 size={item.size}/>
       <ul className="responsive-table">
