@@ -1,5 +1,5 @@
 import express from "express";
-import { getLatestPriceForEachItem, loadItemHistory } from "./database.js";
+import { getLatestPriceForEachItem, loadItemHistory, upsertItem } from "./database.js";
 import dotenv from "dotenv";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
@@ -57,10 +57,18 @@ app.post("/history", async (req, res) => {
   res.send(docs)
 });
 
-// app.post("/update", async (req, res) => {
-//   console.log(req)
-//   res.send(req.body)
-// })
+app.options("/upsert", cors());
+app.post("/upsert", async (req, res) => {
+  setAllowedOrigin(req, res);
+  
+  const item = req.body;
+  console.log("[index.js] Item to upsert", item)
+  const result = await upsertItem(item.payload);
+
+  console.log("Upsert result", result)
+
+  res.sendStatus(200);
+})
 
 app.listen(port, () =>
   console.log(`Listening on port ${port}`)

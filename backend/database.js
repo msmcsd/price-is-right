@@ -67,31 +67,57 @@ export async function loadItemHistory(barcode) {
       barcode: {$eq: barcode}
     }
   ).sort({ date: -1 })
-  .project({ barcode: 1, name: 1, price: 1, coupon: 1, date: 1, image_url: 1 })
+  .project({ barcode: 1, name: 1, price: 1, coupon: 1, date: 1, image_url: 1, brand: 1, size: 1 })
   .toArray();
 
   return docs;
 }
 
 export async function upsertItem(item) {
-  // Use connect method to connect to the server
+  console.log("[database.js] Item to upsert", item.barcode)
   await client.connect();
-  // await listDatabases(client);
 
   console.log('Connected successfully to server');
   const db = client.db(dbName);
   const collection = db.collection(tableName);
 
-  const query = { barcode: "${item.barcode)" };
-  const update = { $set: { 
-    name: "${item.name)", 
-    barcode: "${item.barcode)",
-    price: "${item.price)",
-    coupon: "${item.coupon)",
-    image_url: "${item.image_url)",
-    brand: "${item.brand)",
-    date: "${item.date)"
-  } };
-  const options = { upsert: true };
-  collection.updateOne(query, update, options);
+  const mostRecentItem = await collection
+    .find({ barcode: item.barcode})
+    .sort({ date: -1 }) // Sort by "itemdate" in descending order to get the latest document first
+    .limit(1)
+    .next();
+
+  let insertNewPrice = false;
+  if (mostRecentItem) {
+    const {price: latestPrice, coupon: latestCoupon, date: latestDate} = mostRecentItem;
+    if (latestPrice !== item.price || latestCoupon !== item.coupon) {
+      insertNewPrice = true;
+    } else if (latestPrice === item.price && latestCoupon === item.coupon) {
+      // If price and coupon are the same, check if other fields need to be updated.
+      
+    }
+  } else {
+    insertNewPrice = true;
+  }
+
+  if (insertNewPrice) {
+    const query = { barcode: item.barcode };
+    const update = {
+      $set: {
+        name: item.name,
+        barcode: item.barcode,
+        price: item.price,
+        coupon: item.coupon,
+        image_url: item.image_url,
+        brand: item.brand,
+        date: item.date,
+        size: item.size
+      }
+    };
+
+    const options = { upsert: true };
+    const result = collection.updateOne(query, update, options);
+    
+    return result;
+  }
 }

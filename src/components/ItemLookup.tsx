@@ -3,7 +3,7 @@ import { FoodApiResult, GroceryItem } from "../types/types";
 import "./ItemLookup.css"
 import ItemCard from "./ItemCard";
 import ItemHistory from "./ItemHistory";
-import { loadItemHistory } from "../database";
+import { loadItemHistory, upsertItem } from "../database";
 
 const ItemLookup = () => {
   const [barcodeText, setBarcodeText] = useState<string>("");
@@ -29,6 +29,9 @@ const ItemLookup = () => {
       const result = await fetch(`https://static.openfoodfacts.org/api/v0/product/${barcodeText}.json`);
       // console.log("API result", result)
       const json = await result.json() as FoodApiResult;
+      
+      // Barcode returns from API has an extra leading "0". Reset to the one used for the search.
+      json.code = barcodeText;
       setItem(json);      
     }
     catch (error) {
@@ -55,9 +58,28 @@ const ItemLookup = () => {
     return populateItem();
   }
 
-  const handleSubmitPrice = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmitPrice = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const product: GroceryItem = {
+      name: item?.product.product_name as string,
+      barcode: item?.code as string,
+      price: price,
+      coupon: coupon,
+      image_url: item?.product.image_front_url as string,
+      brand: item?.product.brands as string,
+      size: item?.product.quantity as string,
+      date: new Date()
+    };
+
+    const response = upsertItem(product);
+
+    // setItem(null)
+    // setItemHistory([])
+    const history = await loadItemHistory(item?.code as string);
+    if (history && history.length > 0) {
+      setItemHistory(history)
+    }
   }
 
   const handlePriceChange = (e: React.FormEvent<HTMLInputElement>) => {
