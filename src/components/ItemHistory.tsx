@@ -12,11 +12,6 @@ const ItemHistory = (prop: ItemHistoryProps) => {
 console.log(item)
   return (
     <div>
-      <ItemCard name={item.name} 
-                barcode={item.barcode} 
-                brands={item.brand}
-                image_url={item.image_url}
-                size={item.size}/>
       <ul className="responsive-table">
         <li className="table-header">
           <div className="col col-6">Date</div>

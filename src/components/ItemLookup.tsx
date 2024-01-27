@@ -48,14 +48,29 @@ const ItemLookup = () => {
     e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, '');
   }
 
+
   const populateResult = () => {
     // Populate item histories if found
     if (itemHistory && itemHistory.length > 0) {
       console.log("Populating item history", itemHistory)
-      return <ItemHistory histories={itemHistory} />
+
+      const item: GroceryItem = itemHistory[0];
+
+      return (
+        <>
+          <ItemCard name={item.name}
+                    barcode={item.barcode}
+                    brands={item.brand}
+                    image_url={item.image_url}
+                    size={item.size} />          
+          <div className="gap"></div>
+          <AddItem />
+          <ItemHistory histories={itemHistory} />
+        </>
+      )
     }
 
-    return populateItem();
+    return populateApiResult();
   }
 
   const handleSubmitPrice = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -94,8 +109,29 @@ const ItemLookup = () => {
     e.currentTarget.value = e.currentTarget.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
   }
 
+  const AddItem = () => {
+    return (
+      < form className="flex-form" onSubmit={handleSubmitPrice} >
+        <input type="text"
+          name="price"
+          placeholder="Current Price"
+          onChange={handlePriceChange}
+          onInput={handlePriceInput}
+          required
+        />
+        <input type="text"
+          name="coupon"
+          placeholder="Coupon"
+          onChange={handleCouponChange}
+          onInput={handlePriceInput}
+        />
+        <input type="submit" value="Add" />
+      </form >
+    )
+  }
+
   // Populates lookup result from API
-  const populateItem = () => {
+  const populateApiResult = () => {
     if (!item) {
       return <></>
     } 
@@ -112,22 +148,8 @@ const ItemLookup = () => {
                   size={item.product.quantity}
                   image_url={item.product.image_front_url}
                   brands={item.product.brands} />
-        <form className="flex-form" onSubmit={handleSubmitPrice}>
-          <input type="text" 
-                 name="price"
-                 placeholder="Current Price"
-                 onChange={handlePriceChange} 
-                 onInput={handlePriceInput} 
-                 required
-          />
-          <input type="text" 
-                 name="coupon" 
-                 placeholder="Coupon"
-                 onChange={handleCouponChange} 
-                 onInput={handlePriceInput}
-          />
-          <input type="submit" value="Add" />
-        </form>
+        <div className="gap"></div>
+        <AddItem />
       </>
     );
   }
