@@ -5,6 +5,7 @@ import "./css/ItemLookup.css"
 import ItemHistory from "./components/ItemHistory";
 import { loadItemHistory, upsertItem } from "./database";
 import ItemCard from "./components/ItemCard";
+import ItemLookupForm from './components/ItemLookupForm';
 
 const App = () => {
   const [barcodeText, setBarcodeText] = useState<string>("079113481235");
@@ -157,17 +158,7 @@ const App = () => {
 
   return (
     <div className="main">
-      <form className="flex-form" onSubmit={handleSubmit}>
-        <input type="text"
-          name="barcode"
-          value="079113481235"
-          placeholder="Enter barcode"
-          onChange={handleTextChange}
-          onInput={handleInput}
-          required
-        />
-        <input type="submit" value="Look up" />
-      </form>
+      <ItemLookupForm handleSubmit={handleSubmit} handleTextChange={handleTextChange} />
       <div className="gap"></div>
       {populateResult()}
     </div>
