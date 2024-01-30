@@ -7,7 +7,7 @@ import { loadItemHistory, upsertItem } from "../database";
 import ItemCard from "./ItemCard";
 
 const ItemLookup = () => {
-  const [barcodeText, setBarcodeText] = useState<string>("");
+  const [barcodeText, setBarcodeText] = useState<string>("079113481235");
   const [itemHistory, setItemHistory] = useState<GroceryItem[]>([]);
   const [item, setItem] = useState<FoodApiResult | null>();
   const [price, setPrice] = useState<number>(0)
@@ -160,6 +160,7 @@ const ItemLookup = () => {
       <form className="flex-form" onSubmit={handleSubmit}>
         <input type="text" 
                name="barcode" 
+               value="079113481235"
                placeholder="Enter barcode" 
                onChange={handleTextChange} 
                onInput={handleInput}
