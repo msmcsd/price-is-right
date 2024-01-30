@@ -8,7 +8,7 @@ import ItemCard from "./components/ItemCard";
 import ItemLookupForm from './components/ItemLookupForm';
 
 const App = () => {
-  const [barcodeText, setBarcodeText] = useState<string>("079113481235");
+  const [barcodeText, setBarcodeText] = useState<string>("");
   const [itemHistory, setItemHistory] = useState<GroceryItem[]>([]);
   const [item, setItem] = useState<FoodApiResult | null>();
   const [price, setPrice] = useState<number>(0)
@@ -61,12 +61,14 @@ const App = () => {
       return (
         <>
           <ItemCard name={item.name}
-            barcode={item.barcode}
-            brands={item.brand}
-            image_url={item.image_url}
-            size={item.size} />
+                    barcode={item.barcode}
+                    brands={item.brand}
+                    image_url={item.image_url}
+                    size={item.size}
+                    handleCouponChange={handleCouponChange}
+                    handlePriceChange={handlePriceChange}
+                    addHistory={handleSubmitPrice} />
           <div className="gap"></div>
-          {/* <AddItem /> */}
           <ItemHistory histories={itemHistory} />
         </>
       )
@@ -76,6 +78,7 @@ const App = () => {
   }
 
   const handleSubmitPrice = async (e: React.FormEvent<HTMLFormElement>) => {
+    console.log("handle submit price")
     e.preventDefault();
 
     const product: GroceryItem = {
@@ -89,7 +92,8 @@ const App = () => {
       date: new Date()
     };
 
-    const response = upsertItem(product);
+    console.log("Item to submit", product)
+    const response = await upsertItem(product);
 
     // setItem(null)
     // setItemHistory([])
@@ -111,28 +115,7 @@ const App = () => {
     e.currentTarget.value = e.currentTarget.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
   }
 
-  const AddItem = () => {
-    return (
-      < form className="flex-form" onSubmit={handleSubmitPrice} >
-        <input type="text"
-          name="price"
-          placeholder="Current Price"
-          onChange={handlePriceChange}
-          onInput={handlePriceInput}
-          required
-        />
-        <input type="text"
-          name="coupon"
-          placeholder="Coupon"
-          onChange={handleCouponChange}
-          onInput={handlePriceInput}
-        />
-        <input type="submit" value="Add" />
-      </form >
-    )
-  }
-
-  // Populates lookup result from API
+   // Populates lookup result from API
   const populateApiResult = () => {
     if (!item) {
       return <></>
@@ -146,12 +129,14 @@ const App = () => {
     return (
       <>
         <ItemCard name={item.product.product_name}
-          barcode={item.code}
-          size={item.product.quantity}
-          image_url={item.product.image_front_url}
-          brands={item.product.brands} />
+                  barcode={item.code}
+                  size={item.product.quantity}
+                  image_url={item.product.image_front_url}
+                  brands={item.product.brands} 
+                  handleCouponChange={handleCouponChange}
+                  handlePriceChange={handlePriceChange}
+                  addHistory={handleSubmitPrice}/>
         <div className="gap"></div>
-        <AddItem />
       </>
     );
   }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, FormEvent, FormEventHandler, SetStateAction } from "react";
 import { GroceryItem } from "../types/types";
 import "../css/ItemCard.css";
 
@@ -7,11 +7,20 @@ type CardProps = {
   barcode: string,
   size: string,
   image_url: string,
-  brands: string
+  brands: string,
+  handlePriceChange: FormEventHandler,
+  handleCouponChange: FormEventHandler,
+  addHistory: FormEventHandler
 }
 
-const ItemCard = ({ name, barcode, size, image_url, brands }: CardProps) => {
-  console.log("ItemCard", name)
+const ItemCard = ({ name, barcode, size, image_url, brands, handlePriceChange, handleCouponChange, addHistory }: CardProps) => {
+  // console.log("ItemCard", name)
+  // console.log("ItemCard addHistory", addHistory)
+
+  const handlePriceInput = (e: React.FormEvent<HTMLInputElement>) => {
+    e.currentTarget.value = e.currentTarget.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
+  }
+
   return (
     <section className="product">
       <div className="product__photo">
@@ -38,20 +47,28 @@ const ItemCard = ({ name, barcode, size, image_url, brands }: CardProps) => {
         <div className="variant">
 
         </div>
-        <form>
+        <form onSubmit={addHistory}>
           <div className="container">
             <label htmlFor="inp" className="inp">
-              <input type="text" id="inp" placeholder="&nbsp;" />
+              <input type="text" 
+                     id="inp" 
+                     onChange={handlePriceChange}
+                     onInput={handlePriceInput}
+                     placeholder="&nbsp;" />
               <span className="label">Price</span>
             </label>
             <label htmlFor="inp" className="inp">
-              <input type="text" id="inp" placeholder="&nbsp;" />
+              <input type="text" 
+                     id="inp" 
+                     onChange={handleCouponChange}
+                     onInput={handlePriceInput}
+                     placeholder="&nbsp;" />
               <span className="label">Coupon</span>
               <span className="focus-bg"></span>
             </label>
           </div>
+          <input type="submit" className="buy--btn" value="ADD TO HISTORY" />
         </form>
-        <button className="buy--btn">ADD TO HISTORY</button>
 
       </div>
     </section>

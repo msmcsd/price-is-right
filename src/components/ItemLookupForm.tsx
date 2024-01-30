@@ -15,12 +15,11 @@ const ItemLookupForm = ({handleTextChange, handleSubmit} : ItemLookupFormProps) 
   return (
     <form className="flex-form" onSubmit={handleSubmit}>
       <input type="text"
-        name="barcode"
-        value="079113481235"
-        placeholder="Enter barcode"
-        onChange={handleTextChange}
-        onInput={handleInput}
-        required
+            name="barcode"
+            placeholder="Enter barcode"
+            onChange={handleTextChange}
+            onInput={handleInput}
+            required
       />
       <input type="submit" value="Look up" />
     </form>
