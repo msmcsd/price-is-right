@@ -1,6 +1,6 @@
 import React from "react";
 import { GroceryItem } from "../types/types";
-import "./ItemCard.css";
+import "../css/ItemCard.css";
 
 type CardProps = {
   name: string,

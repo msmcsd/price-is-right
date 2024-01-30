@@ -1,7 +1,5 @@
-import React from "react";
-import "./ItemLookup.css";
+import "../css/ItemLookup.css";
 import { GroceryItem } from "../types/types";
-import ItemCard_Old from "./ItemCard_Old";
 
 type ItemHistoryProps = {
   histories: GroceryItem[]
