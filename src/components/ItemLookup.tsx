@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { FoodApiResult, GroceryItem } from "../types/types";
 import "./ItemLookup.css"
-import ItemCard from "./ItemCard";
+import ItemCard_Old from "./ItemCard_Old";
 import ItemHistory from "./ItemHistory";
 import { loadItemHistory, upsertItem } from "../database";
+import ItemCard from "./ItemCard";
 
 const ItemLookup = () => {
   const [barcodeText, setBarcodeText] = useState<string>("");
@@ -64,7 +65,7 @@ const ItemLookup = () => {
                     image_url={item.image_url}
                     size={item.size} />          
           <div className="gap"></div>
-          <AddItem />
+          {/* <AddItem /> */}
           <ItemHistory histories={itemHistory} />
         </>
       )
