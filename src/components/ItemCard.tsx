@@ -1,6 +1,6 @@
-import React, { Dispatch, FormEvent, FormEventHandler, SetStateAction } from "react";
-import { GroceryItem } from "../types/types";
+import { FormEventHandler } from "react";
 import "../css/ItemCard.css";
+import NumericField from "./NumericField";
 
 type CardProps = {
   name: string,
@@ -14,19 +14,13 @@ type CardProps = {
 }
 
 const ItemCard = ({ name, barcode, size, image_url, brands, handlePriceChange, handleCouponChange, addHistory }: CardProps) => {
-  // console.log("ItemCard", name)
-  // console.log("ItemCard addHistory", addHistory)
 
-  const handlePriceInput = (e: React.FormEvent<HTMLInputElement>) => {
-    e.currentTarget.value = e.currentTarget.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
-  }
-
-  return (
+   return (
     <section className="product">
       <div className="product__photo">
         <div className="photo-container">
           <div className="photo-main">
-            <img src={image_url} alt="green apple slice" />
+            <img src={image_url} alt={name} />
           </div>
           <div className="photo-album">
           </div>
@@ -49,23 +43,8 @@ const ItemCard = ({ name, barcode, size, image_url, brands, handlePriceChange, h
         </div>
         <form onSubmit={addHistory}>
           <div className="container">
-            <label htmlFor="inp" className="inp">
-              <input type="text" 
-                     id="inp" 
-                     onChange={handlePriceChange}
-                     onInput={handlePriceInput}
-                     placeholder="&nbsp;" />
-              <span className="label">Price</span>
-            </label>
-            <label htmlFor="inp" className="inp">
-              <input type="text" 
-                     id="inp" 
-                     onChange={handleCouponChange}
-                     onInput={handlePriceInput}
-                     placeholder="&nbsp;" />
-              <span className="label">Coupon</span>
-              <span className="focus-bg"></span>
-            </label>
+            <NumericField label="Price" handleChange={handlePriceChange} />
+            <NumericField label="Coupon" handleChange={handleCouponChange} />
           </div>
           <input type="submit" className="buy--btn" value="ADD TO HISTORY" />
         </form>
