@@ -10,7 +10,8 @@ import ItemLookupForm from './components/ItemLookupForm';
 const App = () => {
   const [barcodeText, setBarcodeText] = useState<string>("");
   const [itemHistory, setItemHistory] = useState<GroceryItem[]>([]);
-  const [item, setItem] = useState<FoodApiResult | null>();
+  const [currentItem, setCurrentItem] = useState<GroceryItem | null>();
+  const [apiResult, setApiResult] = useState<FoodApiResult | null>();
   const [price, setPrice] = useState<number>(0)
   const [coupon, setCoupon] = useState<number>(0)
 
@@ -19,12 +20,13 @@ const App = () => {
 
     try {
       console.log("b4 loadItemHistory")
-      setItem(null)
+      setCurrentItem(null)
       setItemHistory([])
       const history = await loadItemHistory(barcodeText);
       // console.log(history.length)
       if (history && history.length > 0) {
-        setItemHistory(history)
+        setItemHistory(history);
+        setCurrentItem(history[0]);
         return;
       }
 
@@ -34,7 +36,17 @@ const App = () => {
 
       // Barcode returns from API has an extra leading "0". Reset to the one used for the search.
       json.code = barcodeText;
-      setItem(json);
+      const product: GroceryItem = {
+        name: json.product.product_name as string,
+        barcode: json.code as string,
+        price: price,
+        coupon: coupon,
+        image_url: json?.product.image_front_url as string,
+        brand: json?.product.brands as string,
+        size: json?.product.quantity as string,
+        date: new Date()
+      };
+      setCurrentItem(product);
     }
     catch (error) {
 
@@ -60,11 +72,7 @@ const App = () => {
 
       return (
         <>
-          <ItemCard name={item.name}
-                    barcode={item.barcode}
-                    brands={item.brand}
-                    image_url={item.image_url}
-                    size={item.size}
+          <ItemCard item={item}
                     handleCouponChange={handleCouponChange}
                     handlePriceChange={handlePriceChange}
                     addHistory={handleSubmitPrice} />
@@ -82,13 +90,13 @@ const App = () => {
     e.preventDefault();
 
     const product: GroceryItem = {
-      name: item?.product.product_name as string,
-      barcode: item?.code as string,
+      name: currentItem?.name as string,
+      barcode: currentItem?.barcode as string,
       price: price,
       coupon: coupon,
-      image_url: item?.product.image_front_url as string,
-      brand: item?.product.brands as string,
-      size: item?.product.quantity as string,
+      image_url: currentItem?.image_url as string,
+      brand: currentItem?.brand as string,
+      size: currentItem?.size as string,
       date: new Date()
     };
 
@@ -97,9 +105,10 @@ const App = () => {
 
     // setItem(null)
     // setItemHistory([])
-    const history = await loadItemHistory(item?.code as string);
+    const history = await loadItemHistory(currentItem?.barcode as string);
     if (history && history.length > 0) {
       setItemHistory(history)
+      setCurrentItem(history[0])
     }
   }
 
@@ -117,22 +126,18 @@ const App = () => {
 
    // Populates lookup result from API
   const populateApiResult = () => {
-    if (!item) {
+    if (!currentItem) {
       return <></>
     }
 
-    if (item.status === 0) {
-      return <div>{item.status_verbose}</div>
+    if (apiResult?.status === 0) {
+      return <div>{apiResult.status_verbose}</div>
     }
 
-    console.log("Populating item from API", item.code)
+    console.log("Populating item from API", currentItem.barcode)
     return (
       <>
-        <ItemCard name={item.product.product_name}
-                  barcode={item.code}
-                  size={item.product.quantity}
-                  image_url={item.product.image_front_url}
-                  brands={item.product.brands} 
+        <ItemCard item={currentItem}
                   handleCouponChange={handleCouponChange}
                   handlePriceChange={handlePriceChange}
                   addHistory={handleSubmitPrice}/>

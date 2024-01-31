@@ -1,26 +1,23 @@
 import { FormEventHandler } from "react";
 import "../css/ItemCard.css";
 import NumericField from "./NumericField";
+import { GroceryItem } from "../types/types";
 
 type CardProps = {
-  name: string,
-  barcode: string,
-  size: string,
-  image_url: string,
-  brands: string,
+  item: GroceryItem
   handlePriceChange: FormEventHandler,
   handleCouponChange: FormEventHandler,
   addHistory: FormEventHandler
 }
 
-const ItemCard = ({ name, barcode, size, image_url, brands, handlePriceChange, handleCouponChange, addHistory }: CardProps) => {
+const ItemCard = ({ item, handlePriceChange, handleCouponChange, addHistory }: CardProps) => {
 
    return (
     <section className="product">
       <div className="product__photo">
         <div className="photo-container">
           <div className="photo-main">
-            <img src={image_url} alt={name} />
+             <img src={item.image_url} alt={item.name} />
           </div>
           <div className="photo-album">
           </div>
@@ -28,14 +25,14 @@ const ItemCard = ({ name, barcode, size, image_url, brands, handlePriceChange, h
       </div>
       <div className="product__info">
         <div className="title">
-          <h1>{name}</h1>
-          <span>{barcode}</span>
+           <h1>{item.name}</h1>
+           <span>{item.barcode}</span>
         </div>
         <div className="description">
           <h3>INFO</h3>
           <ul>
-            <li>Manufactured by {brands}</li>
-            <li>{size}</li>
+             <li>Manufactured by {item.brand}</li>
+             <li>{item.size}</li>
           </ul>
         </div>
         <div className="variant">

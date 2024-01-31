@@ -116,6 +116,7 @@ img {
     font-size: 1.5em;
     font-weight: 900;
     width: 250px;
+    text-transform: capitalize;
   }
 
   span {

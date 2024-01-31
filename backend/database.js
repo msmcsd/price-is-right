@@ -89,18 +89,35 @@ export async function upsertItem(item) {
 
   let insertNewPrice = false;
   if (mostRecentItem) {
+    console.log("Most recent item found for", item.barcode, mostRecentItem)
     const {price: latestPrice, coupon: latestCoupon, date: latestDate} = mostRecentItem;
+    console.log(latestPrice, latestCoupon, item.price, item.coupon)
     if (latestPrice !== item.price || latestCoupon !== item.coupon) {
       insertNewPrice = true;
     } else if (latestPrice === item.price && latestCoupon === item.coupon) {
-      // If price and coupon are the same, check if other fields need to be updated.
-      
+      console.log("Price and coupon are the same as the latest on record. Not added to history")
+      return;
     }
   } else {
+    console.log("Most recen item not found for", item.barcode)
     insertNewPrice = true;
   }
 
+  let result;
   if (insertNewPrice) {
+    result = await collection.insertOne({
+      name: item.name,
+      barcode: item.barcode,
+      price: item.price,
+      coupon: item.coupon,
+      image_url: item.image_url,
+      brand: item.brand,
+      date: item.date,
+      size: item.size      
+    });
+    console.log('New document inserted');
+  }
+  else {
     const query = { barcode: item.barcode };
     const update = {
       $set: {
@@ -115,9 +132,14 @@ export async function upsertItem(item) {
       }
     };
 
-    const options = { upsert: true };
-    const result = collection.updateOne(query, update, options);
-    
-    return result;
+    result = await collection.updateOne(query, update, options);
+    if (result.modifiedCount > 0) {
+      console.log('Document updated. _id=', result.upsertedId);
+    } else {
+      console.log('Document not updated');
+    }
   }
+ 
+  return result;
 }
+
