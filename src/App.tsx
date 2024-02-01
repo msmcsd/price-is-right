@@ -11,19 +11,23 @@ const App = () => {
   const [barcodeText, setBarcodeText] = useState<string>("");
   const [itemHistory, setItemHistory] = useState<GroceryItem[]>([]);
   const [currentItem, setCurrentItem] = useState<GroceryItem | null>();
-  const [apiResult, setApiResult] = useState<FoodApiResult | null>();
-  const [price, setPrice] = useState<number>(0)
-  const [coupon, setCoupon] = useState<number>(0)
+  const [apiStatus, setApiStatus] = useState<number>(1);
+  const [apiStatusMessage, setApiStatusMessage] = useState<string>("");
+  const [price, setPrice] = useState<number>(0);
+  const [coupon, setCoupon] = useState<number>(0);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLookup = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
       console.log("b4 loadItemHistory")
       setCurrentItem(null)
       setItemHistory([])
+      setPrice(0)
+      setCoupon(0)
+      setApiStatusMessage("")
       const history = await loadItemHistory(barcodeText);
-      // console.log(history.length)
+      console.log(history.length)
       if (history && history.length > 0) {
         setItemHistory(history);
         setCurrentItem(history[0]);
@@ -31,22 +35,30 @@ const App = () => {
       }
 
       const result = await fetch(`https://static.openfoodfacts.org/api/v0/product/${barcodeText}.json`);
-      // console.log("API result", result)
+      console.log("API result", result)
       const json = await result.json() as FoodApiResult;
 
-      // Barcode returns from API has an extra leading "0". Reset to the one used for the search.
       json.code = barcodeText;
-      const product: GroceryItem = {
-        name: json.product.product_name as string,
-        barcode: json.code as string,
-        price: price,
-        coupon: coupon,
-        image_url: json?.product.image_front_url as string,
-        brand: json?.product.brands as string,
-        size: json?.product.quantity as string,
-        date: new Date()
-      };
-      setCurrentItem(product);
+      if (json.status === 1) {
+        // Barcode returns from API has an extra leading "0". Reset to the one used for the search.
+        const product: GroceryItem = {
+          name: json.product.product_name as string,
+          barcode: json.code as string,
+          price: price,
+          coupon: coupon,
+          image_url: json?.product.image_front_url as string,
+          brand: json?.product.brands as string,
+          size: json?.product.quantity as string,
+          date: new Date()
+        };
+        setCurrentItem(product);
+        setApiStatus(json.status);
+      }
+      else {
+        setApiStatus(0);
+        setApiStatusMessage(json.status === 0 ? json.status_verbose : "Item not found");
+      }
+
     }
     catch (error) {
 
@@ -58,12 +70,7 @@ const App = () => {
     setBarcodeText(e.currentTarget.value);
   }
 
-  const handleInput = (e: React.FormEvent<HTMLInputElement>) => {
-    e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, '');
-  }
-
-
-  const populateResult = () => {
+  const populateLookupResult = () => {
     // Populate item histories if found
     if (itemHistory && itemHistory.length > 0) {
       console.log("Populating item history", itemHistory)
@@ -126,12 +133,8 @@ const App = () => {
 
    // Populates lookup result from API
   const populateApiResult = () => {
-    if (!currentItem) {
-      return <></>
-    }
-
-    if (apiResult?.status === 0) {
-      return <div>{apiResult.status_verbose}</div>
+    if (!currentItem || apiStatus === 0) {
+      return <div>{apiStatusMessage}</div>
     }
 
     console.log("Populating item from API", currentItem.barcode)
@@ -148,9 +151,9 @@ const App = () => {
 
   return (
     <div className="main">
-      <ItemLookupForm handleSubmit={handleSubmit} handleTextChange={handleTextChange} />
+      <ItemLookupForm handleSubmit={handleLookup} handleTextChange={handleTextChange} />
       <div className="gap"></div>
-      {populateResult()}
+      {populateLookupResult()}
     </div>
   );
 }

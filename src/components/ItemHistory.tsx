@@ -30,7 +30,7 @@ console.log(item)
               {i.coupon !== 0 ? "$" + i.coupon.toFixed(2) : ""}
             </div>
             <div className="col col-5">
-              ${(i.price - i.coupon).toFixed(2)}
+              ${i.price - i.coupon >=0 ? (i.price - i.coupon).toFixed(2) : "0"}
             </div>
           </li>
         ))

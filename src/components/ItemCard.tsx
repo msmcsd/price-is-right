@@ -32,7 +32,7 @@ const ItemCard = ({ item, handlePriceChange, handleCouponChange, addHistory }: C
           <h3>INFO</h3>
           <ul>
              <li>Manufactured by {item.brand}</li>
-             <li>{item.size}</li>
+            <li>{item.size}</li>
           </ul>
         </div>
         <div className="variant">
