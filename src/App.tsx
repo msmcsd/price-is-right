@@ -6,6 +6,7 @@ import ItemHistory from "./components/ItemHistory";
 import { loadItemHistory, upsertItem } from "./database";
 import ItemCard from "./components/ItemCard";
 import ItemLookupForm from './components/ItemLookupForm';
+import NavMenu from './components/NavMenu';
 
 const App = () => {
   const [barcodeText, setBarcodeText] = useState<string>("");
@@ -150,11 +151,15 @@ const App = () => {
   }
 
   return (
-    <div className="main">
-      <ItemLookupForm handleSubmit={handleLookup} handleTextChange={handleTextChange} />
-      <div className="gap"></div>
-      {populateLookupResult()}
-    </div>
+    <>
+      <NavMenu />
+      <div className="main body-text">
+        <ItemLookupForm handleSubmit={handleLookup} handleTextChange={handleTextChange} />
+        <div className="gap"></div>
+        {populateLookupResult()}
+      </div>   
+    </>
+
   );
 }
 
