@@ -2,6 +2,8 @@ import NumericField from "./NumericField"
 import "../css/ItemCard.css"
 import InputField from "./InputField"
 import { useState } from "react"
+import { GroceryItem } from "../types/types"
+import { addItem } from "../database"
 
 const AddItem = () => {
   const [name, setName] = useState<string>("");
@@ -19,6 +21,24 @@ const AddItem = () => {
     setCoupon(Number(e.currentTarget.value))
   }
 
+  const handleAddItem = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const product: GroceryItem = {
+      name: name,
+      barcode: barcode,
+      brand: brand,
+      size: size,
+      price: price,
+      coupon: coupon,
+      image_url: "",
+      date: new Date()
+    }
+
+    const result = await addItem(product);
+    console.log("Add item result", result)
+  }
+
   return (
     <section className="product">
       <div className="product__photo">
@@ -31,24 +51,22 @@ const AddItem = () => {
         </div>
       </div>
       <div className="product__info">
-        <div className="container">
-          {/* <h1>item.name</h1>
-          <span>item.barcode</span> */}
-          <InputField label="Name" required={true}
-                      handleChange={(e: React.FormEvent<HTMLInputElement>) => setName(e.currentTarget.value as string)} 
-                      handleInput={()=>{}}/>
-          <InputField label="Barcode" required={true}
-                      handleChange={(e: React.FormEvent<HTMLInputElement>) => setBarcode(e.currentTarget.value as string)} 
-                      handleInput={()=>{}}/>
-          <InputField label="Manufactured By" 
-                      handleChange={(e: React.FormEvent<HTMLInputElement>) => setBrand(e.currentTarget.value as string)} 
-                      handleInput={()=>{}}/>
-          <InputField label="Size/Weight" 
-                      handleChange={(e: React.FormEvent<HTMLInputElement>) => setSize(e.currentTarget.value as string)} 
-                      handleInput={()=>{}}/>
-        </div>
-        <form >
+        <form onSubmit={handleAddItem}>
           <div className="container">
+            <InputField label="Name" required={true}
+                        handleChange={(e: React.FormEvent<HTMLInputElement>) => setName(e.currentTarget.value as string)} 
+                        handleInput={()=>{}}/>
+            <InputField label="Barcode" required={true}
+                        handleChange={(e: React.FormEvent<HTMLInputElement>) => setBarcode(e.currentTarget.value as string)} 
+                        handleInput={()=>{}}/>
+            <InputField label="Manufactured By" required={true}
+                        handleChange={(e: React.FormEvent<HTMLInputElement>) => setBrand(e.currentTarget.value as string)} 
+                        handleInput={()=>{}}/>
+          </div>
+          <div className="container">
+            <InputField label="Size/Weight"
+              handleChange={(e: React.FormEvent<HTMLInputElement>) => setSize(e.currentTarget.value as string)}
+              handleInput={() => { }} />
             <NumericField label="Price" handleChange={handlePriceChange} />
             <NumericField label="Coupon" handleChange={handleCouponChange} />
           </div>

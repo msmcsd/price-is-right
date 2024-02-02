@@ -52,3 +52,25 @@ export const upsertItem = async (item: GroceryItem) => {
     console.log(error)
   }
 }
+
+export const addItem = async (item: GroceryItem) => {
+  console.log("Add item", item)
+
+  try {
+    const response = await fetch(`${process.env.REACT_APP_PRICE_IS_RIGHT_SERVER}/add`, {
+      mode: "cors",
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ payload: item }),
+    });
+
+    const result = await response.json();
+    return result;
+  }
+  catch (error)
+  {
+    console.log(error);
+  }
+}

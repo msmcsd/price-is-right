@@ -1,5 +1,5 @@
 import express from "express";
-import { getLatestPriceForEachItem, loadItemHistory, upsertItem } from "./database.js";
+import { addItem, getLatestPriceForEachItem, loadItemHistory, upsertItem } from "./database.js";
 import dotenv from "dotenv";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
@@ -39,12 +39,23 @@ const setAllowedOrigin = (req, res) => {
   res.set("Access-Control-Allow-Origin", allowedOrigin);
 }
 
+/* 
+---------------------------------------------------------------------
+  Returns most recent price for each item.
+---------------------------------------------------------------------
+*/
 app.get("/list", async (req, res) => {
   setAllowedOrigin(req, res);
 
   const items = await getLatestPriceForEachItem();
   res.send(items);
 })
+
+/* 
+---------------------------------------------------------------------
+  Loads price history of an item
+---------------------------------------------------------------------
+*/
 
 app.options("/history", cors());
 app.post("/history", async (req, res) => {
@@ -57,6 +68,11 @@ app.post("/history", async (req, res) => {
   res.send(docs)
 });
 
+/* 
+---------------------------------------------------------------------
+  Insert/Update an item.
+---------------------------------------------------------------------
+*/
 app.options("/upsert", cors());
 app.post("/upsert", async (req, res) => {
   setAllowedOrigin(req, res);
@@ -64,6 +80,24 @@ app.post("/upsert", async (req, res) => {
   const item = req.body;
   console.log("[index.js] Item to upsert", item)
   const result = await upsertItem(item.payload);
+
+  console.log("Upsert result", result)
+
+  res.sendStatus(200);
+})
+
+/* 
+---------------------------------------------------------------------
+  Add an item manually when the item not found in Food API.
+---------------------------------------------------------------------
+*/
+app.options("/add", cors());
+app.post("/add", async (req, res) => {
+  setAllowedOrigin(req, res);
+
+  const item = req.body;
+  console.log("[index.js] Item to add", item)
+  const result = await addItem(item.payload);
 
   console.log("Upsert result", result)
 

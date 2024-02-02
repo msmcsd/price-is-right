@@ -73,6 +73,11 @@ export async function loadItemHistory(barcode) {
   return docs;
 }
 
+/*
+---------------------------------------------------------------------
+  Update or insert an item
+---------------------------------------------------------------------
+*/
 export async function upsertItem(item) {
   console.log("[database.js] Item to upsert", item.barcode)
   await client.connect();
@@ -143,3 +148,28 @@ export async function upsertItem(item) {
   return result;
 }
 
+/*
+---------------------------------------------------------------------
+  Add an item manually when the item is not found from Food API.
+---------------------------------------------------------------------
+*/
+export async function addItem (item) {
+  console.log("[database.js] Item to Add", item.barcode)
+  await client.connect();
+
+  console.log('Connected successfully to server');
+  const db = client.db(dbName);
+  const collection = db.collection(tableName);
+
+  const result = await collection.insertOne({
+    name: item.name,
+    barcode: item.barcode,
+    brand: item.brand,
+    size: item.size,
+    price: item.price,
+    coupon: item.coupon,
+    date: new Date()
+  });
+
+  return result;
+}
