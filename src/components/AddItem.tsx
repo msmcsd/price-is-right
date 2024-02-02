@@ -53,13 +53,13 @@ const AddItem = () => {
       <div className="product__info">
         <form onSubmit={handleAddItem}>
           <div className="container">
-            <InputField label="Name" required={true}
+            <InputField label="Name" required
                         handleChange={(e: React.FormEvent<HTMLInputElement>) => setName(e.currentTarget.value as string)} 
                         handleInput={()=>{}}/>
-            <InputField label="Barcode" required={true}
+            <InputField label="Barcode" required
                         handleChange={(e: React.FormEvent<HTMLInputElement>) => setBarcode(e.currentTarget.value as string)} 
                         handleInput={()=>{}}/>
-            <InputField label="Manufactured By" required={true}
+            <InputField label="Manufactured By" required
                         handleChange={(e: React.FormEvent<HTMLInputElement>) => setBrand(e.currentTarget.value as string)} 
                         handleInput={()=>{}}/>
           </div>
@@ -67,7 +67,7 @@ const AddItem = () => {
             <InputField label="Size/Weight"
               handleChange={(e: React.FormEvent<HTMLInputElement>) => setSize(e.currentTarget.value as string)}
               handleInput={() => { }} />
-            <NumericField label="Price" handleChange={handlePriceChange} />
+            <NumericField label="Price" required handleChange={handlePriceChange} />
             <NumericField label="Coupon" handleChange={handleCouponChange} />
           </div>
           <input type="submit" className="buy--btn" value="ADD ITEM" />

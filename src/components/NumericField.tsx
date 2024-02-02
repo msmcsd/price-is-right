@@ -1,9 +1,12 @@
+import InputField from "./InputField";
+
 type NumericFieldProps = {
   label: string,
-  handleChange: React.FormEventHandler
+  handleChange: React.FormEventHandler,
+  required?: boolean
 }
 
-const NumericField = ({label, handleChange}: NumericFieldProps) => {
+const NumericField = ({label, required, handleChange}: NumericFieldProps) => {
 
   // Numbers only. Only one decimal allowed.
   const handlePriceInput = (e: React.FormEvent<HTMLInputElement>) => {
@@ -11,14 +14,7 @@ const NumericField = ({label, handleChange}: NumericFieldProps) => {
   }
 
   return (
-    <label htmlFor="inp" className="inp">
-      <input type="text"
-            id="inp"
-            onChange={handleChange}
-            onInput={handlePriceInput}
-            placeholder="&nbsp;" />
-          <span className="label">{label}</span>
-    </label>
+    <InputField label={label} handleChange={handleChange} handleInput={handlePriceInput} required={required}/>
   )
 }
 
