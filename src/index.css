@@ -25,10 +25,10 @@ h2 {
 .responsive-table {
   li {
     border-radius: 3px;
-    padding: 25px 30px;
+    padding: 10px 30px;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 25px;
+    margin-bottom: 5px;
   }
 
   .table-header {
@@ -70,7 +70,7 @@ h2 {
     flex-basis: 15%;
     text-align: right;
   }
-
+/* 
   @media all and (max-width: 767px) {
     .table-header {
       display: none;
@@ -98,5 +98,5 @@ h2 {
         text-align: right;
       }
     }
-  }
+  } */
 }
