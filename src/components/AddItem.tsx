@@ -12,6 +12,7 @@ const AddItem = () => {
   const [size, setSize] = useState<string>("");
   const [price, setPrice] = useState<number>(0);
   const [coupon, setCoupon] = useState<number>(0);
+  const [itemImage, setItemImage] = useState<string | null>(null);
 
   const handlePriceChange = (e: React.FormEvent<HTMLInputElement>) => {
     setPrice(Number(e.currentTarget.value))
@@ -39,12 +40,43 @@ const AddItem = () => {
     console.log("Add item result", result)
   }
 
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    // const selectedImage = event.target.files?.[0];
+    // if (!selectedImage) return;
+
+    // const reader = new FileReader();
+    // reader.onloadend = (e) => {
+    //   if (reader.readyState === 2) {
+    //     setItemImage(e.target?.result as string);
+    //   }
+    // };
+    // await reader.readAsDataURL(selectedImage);
+    console.log(event.target.files?.length)
+    if (event.target.files && event.target.files[0]) {
+      console.log(event.target.files[0])
+      await setItemImage(URL.createObjectURL(event.target.files[0]));
+    }
+  };
+
   return (
     <section className="product">
       <div className="product__photo">
         <div className="photo-container">
           <div className="photo-main">
-            {/* <img src={item.image_url} alt={item.name} /> */}
+            <div>
+              <label className="buy--btn" htmlFor="browse-image">Add Image</label>
+              <input id="browse-image" 
+                     type="file" 
+                     style={{display: "none"}} 
+                     onChange={handleImageUpload} 
+                     onClick={e=>e.currentTarget.value=''}/>
+              <input type="button" className="buy--btn" value="CLEAR" onClick={() => setItemImage(null)} />
+            </div>
+            {itemImage && (
+              <div>
+                <img src={itemImage} alt="Uploaded" style={{ maxWidth: '100%' }} />
+              </div>
+            )}
           </div>
           <div className="photo-album">
           </div>

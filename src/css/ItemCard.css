@@ -184,6 +184,7 @@ img {
   background-color: #ff3f40;
   box-shadow: 2px 2px 25px -7px #4c4c4c;
   cursor: pointer;
+  text-transform: uppercase;
 
   &:active {
     transform: scale(0.97);
@@ -346,4 +347,13 @@ $gray: #9b9b9b;
 .inp input:focus+.label+.focus-bg {
   transform: scaleX(1);
   transition: all 0.1s ease;
+}
+
+.add-image-button {
+  border: "1px solid #000";
+  border-radius: "5px";
+  display: "inline-block";
+  padding: "6px 12px";
+  cursor: "pointer";
+  background-color: "white";
 }
