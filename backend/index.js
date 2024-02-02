@@ -56,17 +56,26 @@ app.get("/list", async (req, res) => {
   Loads price history of an item
 ---------------------------------------------------------------------
 */
-
-app.options("/history", cors());
-app.post("/history", async (req, res) => {
+app.options("/history/:barcode", cors());
+app.get("/history/:barcode", async (req, res) => {
   setAllowedOrigin(req, res);
 
-  console.log("in /history req body=", req.body)
-  const item = req.body;
-  console.log("item", item)
-  const docs = await loadItemHistory(item.barcode);
+  const barcode = req.params.barcode;
+  console.log("Lookup history for barcode:", barcode)
+  const docs = await loadItemHistory(barcode);
   res.send(docs)
 });
+
+// app.options("/history", cors());
+// app.post("/history", async (req, res) => {
+//   setAllowedOrigin(req, res);
+
+//   console.log("in /history req body=", req.body)
+//   const item = req.body;
+//   console.log("item", item)
+//   const docs = await loadItemHistory(item.barcode);
+//   res.send(docs)
+// });
 
 /* 
 ---------------------------------------------------------------------
