@@ -38,7 +38,8 @@ export async function getLatestPriceForEachItem() {
         date: { $first: '$date' },
         barcode: { $first: '$barcode' },
         price: { $first: '$price' },
-        coupon: { $first: '$coupon' }
+        coupon: { $first: '$coupon' },
+        image_url: { $first: '$image_url' },
       }
     },
     {
@@ -48,11 +49,11 @@ export async function getLatestPriceForEachItem() {
         barcode: 1,
         price: 1,
         coupon: 1,
-        date: 1
+        date: 1,
+        image_url: 1
       }
     }
   ]).toArray();
-
 
   return result;
 }
