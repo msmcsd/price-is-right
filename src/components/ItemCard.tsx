@@ -40,7 +40,7 @@ const ItemCard = ({ item, handlePriceChange, handleCouponChange, addHistory }: C
         </div>
         <form onSubmit={addHistory}>
           <div className="container">
-            <NumericField label="Price" handleChange={handlePriceChange} />
+            <NumericField label="Price" required handleChange={handlePriceChange} />
             <NumericField label="Coupon" handleChange={handleCouponChange} />
           </div>
           <input type="submit" className="buy--btn" value="ADD TO HISTORY" />
