@@ -1,4 +1,4 @@
-import { GroceryItem } from "./types/types";
+import { DeleteItemResult, GroceryItem } from "./types/types";
 
 export async function loadItems() : Promise<GroceryItem[]> {
   const response = await fetch(process.env.REACT_APP_PRICE_IS_RIGHT_SERVER as string + "/list", {
@@ -92,4 +92,24 @@ export const addItem = async (item: GroceryItem) => {
   {
     console.log(error);
   }
+}
+
+export async function deleteHistory(_id: string): Promise<DeleteItemResult> {
+  console.log("[database.ts] Deleting history. _id:", _id)
+
+  try {
+    const response = await fetch(`${process.env.REACT_APP_PRICE_IS_RIGHT_SERVER}/deleteHistory/${_id}`, {
+      mode: "cors",
+      method: "POST"
+    });
+
+    const result : DeleteItemResult = await response.json();
+    console.log("[database.ts] Delete item history. result:", result)
+    return result;
+  }
+  catch (error) {
+    console.log(error)
+  }
+
+  return {acknowledged: false, deletedCount: 0};
 }

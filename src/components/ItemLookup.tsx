@@ -85,7 +85,7 @@ const ItemLookup = () => {
             handlePriceChange={handlePriceChange}
             addHistory={handleSubmitPrice} />
           <div className="gap"></div>
-          <ItemHistory histories={itemHistory} />
+          <ItemHistory histories={itemHistory}  setHistories={setItemHistory}/>
         </>
       )
     }
@@ -98,6 +98,7 @@ const ItemLookup = () => {
     e.preventDefault();
 
     const product: GroceryItem = {
+      _id: currentItem?._id as string,
       name: currentItem?.name as string,
       barcode: currentItem?.barcode as string,
       price: price,

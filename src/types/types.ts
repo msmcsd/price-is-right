@@ -1,4 +1,5 @@
 export type GroceryItem = {
+  _id?: string,
   barcode: string,
   name: string,
   price: number,
@@ -19,4 +20,9 @@ export type FoodApiResult = {
   },
   status: number
   status_verbose: string,
+}
+
+export type DeleteItemResult = {
+  acknowledged: boolean,
+  deletedCount: number
 }

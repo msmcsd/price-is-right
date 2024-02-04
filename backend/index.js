@@ -1,5 +1,5 @@
 import express from "express";
-import { addItem, getLatestPriceForEachItem, loadItemHistory, upsertItem } from "./database.js";
+import { addItem, getLatestPriceForEachItem, loadItemHistory, upsertItem, deleteItemHistory } from "./database.js";
 import dotenv from "dotenv";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
@@ -111,6 +111,23 @@ app.post("/add", async (req, res) => {
   console.log("Upsert result", result)
 
   res.sendStatus(200);
+})
+
+/* 
+---------------------------------------------------------------------
+  Deletes a history of an item.
+---------------------------------------------------------------------
+*/
+app.options("/deleteHistory/:id", cors());
+app.post("/deleteHistory/:id", async (req, res) => {
+  setAllowedOrigin(req, res);
+
+  console.log("[index.js] History to delete", req.params.id)
+  const result = await deleteItemHistory(req.params.id);
+
+  console.log("Delete history result", result)
+
+  res.send(result);
 })
 
 app.listen(port, () =>

@@ -1,6 +1,6 @@
 // const { MongoClient } = require('mongodb');
 // or as an es module:
-import { MongoClient } from 'mongodb'
+import { MongoClient, ObjectId } from 'mongodb'
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -170,6 +170,26 @@ export async function addItem (item) {
     price: item.price,
     coupon: item.coupon,
     date: new Date()
+  });
+
+  return result;
+}
+
+/*
+---------------------------------------------------------------------
+  Deletes a history of an item.
+---------------------------------------------------------------------
+*/
+export async function deleteItemHistory(id) {
+  console.log("[database.js] history to delete", id)
+  await client.connect();
+
+  console.log('Connected successfully to server');
+  const db = client.db(dbName);
+  const collection = db.collection(tableName);
+
+  const result = await collection.deleteOne({
+    _id: new ObjectId(id)
   });
 
   return result;
