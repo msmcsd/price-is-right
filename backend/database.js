@@ -50,8 +50,11 @@ export async function getLatestPriceForEachItem() {
         price: 1,
         coupon: 1,
         date: 1,
-        image_url: 1
+        image_url: 1,
       }
+    },
+    {
+      $sort: { name: 1 }
     }
   ]).toArray();
 
