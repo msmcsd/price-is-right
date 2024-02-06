@@ -52,7 +52,7 @@ const MostRecentPrices = () => {
               ${i.price.toFixed(2)}
             </div>
             <div className="col col-4">
-              ${i.coupon.toFixed(2)}
+              {i.coupon !== 0 ? "$" + i.coupon.toFixed(2) : ""}
             </div>
             <div className="col col-5">
               ${(i.price - i.coupon).toFixed(2)}
