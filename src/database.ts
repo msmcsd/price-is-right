@@ -1,7 +1,7 @@
 import { DeleteItemResult, GroceryItem } from "./types/types";
 
 export async function loadItems() : Promise<GroceryItem[]> {
-  const response = await fetch(process.env.REACT_APP_PRICE_IS_RIGHT_SERVER as string + "/list", {
+  const response = await fetch(process.env.REACT_APP_PRICE_IS_RIGHT_SERVER as string + "/items", {
     mode: "cors",
     method: "GET"
   });

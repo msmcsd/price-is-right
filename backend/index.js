@@ -44,7 +44,7 @@ const setAllowedOrigin = (req, res) => {
   Returns most recent price for each item.
 ---------------------------------------------------------------------
 */
-app.get("/list", async (req, res) => {
+app.get("/items", async (req, res) => {
   setAllowedOrigin(req, res);
 
   const items = await getLatestPriceForEachItem();
