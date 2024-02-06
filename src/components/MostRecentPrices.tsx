@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-// import './App.css';
 import { GroceryItem } from '../types/types';
 import { loadItems } from '../database';
+import { useNavigate } from "react-router-dom";
+
 
 const MostRecentPrices = () => {
   const [items, setItems] = useState<GroceryItem[] | []>([])
@@ -21,6 +22,12 @@ const MostRecentPrices = () => {
     setIsLoading(false);
   }, [])
 
+  const navigate = useNavigate();
+
+  const handleClick = (url: string) => {
+    navigate(url);
+  };
+
   const populateItems = () => {
     return (
       <ul className="responsive-table">
@@ -34,7 +41,7 @@ const MostRecentPrices = () => {
         </li>
         {items.map(i =>
         (
-          <li className="table-row" key={i.barcode}>
+          <li className="table-row" key={i.barcode} onClick={() => handleClick("/item/" + i.barcode)}>
             <div className="col col-1">
               {i.barcode}
             </div>
@@ -61,7 +68,7 @@ const MostRecentPrices = () => {
   }
 
   return (
-    <div className="container">
+    <div className="container1">
       {isLoading ? <h1>Spinning server up. Will continue in about 30 seconds...</h1> : populateItems()}
     </div>
   );

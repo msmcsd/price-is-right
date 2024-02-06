@@ -270,7 +270,7 @@ $gray: #9b9b9b;
   height: 18vh;
   display: grid;
   font-family: inherit;
-  width: 200px;
+  /* width: 200px; */
   margin-left: 0px;
 }
 

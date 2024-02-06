@@ -1,10 +1,13 @@
 .responsive-table {
+  padding-left: 0px;
+
   li {
     border-radius: 3px;
     padding: 10px 30px;
     display: flex;
     justify-content: space-between;
     margin-bottom: 5px;
+    cursor: pointer;
   }
 
   .table-header {

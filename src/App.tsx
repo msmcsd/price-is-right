@@ -20,6 +20,7 @@ const App = () => {
         <Route path="/" element={<ItemLookup />}/>
         <Route path="/allitems" element={<MostRecentPrices />}/>
         <Route path="/additem" element={<AddItem />}/>
+        <Route path="/item/:id" element={<ItemLookup />}/>
       </Routes>
     </>
 

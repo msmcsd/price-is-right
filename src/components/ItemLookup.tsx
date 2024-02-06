@@ -1,12 +1,12 @@
 // import './App.css';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FoodApiResult, GroceryItem } from "../types/types";
 // import "./css/ItemLookup.css"
 import ItemHistory from "../components/ItemHistory";
 import { loadItemHistory, upsertItem } from "../database";
 import ItemCard from "../components/ItemCard";
 import ItemLookupForm from '../components/ItemLookupForm';
-import { Routes } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
 const ItemLookup = () => {
   const [barcodeText, setBarcodeText] = useState<string>("");
@@ -16,10 +16,19 @@ const ItemLookup = () => {
   const [apiStatusMessage, setApiStatusMessage] = useState<string>("");
   const [price, setPrice] = useState<number>(0);
   const [coupon, setCoupon] = useState<number>(0);
+  const {id} = useParams<{id : string}>();
 
-  const handleLookup = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  console.log("Passed in barcode", id)
 
+  useEffect(() => {
+    if (id) {
+      setBarcodeText(id);
+      loadItem(id);
+    }
+  }, []);
+
+
+  const loadItem = async(bar_code: string) => {
     try {
       console.log("b4 loadItemHistory")
       setCurrentItem(null)
@@ -27,7 +36,7 @@ const ItemLookup = () => {
       setPrice(0)
       setCoupon(0)
       setApiStatusMessage("")
-      const history = await loadItemHistory(barcodeText);
+      const history = await loadItemHistory(bar_code);
       console.log(history.length)
       if (history && history.length > 0) {
         setItemHistory(history);
@@ -35,11 +44,11 @@ const ItemLookup = () => {
         return;
       }
 
-      const result = await fetch(`https://static.openfoodfacts.org/api/v0/product/${barcodeText}.json`);
+      const result = await fetch(`https://static.openfoodfacts.org/api/v0/product/${bar_code}.json`);
       console.log("API result", result)
       const json = await result.json() as FoodApiResult;
 
-      json.code = barcodeText;
+      json.code = bar_code;
       if (json.status === 1) {
         // Barcode returns from API has an extra leading "0". Reset to the one used for the search.
         const product: GroceryItem = {
@@ -64,7 +73,12 @@ const ItemLookup = () => {
     catch (error) {
 
     }
+  }
 
+  const handleLookup = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    loadItem(barcodeText);
   }
 
   const handleTextChange = (e: React.FormEvent<HTMLInputElement>) => {
