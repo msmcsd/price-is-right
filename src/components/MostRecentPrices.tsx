@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { GroceryItem } from '../types/types';
 import { loadItems } from '../database';
 import { useNavigate } from "react-router-dom";
-
+import "../css/ItemHistory.css";
 
 const MostRecentPrices = () => {
   const [items, setItems] = useState<GroceryItem[] | []>([])
@@ -41,7 +41,7 @@ const MostRecentPrices = () => {
         </li>
         {items.map(i =>
         (
-          <li className="table-row" key={i.barcode} onClick={() => handleClick("/item/" + i.barcode)}>
+          <li className="table-row-main" key={i.barcode} onClick={() => handleClick("/item/" + i.barcode)}>
             <div className="col col-1">
               {i.barcode}
             </div>
