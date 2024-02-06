@@ -19,8 +19,6 @@ const ItemCard = ({ item, handlePriceChange, handleCouponChange, addHistory }: C
           <div className="photo-main">
              <img src={item.image_url} alt={item.name} />
           </div>
-          <div className="photo-album">
-          </div>
         </div>
       </div>
       <div className="product__info">

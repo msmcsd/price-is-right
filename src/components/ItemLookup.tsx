@@ -98,7 +98,6 @@ const ItemLookup = () => {
             handleCouponChange={handleCouponChange}
             handlePriceChange={handlePriceChange}
             addHistory={handleSubmitPrice} />
-          <div className="gap"></div>
           <ItemHistory histories={itemHistory}  setHistories={setItemHistory}/>
         </>
       )

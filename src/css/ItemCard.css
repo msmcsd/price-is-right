@@ -31,6 +31,7 @@ img {
 /* ----- Photo Section ----- */
 .product__photo {
   position: relative;
+  left: 10px;
 }
 
 .photo-container {
@@ -251,6 +252,7 @@ $gray: #9b9b9b;
   font-family: inherit;
   /* width: 200px; */
   margin-left: 0px;
+  padding-left: 0px;
 }
 
 .inp {
