@@ -12,7 +12,8 @@ const AddItem = () => {
   const [size, setSize] = useState<string>("");
   const [price, setPrice] = useState<number>(0);
   const [coupon, setCoupon] = useState<number>(0);
-  const [itemImage, setItemImage] = useState<string | null>(null);
+  const [imageURL, setImageURL] = useState<string>("");
+  // const [itemImage, setItemImage] = useState<string | null>(null);
 
   const handlePriceChange = (e: React.FormEvent<HTMLInputElement>) => {
     setPrice(Number(e.currentTarget.value))
@@ -20,6 +21,10 @@ const AddItem = () => {
 
   const handleCouponChange = (e: React.FormEvent<HTMLInputElement>) => {
     setCoupon(Number(e.currentTarget.value))
+  }
+
+  const handleImageULRChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setImageURL(e.currentTarget.value)
   }
 
   const handleAddItem = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -32,7 +37,7 @@ const AddItem = () => {
       size: size,
       price: price,
       coupon: coupon,
-      image_url: "",
+      image_url: imageURL,
       date: new Date()
     }
 
@@ -62,11 +67,7 @@ const AddItem = () => {
                      onClick={e=>e.currentTarget.value=''}/>
               <input type="button" className="buy--btn" value="CLEAR" onClick={() => setItemImage(null)} />
             </div> */}
-            {itemImage && (
-              <div>
-                <img src={itemImage} alt="Uploaded" style={{ maxWidth: '100%' }} />
-              </div>
-            )}
+            <img src={imageURL} alt={name} style={{ maxWidth: '100%', maxHeight: "100%" , objectFit: "contain"}} />
           </div>
           {/* <div className="photo-album">
           </div> */}
@@ -90,7 +91,7 @@ const AddItem = () => {
               handleInput={() => { }} />
             <NumericField label="Price" required handleChange={handlePriceChange} />
             <NumericField label="Coupon" handleChange={handleCouponChange} />
-            <NumericField label="Image URL" handleChange={handleCouponChange} />
+            <InputField label="Image URL" handleChange={handleImageULRChange} handleInput={() => { }} />
             <input type="submit" className="buy--btn" value="ADD ITEM" style={{ margin: "30px" }} />
           </div>
         </form> 
