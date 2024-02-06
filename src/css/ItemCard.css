@@ -45,7 +45,7 @@ img {
 }
 
 .photo-main {
-  border-radius: 6px 6px 0 0;
+  border-radius: 6px;
   background-color: #9be010;
   background: radial-gradient(#e5f89e, #96e001);
 

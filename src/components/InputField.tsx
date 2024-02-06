@@ -8,7 +8,7 @@ type InputFieldProps = {
 const InputField = ({ label, required, handleChange, handleInput }: InputFieldProps) => {
 
    return (
-    <label htmlFor="inp" className="inp">
+    <label htmlFor="inp" className="inp" >
       <input type="text"
         id="inp"
         required={required}

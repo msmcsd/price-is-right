@@ -49,8 +49,8 @@ const AddItem = () => {
   // };
 
   return (
-    <section className="product">
-      <div className="product__photo">
+    <section className="product" style={{width: "700px", height: "550px", margin: "0px"}}>
+      <div className="product__photo" style={{width: "300px", height:"480px"}}>
         <div className="photo-container">
           <div className="photo-main">
             {/* <div>
@@ -68,13 +68,13 @@ const AddItem = () => {
               </div>
             )}
           </div>
-          <div className="photo-album">
-          </div>
+          {/* <div className="photo-album">
+          </div> */}
         </div>
       </div>
-      <div className="product__info">
+      <div className="product__info" style={{ paddingLeft: "0px" }}>
         <form onSubmit={handleAddItem}>
-          <div className="container">
+          <div className="container" style={{height: "500px"}}>
             <InputField label="Name" required
                         handleChange={(e: React.FormEvent<HTMLInputElement>) => setName(e.currentTarget.value as string)} 
                         handleInput={()=>{}}/>
@@ -84,15 +84,15 @@ const AddItem = () => {
             <InputField label="Manufactured By" required
                         handleChange={(e: React.FormEvent<HTMLInputElement>) => setBrand(e.currentTarget.value as string)} 
                         handleInput={()=>{}}/>
-          </div>
-          <div className="container">
+
             <InputField label="Size/Weight"
               handleChange={(e: React.FormEvent<HTMLInputElement>) => setSize(e.currentTarget.value as string)}
               handleInput={() => { }} />
             <NumericField label="Price" required handleChange={handlePriceChange} />
             <NumericField label="Coupon" handleChange={handleCouponChange} />
+            <NumericField label="Image URL" handleChange={handleCouponChange} />
+            <input type="submit" className="buy--btn" value="ADD ITEM" style={{ margin: "30px" }} />
           </div>
-          <input type="submit" className="buy--btn" value="ADD ITEM" />
         </form> 
 
       </div>
