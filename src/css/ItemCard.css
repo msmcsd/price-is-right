@@ -58,8 +58,8 @@ img {
     /* left: -3.5em; */
     padding: 5px;
     top: 2em;
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 95%;
+    max-height: 95%;
     filter: saturate(150%) contrast(120%) hue-rotate(10deg) drop-shadow(1px 20px 10px rgba(0, 0, 0, 0.3));
   }
 }
