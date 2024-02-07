@@ -1,4 +1,4 @@
-.flex-form input[type="submit"] {
+.flex-form .red-button {
   background: #ff3f40;
   border: 1px solid #ef3f5a;
   color: #fff;
@@ -10,7 +10,7 @@
   font-weight: 700;
 }
 
-.flex-form input[type="submit"]:hover {
+.flex-form .red-button:hover {
   background: #d73851;
   border: 1px solid #d73851;
 }

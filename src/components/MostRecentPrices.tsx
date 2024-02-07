@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FormEventHandler, useEffect, useState } from 'react';
 import { GroceryItem } from '../types/types';
 import { loadItems } from '../database';
 import { useNavigate } from "react-router-dom";
@@ -7,6 +7,7 @@ import "../css/ItemHistory.css";
 const MostRecentPrices = () => {
   const [items, setItems] = useState<GroceryItem[] | []>([])
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [searchText, setSearchText] = useState<string>("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,7 +40,7 @@ const MostRecentPrices = () => {
           <div className="col col-5">Final Price</div>
           <div className="col col-6">Date</div>
         </li>
-        {items.map(i =>
+        {items.filter(i=>i.name.toLowerCase().includes(searchText)).map(i =>
         (
           <li className="table-row-main" key={i.barcode} onClick={() => handleClick("/item/" + i.barcode)}>
             <div className="col col-1">
@@ -67,10 +68,30 @@ const MostRecentPrices = () => {
     );
   }
 
+  const handleSearchTextChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setSearchText(e.currentTarget.value)
+  }
+
+  const handleClearSearch = (e : React.FormEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    setSearchText("");
+  }
+
   return (
-    <div className="container" style={{margin: "100px auto auto auto"}}>
-      {isLoading ? <h1>Spinning server up. Will continue in about 30 seconds...</h1> : populateItems()}
-    </div>
+    <>
+      <div className="flex-form">
+        <input type="text"
+          name="barcode"
+          placeholder="Search by Name"
+          onChange={handleSearchTextChange}
+          value={searchText}
+        />
+        <input type="button" className="red-button" value="Clear" onClick={handleClearSearch} />
+      </div>
+      <div className="container" style={{ margin: "auto auto auto auto" }} >
+        {isLoading ? <h1>Spinning server up. Will continue in about 30 seconds...</h1> : populateItems()}
+      </div>
+    </>
   );
 }
 

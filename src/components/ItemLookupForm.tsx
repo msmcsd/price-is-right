@@ -21,7 +21,7 @@ const ItemLookupForm = ({handleTextChange, handleSubmit} : ItemLookupFormProps) 
             onInput={handleInput}
             required
       />
-      <input type="submit" value="Look up" />
+      <input type="submit" className="red-button" value="Look up" />
     </form>
   )
 }
