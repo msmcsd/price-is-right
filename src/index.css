@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway');
 
-* {
+/* * {
   box-sizing: border-box;
-}
+} */
 
 html,
 body {
@@ -13,7 +13,7 @@ body {
   display: grid;
   grid-template-rows: 1fr;
   font-family: "Raleway", sans-serif;
-  background-color: #01e37f;
+  background-color: #edf5e1;
 }
 
 .container {

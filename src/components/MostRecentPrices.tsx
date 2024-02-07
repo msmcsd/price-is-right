@@ -68,7 +68,7 @@ const MostRecentPrices = () => {
   }
 
   return (
-    <div className="container1">
+    <div className="container" style={{margin: "100px auto auto auto"}}>
       {isLoading ? <h1>Spinning server up. Will continue in about 30 seconds...</h1> : populateItems()}
     </div>
   );

@@ -54,7 +54,7 @@ const AddItem = () => {
   // };
 
   return (
-    <section className="product" style={{width: "700px", height: "550px", margin: "0px"}}>
+    <section className="product" style={{width: "700px", height: "480px", margin: "100px auto auto auto"}}>
       <div className="product__photo" style={{width: "300px", height:"480px"}}>
         <div className="photo-container">
           <div className="photo-main">

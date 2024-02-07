@@ -1,10 +1,13 @@
 .flex-form input[type="submit"] {
-  background: #ef3f5a;
+  background: #ff3f40;
   border: 1px solid #ef3f5a;
   color: #fff;
   padding: 0 30px;
   cursor: pointer;
   transition: all 0.2s;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  font-weight: 700;
 }
 
 .flex-form input[type="submit"]:hover {
@@ -18,6 +21,7 @@
   position: relative;
   width: 300px;
   box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.3);
+  margin: 100px auto auto auto
 }
 
 .flex-form>* {
@@ -104,5 +108,6 @@ input[type="text"] {
 .main {
   align-items: center;
   justify-content: center;
-  width: 600px
+  width: 600px;
+  margin: auto;
 }
