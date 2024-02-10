@@ -40,7 +40,7 @@ const MostRecentPrices = () => {
           <div className="col col-5">Final Price</div>
           <div className="col col-6">Date</div>
         </li>
-        {items.filter(i=>i.name.toLowerCase().includes(searchText)).map(i =>
+        {items.filter(i => i.name.toLowerCase().includes(searchText.toLowerCase())).map(i =>
         (
           <li className="table-row-main" key={i.barcode} onClick={() => handleClick("/item/" + i.barcode)}>
             <div className="col col-1">
