@@ -2,6 +2,7 @@ import { Dispatch, FormEventHandler, SetStateAction, useState } from "react";
 import "../css/ItemLookup.css";
 import Html5QrcodePlugin from "./Html5QrcodeScannerPlugin";
 import { Html5QrcodeResult } from "html5-qrcode";
+import { isMobile } from 'react-device-detect';
 
 type ItemLookupFormProps = {
   handleTextChange: FormEventHandler,
@@ -36,14 +37,16 @@ const ItemLookupForm = ({ handleTextChange, handleSubmit, setBarcode, numericInp
         />
         <input type="submit" className="red-button" value="Look up" />
       </form>
-      <div className="App">
-        <Html5QrcodePlugin
-          fps={10}
-          qrbox={250}
-          disableFlip={false}
-          qrCodeSuccessCallback={onNewScanResult}
-        />
-      </div>
+      {isMobile &&
+        <div className="App">
+          <Html5QrcodePlugin
+            fps={10}
+            qrbox={250}
+            disableFlip={false}
+            qrCodeSuccessCallback={onNewScanResult}
+          />
+        </div>
+      }
     </>
   )
 }
