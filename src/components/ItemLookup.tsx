@@ -170,6 +170,7 @@ const ItemLookup = () => {
 
   const onNewScanResult = (decodedText: string, decodedResult: Html5QrcodeResult) => {
     setBarcodeText(decodedText);
+    loadItem(decodedText);
   };
 
   return (
