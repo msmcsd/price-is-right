@@ -27,7 +27,7 @@ app.get("/", async (req, res) => {
 
 const setAllowedOrigin = (req, res) => {
   // res.set("Access-Control-Allow-Origin", "http://localhost:28");
-  const allowedOrigins = ["https://price-is-right-client.onrender.com", "http://localhost:28"]
+  const allowedOrigins = ["https://pricesright.onrender.com", "http://localhost:28"]
   let allowedOrigin = allowedOrigins[0];
 
   const origin = req.get('origin');
