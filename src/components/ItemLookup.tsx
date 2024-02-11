@@ -167,7 +167,7 @@ const ItemLookup = () => {
   return (
     <>
       <div className="main">
-        <ItemLookupForm handleSubmit={handleLookup} handleTextChange={handleTextChange} numericInput />
+        <ItemLookupForm handleSubmit={handleLookup} handleTextChange={handleTextChange} setBarcode={setBarcodeText} numericInput />
         <div className="gap"></div>
         {populateLookupResult()}
       </div>
