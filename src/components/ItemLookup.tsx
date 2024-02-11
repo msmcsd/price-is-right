@@ -1,12 +1,12 @@
-// import './App.css';
 import React, { useEffect, useState } from "react";
 import { FoodApiResult, GroceryItem } from "../types/types";
-// import "./css/ItemLookup.css"
 import ItemHistory from "../components/ItemHistory";
 import { loadItemHistory, upsertItem } from "../database";
 import ItemCard from "../components/ItemCard";
-import ItemLookupForm from '../components/ItemLookupForm';
 import { useParams } from "react-router-dom";
+import { isMobile } from 'react-device-detect';
+import Html5QrcodePlugin from "./Html5QrcodeScannerPlugin";
+import { Html5QrcodeResult } from "html5-qrcode";
 
 const ItemLookup = () => {
   const [barcodeText, setBarcodeText] = useState<string>("");
@@ -26,7 +26,6 @@ const ItemLookup = () => {
       loadItem(id);
     }
   }, []);
-
 
   const loadItem = async(bar_code: string) => {
     try {
@@ -81,7 +80,7 @@ const ItemLookup = () => {
     loadItem(barcodeText);
   }
 
-  const handleTextChange = (e: React.FormEvent<HTMLInputElement>) => {
+  const handleBarcodeInputChange = (e: React.FormEvent<HTMLInputElement>) => {
     setBarcodeText(e.currentTarget.value);
   }
 
@@ -164,10 +163,40 @@ const ItemLookup = () => {
     );
   }
 
+  // Assumes barcodes only contain numbers.
+  const handleInput = (e: React.FormEvent<HTMLInputElement>) => {
+    e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, '');
+  }
+
+  const onNewScanResult = (decodedText: string, decodedResult: Html5QrcodeResult) => {
+    setBarcodeText(decodedText);
+  };
+
   return (
     <>
       <div className="main">
-        <ItemLookupForm handleSubmit={handleLookup} handleTextChange={handleTextChange} setBarcode={setBarcodeText} numericInput />
+        <form className="flex-form" onSubmit={handleLookup}>
+          <input type="text"
+            name="barcode"
+            inputMode="numeric"
+            placeholder="Enter Barcode"
+            onChange={handleBarcodeInputChange}
+            onInput={handleInput}
+            value={barcodeText}
+            required
+          />
+          <input type="submit" className="red-button" value="Look up" />
+        </form>
+        {isMobile &&
+          <div className="App">
+            <Html5QrcodePlugin
+              fps={10}
+              qrbox={250}
+              disableFlip={false}
+              qrCodeSuccessCallback={onNewScanResult}
+            />
+          </div>
+        }
         <div className="gap"></div>
         {populateLookupResult()}
       </div>
