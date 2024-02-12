@@ -1,4 +1,4 @@
-import { DeleteItemResult, GroceryItem } from "./types/types";
+import { DeleteItemResult, GroceryItem, MongoDBInsertOneResult } from "./types/types";
 
 export async function loadItems() : Promise<GroceryItem[]> {
   const response = await fetch(process.env.REACT_APP_PRICE_IS_RIGHT_SERVER as string + "/items", {
@@ -72,7 +72,7 @@ export const upsertItem = async (item: GroceryItem) => {
   }
 }
 
-export const addItem = async (item: GroceryItem) => {
+export async function addItem(item: GroceryItem): Promise<MongoDBInsertOneResult> {
   console.log("Add item", item)
 
   try {
@@ -85,13 +85,14 @@ export const addItem = async (item: GroceryItem) => {
       body: JSON.stringify({ payload: item }),
     });
 
-    const result = await response.json();
+    const result: MongoDBInsertOneResult = await response.json();
     return result;
   }
   catch (error)
   {
     console.log(error);
   }
+  return {acknowledged: false};
 }
 
 export async function deleteHistory(_id: string): Promise<DeleteItemResult> {

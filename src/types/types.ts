@@ -34,3 +34,8 @@ export type AddItemProps = {
   size?: string,
   imageURL?: string
 }
+
+export type MongoDBInsertOneResult = {
+  acknowledged: boolean,
+  insertedId?: string
+}

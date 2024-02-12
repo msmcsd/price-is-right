@@ -92,7 +92,7 @@ app.post("/upsert", async (req, res) => {
 
   console.log("Upsert result", result)
 
-  res.sendStatus(200);
+  res.send(result);
 })
 
 /* 
@@ -108,9 +108,9 @@ app.post("/add", async (req, res) => {
   console.log("[index.js] Item to add", item)
   const result = await addItem(item.payload);
 
-  console.log("Upsert result", result)
+  console.log("Add result", result)
 
-  res.sendStatus(200);
+  res.send(result);
 })
 
 /* 

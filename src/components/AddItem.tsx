@@ -2,12 +2,13 @@ import NumericField from "./NumericField"
 import "../css/ItemCard.css"
 import InputField from "./InputField"
 import { useState } from "react"
-import { AddItemProps, GroceryItem } from "../types/types"
+import { AddItemProps, GroceryItem, MongoDBInsertOneResult } from "../types/types"
 import { addItem } from "../database"
-import { useLocation } from "react-router-dom"
-
+import { useLocation, useNavigate } from "react-router-dom"
 
 const AddItem = () => {
+  const navigate = useNavigate();
+
   const {state} = useLocation();
   const props = state as AddItemProps;
 
@@ -45,8 +46,12 @@ const AddItem = () => {
       date: new Date()
     }
 
-    const result = await addItem(product);
+    const result: MongoDBInsertOneResult = await addItem(product);
     console.log("Add item result", result)
+
+    if (result && result.acknowledged && result.insertedId) {
+      navigate("/item/" + barcode);
+    }
   }
 
   // const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
