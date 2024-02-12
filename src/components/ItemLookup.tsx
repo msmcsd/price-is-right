@@ -169,7 +169,7 @@ const ItemLookup = () => {
   // Populates lookup result from API
   const populateApiResult = () => {
     if (!currentItem || apiStatus === 0) {
-      return <div>{apiStatusMessage}</div>
+      return <h2 style={{color: "red"}}>{apiStatusMessage}</h2>
     }
 
     console.log("Populating item from API", currentItem.barcode)
