@@ -2,18 +2,22 @@ import NumericField from "./NumericField"
 import "../css/ItemCard.css"
 import InputField from "./InputField"
 import { useState } from "react"
-import { GroceryItem } from "../types/types"
+import { AddItemProps, GroceryItem } from "../types/types"
 import { addItem } from "../database"
+import { useLocation } from "react-router-dom"
+
 
 const AddItem = () => {
-  const [name, setName] = useState<string>("");
-  const [barcode, setBarcode] = useState<string>("");
-  const [brand, setBrand] = useState<string>("");
-  const [size, setSize] = useState<string>("");
+  const {state} = useLocation();
+  const props = state as AddItemProps;
+
+  const [name, setName] = useState<string>(props?.name || "");
+  const [barcode, setBarcode] = useState<string>(props?.barcode || "");
+  const [brand, setBrand] = useState<string>(props?.brand || "");
+  const [size, setSize] = useState<string>(props?.size || "");
   const [price, setPrice] = useState<number>(0);
   const [coupon, setCoupon] = useState<number>(0);
-  const [imageURL, setImageURL] = useState<string>("");
-  // const [itemImage, setItemImage] = useState<string | null>(null);
+  const [imageURL, setImageURL] = useState<string>(props?.imageURL || "");
 
   const handlePriceChange = (e: React.FormEvent<HTMLInputElement>) => {
     setPrice(Number(e.currentTarget.value))
@@ -78,20 +82,27 @@ const AddItem = () => {
           <div className="container" style={{height: "500px"}}>
             <InputField label="Name" required
                         handleChange={(e: React.FormEvent<HTMLInputElement>) => setName(e.currentTarget.value as string)} 
+                        value={name}
                         handleInput={()=>{}}/>
             <InputField label="Barcode" required
                         handleChange={(e: React.FormEvent<HTMLInputElement>) => setBarcode(e.currentTarget.value as string)} 
+                        value={barcode}
                         handleInput={()=>{}}/>
             <InputField label="Manufactured By" required
                         handleChange={(e: React.FormEvent<HTMLInputElement>) => setBrand(e.currentTarget.value as string)} 
+                        value={brand}
                         handleInput={()=>{}}/>
 
             <InputField label="Size/Weight"
-              handleChange={(e: React.FormEvent<HTMLInputElement>) => setSize(e.currentTarget.value as string)}
-              handleInput={() => { }} />
+                        handleChange={(e: React.FormEvent<HTMLInputElement>) => setSize(e.currentTarget.value as string)}
+                        value={size}
+                        handleInput={() => { }} />
             <NumericField label="Price" required handleChange={handlePriceChange} />
             <NumericField label="Coupon" handleChange={handleCouponChange} />
-            <InputField label="Image URL" handleChange={handleImageULRChange} handleInput={() => { }} />
+            <InputField label="Image URL" 
+                        handleChange={handleImageULRChange} 
+                        value={imageURL}
+                        handleInput={() => { }} />
             <input type="submit" className="buy--btn" value="ADD ITEM" style={{ margin: "30px" }} />
           </div>
         </form> 

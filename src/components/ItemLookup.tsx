@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { FoodApiResult, GroceryItem } from "../types/types";
+import { AddItemProps, FoodApiResult, GroceryItem } from "../types/types";
 import ItemHistory from "../components/ItemHistory";
 import { loadItemHistory, upsertItem } from "../database";
 import ItemCard from "../components/ItemCard";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { isMobile } from 'react-device-detect';
 import Html5QrcodePlugin from "./Html5QrcodeScannerPlugin";
 import { Html5QrcodeResult } from "html5-qrcode";
+
+enum ApiItemStatus {
+  NotFound = 0,
+  Found = 1
+}
 
 const ItemLookup = () => {
   const [barcodeText, setBarcodeText] = useState<string>("");
@@ -17,6 +22,8 @@ const ItemLookup = () => {
   const [price, setPrice] = useState<number>(0);
   const [coupon, setCoupon] = useState<number>(0);
   const {id} = useParams<{id : string}>();
+
+  const navigate = useNavigate();
 
   console.log("Passed in barcode", id)
 
@@ -29,6 +36,7 @@ const ItemLookup = () => {
 
   const loadItem = async(bar_code: string) => {
     try {
+      // If item histories are found, load histories and exit.
       console.log("b4 loadItemHistory")
       setCurrentItem(null)
       setItemHistory([])
@@ -43,13 +51,16 @@ const ItemLookup = () => {
         return;
       }
 
+      // If item histories not found, load item info from API.
       const result = await fetch(`https://static.openfoodfacts.org/api/v0/product/${bar_code}.json`);
       console.log("API result", result)
       const json = await result.json() as FoodApiResult;
 
+      // Barcode returns from API has an extra leading "0". Reset to the one used for the search.
       json.code = bar_code;
-      if (json.status === 1) {
-        // Barcode returns from API has an extra leading "0". Reset to the one used for the search.
+
+      // Status from API is 1 if item is found.
+      if (json.status === ApiItemStatus.Found) {
         const product: GroceryItem = {
           name: json.product.product_name as string,
           barcode: json.code as string,
@@ -62,10 +73,20 @@ const ItemLookup = () => {
         };
         setCurrentItem(product);
         setApiStatus(json.status);
+
+        const newItem: AddItemProps = {
+          name: product.name,
+          barcode: product.barcode,
+          brand: product.brand,
+          size: product.size,
+          imageURL: product.image_url,
+        }
+
+        navigate("/AddItem", {state: newItem});
       }
       else {
-        setApiStatus(0);
-        setApiStatusMessage(json.status === 0 ? json.status_verbose : "Item not found");
+        setApiStatus(ApiItemStatus.NotFound);
+        setApiStatusMessage(json.status === ApiItemStatus.NotFound ? json.status_verbose : "Item not found");
       }
 
     }

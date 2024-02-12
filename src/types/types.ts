@@ -26,3 +26,11 @@ export type DeleteItemResult = {
   acknowledged: boolean,
   deletedCount: number
 }
+
+export type AddItemProps = {
+  name?: string,
+  barcode?: string,
+  brand?: string,
+  size?: string,
+  imageURL?: string
+}
