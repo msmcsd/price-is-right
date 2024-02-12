@@ -172,6 +172,7 @@ export async function addItem (item) {
     size: item.size,
     price: item.price,
     coupon: item.coupon,
+    image_url: item.image_url,
     date: new Date()
   });
 
