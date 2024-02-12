@@ -38,11 +38,11 @@ const NavMenu = () => {
         </li>
 
         <li>
-          <a href="" target="_blank">
+          <Link to="/">TBD
             <i className="fab fa-github fa-3x github">
               <div className="circle"></div></i>
-            <div className="title">Github</div>
-          </a>
+            <div className="title"></div>
+          </Link>
         </li>
         <div className="background"></div>
 

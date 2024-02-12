@@ -4,7 +4,7 @@ import NumericField from "./NumericField";
 import { GroceryItem } from "../types/types";
 
 type CardProps = {
-  item: GroceryItem
+  item: GroceryItem | null
   handlePriceChange: FormEventHandler,
   handleCouponChange: FormEventHandler,
   addHistory: FormEventHandler
@@ -17,20 +17,20 @@ const ItemCard = ({ item, handlePriceChange, handleCouponChange, addHistory }: C
       <div className="product__photo">
         <div className="photo-container">
           <div className="photo-main">
-             <img src={item.image_url} alt={item.name} />
+             <img src={item?.image_url} alt={item?.name} />
           </div>
         </div>
       </div>
       <div className="product__info">
         <div className="title">
-           <h1>{item.name}</h1>
-           <span>{item.barcode}</span>
+           <h1>{item?.name}</h1>
+           <span>{item?.barcode}</span>
         </div>
         <div className="description">
           <h3>INFO</h3>
           <ul>
-             <li>Manufactured by {item.brand}</li>
-            <li>{item.size}</li>
+             <li>Manufactured by {item?.brand}</li>
+            <li>{item?.size}</li>
           </ul>
         </div>
         <div className="variant">

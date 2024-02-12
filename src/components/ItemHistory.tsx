@@ -12,15 +12,15 @@ type ItemHistoryProps = {
 
 const ItemHistory = ({ histories, setHistories }: ItemHistoryProps) => {
   const item: GroceryItem = histories[0];
-  console.log(item)
+  // console.log(item)
 
   const deleteItemHistory = async (id: string) => {
     const result: DeleteItemResult = await deleteHistory(id)
-    console.log("Delete item history result", result)
-    console.log("result.deleteCount", result.deletedCount)
+    // console.log("Delete item history result", result)
+    // console.log("result.deleteCount", result.deletedCount)
 
     if (result.deletedCount > 0) {
-      console.log("Delete local item history")
+      // console.log("Delete local item history")
       setHistories(histories.filter(item => item._id !== id))
     }
   }

@@ -21,22 +21,24 @@ const ItemLookup = () => {
   const [apiStatusMessage, setApiStatusMessage] = useState<string>("");
   const [price, setPrice] = useState<number>(0);
   const [coupon, setCoupon] = useState<number>(0);
-  const {id} = useParams<{id : string}>();
+  // const {id} = useParams<{id : string}>();
 
   const navigate = useNavigate();
 
-  console.log("Passed in barcode", id)
+  // console.log("Passed in barcode", id)
 
-  useEffect(() => {
-    if (id) {
-      setBarcodeText(id);
-      loadItem(id);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (id) {
+  //     setBarcodeText(id);
+  //     loadItem(id);
+  //   }
+  // }, []);
 
   const loadItem = async(bar_code: string) => {
     try {
-      // If item histories are found, load histories and exit.
+      //
+      // If item histories are found, navigate to /item with history passed in.
+      //
       console.log("b4 loadItemHistory")
       setCurrentItem(null)
       setItemHistory([])
@@ -48,10 +50,13 @@ const ItemLookup = () => {
       if (history && history.length > 0) {
         setItemHistory(history);
         setCurrentItem(history[0]);
+        navigate("/item/" + history[0].barcode, {state: history});
         return;
       }
 
-      // If item histories not found, load item info from API.
+      //
+      // If item histories not found, try to load item info from Food API.
+      //
       const result = await fetch(`https://static.openfoodfacts.org/api/v0/product/${bar_code}.json`);
       console.log("API result", result)
       const json = await result.json() as FoodApiResult;
@@ -59,30 +64,19 @@ const ItemLookup = () => {
       // Barcode returns from API has an extra leading "0". Reset to the one used for the search.
       json.code = bar_code;
 
-      // Status from API is 1 if item is found.
+      // Status from API is 1 if item is found. Navigate to /additem page with info populated.
       if (json.status === ApiItemStatus.Found) {
-        const product: GroceryItem = {
-          name: json.product.product_name as string,
-          barcode: json.code as string,
-          price: price,
-          coupon: coupon,
-          image_url: json?.product.image_front_url as string,
-          brand: json?.product.brands as string,
-          size: json?.product.quantity as string,
-          date: new Date()
-        };
-        setCurrentItem(product);
         setApiStatus(json.status);
 
         const newItem: AddItemProps = {
-          name: product.name,
-          barcode: product.barcode,
-          brand: product.brand,
-          size: product.size,
-          imageURL: product.image_url,
+          name: json.product.product_name as string,
+          barcode: json.code as string,
+          brand: json?.product.brands as string,
+          size: json?.product.quantity as string,
+          imageURL: json?.product.image_front_url as string,
         }
 
-        navigate("/AddItem", {state: newItem});
+        navigate("/additem", {state: newItem});
       }
       else {
         setApiStatus(ApiItemStatus.NotFound);
@@ -103,27 +97,6 @@ const ItemLookup = () => {
 
   const handleBarcodeInputChange = (e: React.FormEvent<HTMLInputElement>) => {
     setBarcodeText(e.currentTarget.value);
-  }
-
-  const populateLookupResult = () => {
-    // Populate item histories if found
-    if (itemHistory && itemHistory.length > 0) {
-      console.log("Populating item history", itemHistory)
-
-      const item: GroceryItem = itemHistory[0];
-
-      return (
-        <>
-          <ItemCard item={item}
-            handleCouponChange={handleCouponChange}
-            handlePriceChange={handlePriceChange}
-            addHistory={handleSubmitPrice} />
-          <ItemHistory histories={itemHistory}  setHistories={setItemHistory}/>
-        </>
-      )
-    }
-
-    return populateApiResult();
   }
 
   const handleSubmitPrice = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -221,8 +194,9 @@ const ItemLookup = () => {
             />
           </div>
         }
-        <div className="gap"></div>
-        {populateLookupResult()}
+        {
+          apiStatus !== ApiItemStatus.Found && <h2 style={{color: "Red", fontSize: "20px"}}>{apiStatusMessage}</h2>
+        }
       </div>
     </>
 
