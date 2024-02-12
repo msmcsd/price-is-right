@@ -191,6 +191,8 @@ const ItemLookup = () => {
 
   const onNewScanResult = (decodedText: string, decodedResult: Html5QrcodeResult) => {
     setBarcodeText(decodedText);
+    const closeButton = document.getElementById("html5-qrcode-button-camera-stop") as HTMLInputElement
+    closeButton?.click();
     loadItem(decodedText);
   };
 
