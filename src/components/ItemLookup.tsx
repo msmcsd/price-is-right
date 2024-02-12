@@ -50,6 +50,7 @@ const ItemLookup = () => {
       if (history && history.length > 0) {
         setItemHistory(history);
         setCurrentItem(history[0]);
+        closeCamera();
         navigate("/item/" + history[0].barcode, {state: history});
         return;
       }
@@ -75,7 +76,8 @@ const ItemLookup = () => {
           size: json?.product.quantity as string,
           imageURL: json?.product.image_front_url as string,
         }
-
+        
+        closeCamera();
         navigate("/additem", {state: newItem});
       }
       else {
@@ -99,64 +101,6 @@ const ItemLookup = () => {
     setBarcodeText(e.currentTarget.value);
   }
 
-  const handleSubmitPrice = async (e: React.FormEvent<HTMLFormElement>) => {
-    console.log("handle submit price")
-    e.preventDefault();
-
-    const product: GroceryItem = {
-      _id: currentItem?._id as string,
-      name: currentItem?.name as string,
-      barcode: currentItem?.barcode as string,
-      price: price,
-      coupon: coupon,
-      image_url: currentItem?.image_url as string,
-      brand: currentItem?.brand as string,
-      size: currentItem?.size as string,
-      date: new Date()
-    };
-
-    console.log("Item to submit", product)
-    const response = await upsertItem(product);
-
-    // setItem(null)
-    // setItemHistory([])
-    const history = await loadItemHistory(currentItem?.barcode as string);
-    if (history && history.length > 0) {
-      setItemHistory(history)
-      setCurrentItem(history[0])
-    }
-  }
-
-  const handlePriceChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setPrice(Number(e.currentTarget.value))
-  }
-
-  const handleCouponChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setCoupon(Number(e.currentTarget.value))
-  }
-
-  const handlePriceInput = (e: React.FormEvent<HTMLInputElement>) => {
-    e.currentTarget.value = e.currentTarget.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
-  }
-
-  // Populates lookup result from API
-  const populateApiResult = () => {
-    if (!currentItem || apiStatus === 0) {
-      return <h2 style={{color: "red"}}>{apiStatusMessage}</h2>
-    }
-
-    console.log("Populating item from API", currentItem.barcode)
-    return (
-      <>
-        <ItemCard item={currentItem}
-          handleCouponChange={handleCouponChange}
-          handlePriceChange={handlePriceChange}
-          addHistory={handleSubmitPrice} />
-        <div className="gap"></div>
-      </>
-    );
-  }
-
   // Assumes barcodes only contain numbers.
   const handleInput = (e: React.FormEvent<HTMLInputElement>) => {
     e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, '');
@@ -164,10 +108,16 @@ const ItemLookup = () => {
 
   const onNewScanResult = (decodedText: string, decodedResult: Html5QrcodeResult) => {
     setBarcodeText(decodedText);
-    const closeButton = document.getElementById("html5-qrcode-button-camera-stop") as HTMLInputElement
-    closeButton?.click();
+    closeCamera();
     loadItem(decodedText);
   };
+
+  const closeCamera = () => {
+    if (isMobile) {
+      const closeButton = document.getElementById("html5-qrcode-button-camera-stop") as HTMLInputElement
+      closeButton?.click();  
+    }
+  }
 
   return (
     <>
