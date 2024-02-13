@@ -85,20 +85,22 @@
   background: #8ee4af !important;
 }
 
-.nav li:first-child:hover~.background {
-  background: #05386b;
-}
+@media (min-width: 800px) {
+  .nav li:first-child:hover~.background {
+    background: #05386b;
+  }
 
-.nav li:nth-child(2):hover~.background {
-  background: #379683;
-}
+  .nav li:nth-child(2):hover~.background {
+    background: #379683;
+  }
 
-.nav li:nth-child(3):hover~.background {
-  background: #5cdb95;
-}
+  .nav li:nth-child(3):hover~.background {
+    background: #5cdb95;
+  }
 
-.nav li:nth-child(4):hover~.background {
-  background: #8ee4af;
+  .nav li:nth-child(4):hover~.background {
+    background: #8ee4af;
+  }
 }
 
 @keyframes illuminate {
