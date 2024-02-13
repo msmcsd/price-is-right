@@ -3,7 +3,7 @@ import { AddItemProps, FoodApiResult, GroceryItem } from "../types/types";
 import ItemHistory from "../components/ItemHistory";
 import { loadItemHistory, upsertItem } from "../database";
 import ItemCard from "../components/ItemCard";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { isMobile } from 'react-device-detect';
 import Html5QrcodePlugin from "./Html5QrcodeScannerPlugin";
 import { Html5QrcodeResult } from "html5-qrcode";
@@ -106,6 +106,15 @@ const ItemLookup = () => {
     return message.charAt(0).toUpperCase() + message.slice(1);
   }
 
+  const handleAddItem = () => {
+    const newItem: AddItemProps = {
+      barcode: barcodeText,
+    }
+
+    closeCamera();
+    navigate(URL.AddItem, { state: newItem });
+  }
+
   return (
     <>
       <div className="main">
@@ -122,7 +131,11 @@ const ItemLookup = () => {
           <input type="submit" className="red-button" value="Look up" />
         </form>
         {
-          apiStatus !== ApiItemStatus.Found && <h2 style={{ color: "Red", fontSize: "20px" }}>{firstLetterToUpperCase(apiStatusMessage)}</h2>
+          apiStatus !== ApiItemStatus.Found && 
+          <div className="item-not-found">
+            <h2>{firstLetterToUpperCase(apiStatusMessage)}</h2>
+            <p>Click <a href="" onClick={handleAddItem}>here</a> to add the item</p>
+          </div>
         }
         {isMobile &&
           <div className="App">

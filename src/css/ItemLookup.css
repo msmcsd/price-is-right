@@ -111,3 +111,14 @@ input[type="text"] {
   width: 600px;
   margin: auto;
 }
+
+.item-not-found {
+  h2 {
+    color: red;
+    font-size: 20px;
+  }
+
+  p {
+    text-align: center;
+  }
+}
