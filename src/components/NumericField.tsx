@@ -14,7 +14,7 @@ const NumericField = ({label, required, handleChange}: NumericFieldProps) => {
   }
 
   return (
-    <InputField label={label} handleChange={handleChange} handleInput={handlePriceInput} required={required}/>
+    <InputField label={label} inputMode="numeric" handleChange={handleChange} handleInput={handlePriceInput} required={required}/>
   )
 }
 
