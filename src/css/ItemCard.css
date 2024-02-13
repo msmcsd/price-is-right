@@ -86,7 +86,7 @@ img {
 
 /* ----- Informations Section ----- */
 .product__info {
-  padding: 0.8em 0 0 2em;
+  padding: 0.8em .8em 0 2em;
 }
 
 .title {
@@ -259,7 +259,7 @@ $gray: #9b9b9b;
   position: relative;
   margin: auto;
   width: 100%;
-  max-width: 280px;
+  /* max-width: 280px; */
   border-radius: 3px;
   overflow: hidden;
 }

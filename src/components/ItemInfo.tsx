@@ -92,7 +92,6 @@ const ItemInfo = () => {
   return (
     <>
       <div className="main">
-        <div className="gap"></div>
         <ItemCard item={currentItem}
           handleCouponChange={handleCouponChange}
           handlePriceChange={handlePriceChange}
