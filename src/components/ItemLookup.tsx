@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { isMobile } from 'react-device-detect';
 import Html5QrcodePlugin from "./Html5QrcodeScannerPlugin";
 import { Html5QrcodeResult } from "html5-qrcode";
+import { URL } from "../constants/URL";
 
 enum ApiItemStatus {
   NotFound = 0,
@@ -31,7 +32,7 @@ const ItemLookup = () => {
       console.log(history.length)
       if (history && history.length > 0) {
         closeCamera();
-        navigate("/item/" + history[0].barcode, {state: history});
+        navigate(URL.LoadItemBase + history[0].barcode, {state: history});
         return;
       }
 
@@ -58,7 +59,7 @@ const ItemLookup = () => {
         }
         
         closeCamera();
-        navigate("/additem", {state: newItem});
+        navigate(URL.AddItem, {state: newItem});
       }
       else {
         setApiStatus(ApiItemStatus.NotFound);

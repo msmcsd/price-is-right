@@ -5,6 +5,7 @@ import { useState } from "react"
 import { AddItemProps, GroceryItem, MongoDBInsertOneResult } from "../types/types"
 import { addItem } from "../database"
 import { useLocation, useNavigate } from "react-router-dom"
+import { URL } from "../constants/URL"
 
 const AddItem = () => {
   const navigate = useNavigate();
@@ -50,7 +51,7 @@ const AddItem = () => {
     console.log("Add item result", result)
 
     if (result && result.acknowledged && result.insertedId) {
-      navigate("/item/" + barcode);
+      navigate(URL.LoadItemBase + barcode);
     }
   }
 

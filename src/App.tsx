@@ -6,16 +6,17 @@ import ItemLookup from './components/ItemLookup';
 import MostRecentPrices from './components/MostRecentPrices';
 import AddItem from './components/AddItem';
 import ItemInfo from './components/ItemInfo';
+import { URL } from './constants/URL';
 
 const App = () => {
   return (
     <>
       <NavMenu />
       <Routes>
-        <Route path="/" element={<ItemLookup />}/>
-        <Route path="/items" element={<MostRecentPrices />}/>
-        <Route path="/additem" element={<AddItem />}/>
-        <Route path="/item/:id" element={<ItemInfo />}/>
+        <Route path={URL.Home} element={<ItemLookup />}/>
+        <Route path={URL.AllItems} element={<MostRecentPrices />}/>
+        <Route path={URL.AddItem} element={<AddItem />}/>
+        <Route path={URL.LoadItem} element={<ItemInfo />}/>
       </Routes>
     </>
 
