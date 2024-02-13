@@ -18,6 +18,7 @@ const ItemLookup = () => {
   const [barcodeText, setBarcodeText] = useState<string>("");
   const [apiStatus, setApiStatus] = useState<number>(1);
   const [apiStatusMessage, setApiStatusMessage] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -27,9 +28,14 @@ const ItemLookup = () => {
       // If item histories are found, navigate to /item with history passed in.
       //
       console.log("b4 loadItemHistory")
-      setApiStatusMessage("")
+      setApiStatusMessage("");
+      setApiStatus(ApiItemStatus.Found);
+
+      setIsLoading(true);
       const history = await loadItemHistory(bar_code);
-      console.log(history.length)
+      setIsLoading(false);
+
+      // console.log(history.length)
       if (history && history.length > 0) {
         closeCamera();
         navigate(URL.LoadItemBase + history[0].barcode, {state: history});
@@ -41,7 +47,9 @@ const ItemLookup = () => {
       //
       const result = await fetch(`https://static.openfoodfacts.org/api/v0/product/${bar_code}.json`);
       console.log("API result", result)
+      setIsLoading(true);
       const json = await result.json() as FoodApiResult;
+      setIsLoading(false);
 
       // Barcode returns from API has an extra leading "0". Reset to the one used for the search.
       json.code = bar_code;
@@ -69,6 +77,9 @@ const ItemLookup = () => {
     }
     catch (error) {
 
+    }
+    finally {
+      setIsLoading(false);
     }
   }
 
@@ -130,6 +141,9 @@ const ItemLookup = () => {
           />
           <input type="submit" className="red-button" value="Look up" />
         </form>
+        {
+          isLoading && <div className="item-not-found"><p>Loading...</p></div>
+        }
         {
           apiStatus !== ApiItemStatus.Found && 
           <div className="item-not-found">
