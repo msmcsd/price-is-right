@@ -15,24 +15,10 @@ enum ApiItemStatus {
 
 const ItemLookup = () => {
   const [barcodeText, setBarcodeText] = useState<string>("");
-  const [itemHistory, setItemHistory] = useState<GroceryItem[]>([]);
-  const [currentItem, setCurrentItem] = useState<GroceryItem | null>();
   const [apiStatus, setApiStatus] = useState<number>(1);
   const [apiStatusMessage, setApiStatusMessage] = useState<string>("");
-  const [price, setPrice] = useState<number>(0);
-  const [coupon, setCoupon] = useState<number>(0);
-  // const {id} = useParams<{id : string}>();
 
   const navigate = useNavigate();
-
-  // console.log("Passed in barcode", id)
-
-  // useEffect(() => {
-  //   if (id) {
-  //     setBarcodeText(id);
-  //     loadItem(id);
-  //   }
-  // }, []);
 
   const loadItem = async(bar_code: string) => {
     try {
@@ -40,16 +26,10 @@ const ItemLookup = () => {
       // If item histories are found, navigate to /item with history passed in.
       //
       console.log("b4 loadItemHistory")
-      setCurrentItem(null)
-      setItemHistory([])
-      setPrice(0)
-      setCoupon(0)
       setApiStatusMessage("")
       const history = await loadItemHistory(bar_code);
       console.log(history.length)
       if (history && history.length > 0) {
-        setItemHistory(history);
-        setCurrentItem(history[0]);
         closeCamera();
         navigate("/item/" + history[0].barcode, {state: history});
         return;
@@ -108,14 +88,14 @@ const ItemLookup = () => {
 
   const onNewScanResult = (decodedText: string, decodedResult: Html5QrcodeResult) => {
     setBarcodeText(decodedText);
-    closeCamera();
     loadItem(decodedText);
   };
 
   const closeCamera = () => {
     if (isMobile) {
-      const closeButton = document.getElementById("html5-qrcode-button-camera-stop") as HTMLInputElement
-      closeButton?.click();  
+      // Id comes from https://github.com/mebjas/html5-qrcode/blob/91a7d639512305cffc887a2f348209be97698635/src/ui/scanner/base.ts
+      const stopScanningButton = document.getElementById("html5-qrcode-button-camera-stop") as HTMLInputElement
+      stopScanningButton?.click();  
     }
   }
 

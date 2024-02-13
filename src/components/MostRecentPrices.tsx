@@ -1,4 +1,4 @@
-import React, { FormEventHandler, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GroceryItem } from '../types/types';
 import { loadItems } from '../database';
 import { useNavigate } from "react-router-dom";
