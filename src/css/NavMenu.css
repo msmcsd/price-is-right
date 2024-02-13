@@ -26,11 +26,12 @@
   text-shadow: 0.5px 0.5px 0 #CCCCCC;
 
   li a {
-    padding: 30px;
+    padding: 25px;
     float: left;
     width: 100px;
     text-align: center;
-    font-size: 15px;
+    font-size: 18px;
+    font-weight: bold;
     color: #edf5e1;
     text-decoration: none;
   }
