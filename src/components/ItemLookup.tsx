@@ -22,7 +22,7 @@ const ItemLookup = () => {
 
   const navigate = useNavigate();
 
-  const loadItem = async(bar_code: string) => {
+  const loadItem = async (bar_code: string) => {
     try {
       //
       // If item histories are found, navigate to /item with history passed in.
@@ -38,7 +38,7 @@ const ItemLookup = () => {
       // console.log(history.length)
       if (history && history.length > 0) {
         closeCamera();
-        navigate(URL.LoadItemBase + history[0].barcode, {state: history});
+        navigate(URL.LoadItemBase + history[0].barcode, { state: history });
         return;
       }
 
@@ -65,9 +65,9 @@ const ItemLookup = () => {
           size: json?.product.quantity as string,
           imageURL: json?.product.image_front_url as string,
         }
-        
+
         closeCamera();
-        navigate(URL.AddItem, {state: newItem});
+        navigate(URL.AddItem, { state: newItem });
       }
       else {
         setApiStatus(ApiItemStatus.NotFound);
@@ -107,7 +107,7 @@ const ItemLookup = () => {
     if (isMobile) {
       // Id comes from https://github.com/mebjas/html5-qrcode/blob/91a7d639512305cffc887a2f348209be97698635/src/ui/scanner/base.ts
       const stopScanningButton = document.getElementById("html5-qrcode-button-camera-stop") as HTMLInputElement
-      stopScanningButton?.click();  
+      stopScanningButton?.click();
     }
   }
 
@@ -117,13 +117,13 @@ const ItemLookup = () => {
     return message.charAt(0).toUpperCase() + message.slice(1);
   }
 
-  const handleAddItem = () => {
-    const newItem: AddItemProps = {
-      barcode: barcodeText,
-    }
-
+  const handleAddItemOnItemNotFound = () => {
     closeCamera();
-    navigate(URL.AddItem, { state: newItem });
+    navigate(URL.AddItem, {
+      state: {
+        barcode: barcodeText,
+      }
+    });
   }
 
   return (
@@ -141,16 +141,12 @@ const ItemLookup = () => {
           />
           <input type="submit" className="red-button" value="Look up" />
         </form>
-        {
-          isLoading && <div className="item-not-found"><p>Loading...</p></div>
-        }
-        {
-          apiStatus !== ApiItemStatus.Found && 
-          <div className="item-not-found">
-            <h2>{firstLetterToUpperCase(apiStatusMessage)}</h2>
-            <p>Click <a href="" onClick={handleAddItem}>here</a> to add the item</p>
-          </div>
-        }
+        <div className="status-area">
+          <h2>{firstLetterToUpperCase(apiStatusMessage)}</h2>
+          <p>{isLoading ? 
+                "Loading..." : 
+                apiStatus !== ApiItemStatus.Found && <p>Click <a href="" onClick={handleAddItemOnItemNotFound}>here</a> to add the item</p>}</p>
+        </div>
         {isMobile &&
           <div className="App">
             <Html5QrcodePlugin
@@ -163,7 +159,6 @@ const ItemLookup = () => {
         }
       </div>
     </>
-
   );
 }
 

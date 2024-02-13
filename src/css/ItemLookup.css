@@ -112,7 +112,9 @@ input[type="text"] {
   margin: auto;
 }
 
-.item-not-found {
+.status-area {
+  height: 100px;
+
   h2 {
     color: red;
     font-size: 20px;
