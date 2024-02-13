@@ -100,6 +100,12 @@ const ItemLookup = () => {
     }
   }
 
+  const firstLetterToUpperCase = (message: string) => {
+    if (!message) return message;
+
+    return message.charAt(0).toUpperCase() + message.slice(1);
+  }
+
   return (
     <>
       <div className="main">
@@ -115,6 +121,9 @@ const ItemLookup = () => {
           />
           <input type="submit" className="red-button" value="Look up" />
         </form>
+        {
+          apiStatus !== ApiItemStatus.Found && <h2 style={{ color: "Red", fontSize: "20px" }}>{firstLetterToUpperCase(apiStatusMessage)}</h2>
+        }
         {isMobile &&
           <div className="App">
             <Html5QrcodePlugin
@@ -124,9 +133,6 @@ const ItemLookup = () => {
               qrCodeSuccessCallback={onNewScanResult}
             />
           </div>
-        }
-        {
-          apiStatus !== ApiItemStatus.Found && <h2 style={{color: "Red", fontSize: "20px"}}>{apiStatusMessage}</h2>
         }
       </div>
     </>
