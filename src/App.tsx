@@ -5,7 +5,7 @@ import { Routes , Route} from 'react-router-dom';
 import ItemLookup from './components/ItemLookup';
 import MostRecentPrices from './components/MostRecentPrices';
 import AddItem from './components/AddItem';
-import ItemInfo from './components/ItemInfo';
+import ItemDetail from './components/ItemDetail';
 import { URL } from './constants/URL';
 
 const App = () => {
@@ -16,7 +16,7 @@ const App = () => {
         <Route path={URL.Home} element={<ItemLookup />}/>
         <Route path={URL.AllItems} element={<MostRecentPrices />}/>
         <Route path={URL.AddItem} element={<AddItem />}/>
-        <Route path={URL.LoadItem} element={<ItemInfo />}/>
+        <Route path={URL.LoadItem} element={<ItemDetail />}/>
       </Routes>
     </>
 

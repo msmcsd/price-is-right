@@ -5,7 +5,7 @@ import ItemCard from "./ItemCard";
 import { useLocation, useParams } from "react-router-dom";
 import ItemHistory from "./ItemHistory";
 
-const ItemInfo = () => {
+const ItemDetail = () => {
   const [itemHistory, setItemHistory] = useState<GroceryItem[]>([]);
   const [currentItem, setCurrentItem] = useState<GroceryItem | null>(null);
   const [price, setPrice] = useState<number>(0);
@@ -103,4 +103,4 @@ const ItemInfo = () => {
   );
 }
 
-export default ItemInfo;
+export default ItemDetail;
