@@ -38,44 +38,55 @@
     .item-info-container {
       display: flex;
       flex-direction: column;
-      margin-left: 20px;
+      margin: 10px 10px 10px 20px;
+      width: 100%
     }
 
     .item-name {
       font-size: 18px;
       font-weight: bold;
       flex: 1;
+      width: 100%;
     }
 
     .item-barcode {
       color: grey;
-      font-size: 12px;
-      height: 15%;
+      font-size: 14px;
+      height: 25%;
     }
 
-    .item-price {
-      padding: 0px;
-      font-size: 18px;
-      margin-top: 10px;
-      font-weight: bold;
+    .item-price-date-container {
+      display: flex;
+      flex-direction: row;
       height: 30%;
-      display: flex;
-      align-items: flex-end;
-    }
+      width: 100%;
 
-    .item-date {
-      padding: 0px;
-      font-size: 12px;
-      margin-top: 5px;
-      height: 20%;
-      display: flex;
-      align-items: flex-end;
-    }
+      .item-price {
+        padding: 0px;
+        font-size: 18px;
+        margin-top: 10px;
+        font-weight: bold;
+        display: flex;
+        align-items: flex-end;
+      }
 
-    .item-with-coupon {
-      font-weight: normal;
-      font-size: 12px;
-      padding: 5px;
+      .item-date {
+        padding: 0px;
+        font-size: 15px;
+        margin-top: 5px;
+        display: flex;
+        flex: 1;
+        align-items: flex-end;
+        justify-content: end;
+      }
+
+      .item-with-coupon {
+        font-weight: normal;
+        font-size: 12px;
+        flex: 1;
+        align-items: flex-end;
+        padding: 0 5px 0 5px;
+      }
     }
   }
 }
@@ -96,17 +107,19 @@
         font-size: 18px
       }
 
-      .item-price {
-        font-size: 22px;
-      }
+      .item-price-date-container {
+        .item-price {
+          font-size: 24px;
+        }
 
-      .item-date {
-        font-size: 18px;
-      }
+        .item-date {
+          font-size: 20px;
+        }
 
-      .item-with-coupon {
-        font-weight: normal;
-        font-size: 15px;
+        .item-with-coupon {
+          font-weight: normal;
+          font-size: 17px;
+        }
       }
     }
   }
