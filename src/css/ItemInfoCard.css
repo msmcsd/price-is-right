@@ -63,6 +63,12 @@
       font-size: 12px;
       margin-top: 5px;
     }
+
+    .item-with-coupon {
+      font-weight: normal;
+      font-size: 12px;
+      padding: 5px;
+    }
   }
 }
 
@@ -88,6 +94,11 @@
 
       .item-date {
         font-size: 18px;
+      }
+
+      .item-with-coupon {
+        font-weight: normal;
+        font-size: 15px;
       }
     }
   }
