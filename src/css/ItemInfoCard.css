@@ -43,25 +43,33 @@
 
     .item-name {
       font-size: 18px;
-      font-weight: bold
+      font-weight: bold;
+      flex: 1;
     }
 
     .item-barcode {
       color: grey;
-      font-size: 12px
+      font-size: 12px;
+      height: 15%;
     }
 
     .item-price {
       padding: 0px;
       font-size: 18px;
       margin-top: 10px;
-      font-weight: bold
+      font-weight: bold;
+      height: 30%;
+      display: flex;
+      align-items: flex-end;
     }
 
     .item-date {
       padding: 0px;
       font-size: 12px;
       margin-top: 5px;
+      height: 20%;
+      display: flex;
+      align-items: flex-end;
     }
 
     .item-with-coupon {
