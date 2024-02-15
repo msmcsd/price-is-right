@@ -13,7 +13,7 @@ type CardProps = {
 const ItemCard = ({ item, handlePriceChange, handleCouponChange, addHistory }: CardProps) => {
 
    return (
-    <section className="product">
+    <section className="product" style={{marginTop: "100px"}}>
       <div className="product__photo">
         <div className="photo-container">
           <div className="photo-main">
