@@ -33,7 +33,7 @@ const MostRecentPrices = () => {
   const populateItems = () => {
     return (
       <div className="item-info-card-container">
-        {items.filter(i => i.name.toLowerCase().includes(searchText.toLowerCase())).map(i => <ItemInfoCard onClick={() => handleClick("/item/" + i.barcode)} key={i.barcode} item={i}/> )}
+        {items.filter(i => i.name?.toLowerCase().includes(searchText?.toLowerCase())).map(i => <ItemInfoCard onClick={() => handleClick("/item/" + i.barcode)} key={i.barcode} item={i}/> )}
       </div>
     );
     // return (

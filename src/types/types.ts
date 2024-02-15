@@ -10,6 +10,17 @@ export type GroceryItem = {
   brand: string
 }
 
+export const DefaultGroceryItem : GroceryItem = {
+  name: "",
+  barcode: "",
+  brand: "",
+  size: "",
+  price: 0,
+  coupon: 0,
+  image_url: "",
+  date: new Date()
+}
+
 export type FoodApiResult = {
   code: string,
   product : {
@@ -27,12 +38,14 @@ export type DeleteItemResult = {
   deletedCount: number
 }
 
-export type AddItemProps = {
-  name?: string,
-  barcode?: string,
-  brand?: string,
-  size?: string,
-  imageURL?: string
+export enum ManageItemMode {
+  Add,
+  Edit
+}
+
+export type ManageItemProps = {
+  item: GroceryItem,
+  mode: ManageItemMode
 }
 
 export type MongoDBInsertOneResult = {

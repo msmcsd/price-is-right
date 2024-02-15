@@ -114,3 +114,26 @@ export async function deleteHistory(_id: string): Promise<DeleteItemResult> {
 
   return {acknowledged: false, deletedCount: 0};
 }
+
+// Updates item info other than price and coupon
+export async function updateItem(item: GroceryItem): Promise<MongoDBInsertOneResult> {
+  console.log("Add item", item)
+
+  try {
+    const response = await fetch(`${process.env.REACT_APP_PRICE_IS_RIGHT_SERVER}/update`, {
+      mode: "cors",
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ payload: item }),
+    });
+
+    const result: MongoDBInsertOneResult = await response.json();
+    return result;
+  }
+  catch (error) {
+    console.log(error);
+  }
+  return { acknowledged: false };
+}

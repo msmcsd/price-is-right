@@ -1,5 +1,5 @@
 import express from "express";
-import { addItem, getLatestPriceForEachItem, loadItemHistory, upsertItem, deleteItemHistory } from "./database.js";
+import { addItem, getLatestPriceForEachItem, loadItemHistory, upsertItem, deleteItemHistory, updateItem } from "./database.js";
 import dotenv from "dotenv";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
@@ -126,6 +126,24 @@ app.post("/deleteHistory/:id", async (req, res) => {
   const result = await deleteItemHistory(req.params.id);
 
   console.log("Delete history result", result)
+
+  res.send(result);
+})
+
+/* 
+---------------------------------------------------------------------
+  Updates items manually based on barcode value.
+---------------------------------------------------------------------
+*/
+app.options("/update", cors());
+app.post("/update", async (req, res) => {
+  setAllowedOrigin(req, res);
+
+  const item = req.body;
+  console.log("[index.js] Item to update", item)
+  const result = await updateItem(item.payload);
+
+  console.log("Update result", result)
 
   res.send(result);
 })

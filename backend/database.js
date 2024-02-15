@@ -40,6 +40,8 @@ export async function getLatestPriceForEachItem() {
         price: { $first: '$price' },
         coupon: { $first: '$coupon' },
         image_url: { $first: '$image_url' },
+        brand: { $first: '$brand' },
+        size: { $first: '$size' },
       }
     },
     {
@@ -51,12 +53,16 @@ export async function getLatestPriceForEachItem() {
         coupon: 1,
         date: 1,
         image_url: 1,
+        brand: 1,
+        size: 1
       }
     },
     {
       $sort: { name: 1 }
     }
   ]).toArray();
+
+  console.log("getLatestPriceForEachItem count", result.length);
 
   return result;
 }
@@ -195,6 +201,34 @@ export async function deleteItemHistory(id) {
   const result = await collection.deleteOne({
     _id: new ObjectId(id)
   });
+
+  return result;
+}
+
+/*
+---------------------------------------------------------------------
+  Updates item info except price and coupon.
+---------------------------------------------------------------------
+*/
+export async function updateItem(item) {
+  console.log("[database.js] Item to update", item.barcode)
+  await client.connect();
+
+  console.log('Connected successfully to server');
+  const db = client.db(dbName);
+  const collection = db.collection(tableName);
+
+  const result = await collection.updateMany(
+    { barcode: item.barcode },
+    {
+      $set: {
+        name: item.name,
+        barcode: item.barcode,
+        brand: item.brand,
+        size: item.size,
+        image_url: item.image_url
+      }
+    });
 
   return result;
 }

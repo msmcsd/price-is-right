@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AddItemProps, FoodApiResult, GroceryItem } from "../types/types";
+import { ManageItemProps, FoodApiResult, GroceryItem, ManageItemMode, DefaultGroceryItem } from "../types/types";
 import ItemHistory from "../components/ItemHistory";
 import { loadItemHistory, upsertItem } from "../database";
 import ItemCard from "../components/ItemCard";
@@ -58,12 +58,18 @@ const ItemLookup = () => {
       if (json.status === ApiItemStatus.Found) {
         setApiStatus(json.status);
 
-        const newItem: AddItemProps = {
-          name: json.product.product_name as string,
-          barcode: json.code as string,
-          brand: json?.product.brands as string,
-          size: json?.product.quantity as string,
-          imageURL: json?.product.image_front_url as string,
+        const newItem: ManageItemProps = {
+          item: {
+            name: json.product.product_name as string,
+            barcode: json.code as string,
+            brand: json?.product.brands as string,
+            size: json?.product.quantity as string,
+            image_url: json?.product.image_front_url as string,
+            price: 0,
+            coupon: 0,
+            date: new Date()
+          },
+          mode: ManageItemMode.Add
         }
 
         closeCamera();
@@ -119,10 +125,12 @@ const ItemLookup = () => {
 
   const handleAddItemOnItemNotFound = () => {
     closeCamera();
+    const item : ManageItemProps = {
+      item : {...DefaultGroceryItem, barcode: barcodeText},
+      mode : ManageItemMode.Add
+    }
     navigate(URL.AddItem, {
-      state: {
-        barcode: barcodeText,
-      }
+      state: item
     });
   }
 
