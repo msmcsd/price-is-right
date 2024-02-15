@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { GroceryItem } from "../types/types";
+import { DefaultGroceryItem, GroceryItem } from "../types/types";
 import { loadItemHistory, upsertItem } from "../database";
 import ItemCard from "./ItemCard";
 import { useLocation, useParams } from "react-router-dom";
@@ -7,7 +7,7 @@ import ItemHistory from "./ItemHistory";
 
 const ItemDetail = () => {
   const [itemHistory, setItemHistory] = useState<GroceryItem[]>([]);
-  const [currentItem, setCurrentItem] = useState<GroceryItem | null>(null);
+  const [currentItem, setCurrentItem] = useState<GroceryItem>(DefaultGroceryItem);
   const [price, setPrice] = useState<number>(0);
   const [coupon, setCoupon] = useState<number>(0);
 
@@ -35,7 +35,7 @@ const ItemDetail = () => {
   const loadItem = async (bar_code: string) => {
     try {
       console.log("b4 loadItemHistory")
-      setCurrentItem(null)
+      setCurrentItem(DefaultGroceryItem)
       setItemHistory([])
       setPrice(0)
       setCoupon(0)
