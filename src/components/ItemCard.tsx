@@ -41,7 +41,7 @@ const ItemCard = ({ item, handlePriceChange, handleCouponChange, addHistory }: C
             <NumericField label="Price" required handleChange={handlePriceChange} />
             <NumericField label="Coupon" handleChange={handleCouponChange} />
           </div>
-          <input type="submit" className="buy--btn" value="ADD TO HISTORY" />
+          <input type="submit" className="buy--btn" value="Add Price" />
         </form>
 
       </div>
