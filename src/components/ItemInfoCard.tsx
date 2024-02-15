@@ -30,7 +30,9 @@ const ItemInfoCard = ({ item, onClick }: ItemInfoProps) => {
     return "$" + finalPrice.toFixed(2);
   }
 
-  const onEditClick = () => {
+  const onEditClick = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+
     const payload: ManageItemProps = {
       item: item,
       mode: ManageItemMode.Edit
@@ -40,9 +42,9 @@ const ItemInfoCard = ({ item, onClick }: ItemInfoProps) => {
   }
 
   return (
-    <div className="item-info-card">
+    <div className="item-info-card" onClick={onClick}>
       <div className="image-container">
-        <img src={item.image_url} onClick={onClick} />
+        <img src={item.image_url} />
       </div>
       <div className="item-info-container">
         <div className="item-name-container">
