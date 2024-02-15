@@ -1,6 +1,6 @@
 import "../css/ItemLookup.css";
 import "../css/ItemHistory.css";
-import { GroceryItem, DeleteItemResult } from "../types/types";
+import { GroceryItem, MongoDBDeleteItemResult } from "../types/types";
 import deleteIcon from "../images/delete.png";
 import { deleteHistory } from "../database";
 import { Dispatch, SetStateAction } from "react";
@@ -15,7 +15,7 @@ const ItemHistory = ({ histories, setHistories }: ItemHistoryProps) => {
   // console.log(item)
 
   const deleteItemHistory = async (id: string) => {
-    const result: DeleteItemResult = await deleteHistory(id)
+    const result: MongoDBDeleteItemResult = await deleteHistory(id)
     // console.log("Delete item history result", result)
     // console.log("result.deleteCount", result.deletedCount)
 

@@ -2,7 +2,7 @@ import NumericField from "./NumericField"
 import "../css/ItemCard.css"
 import InputField from "./InputField"
 import { useEffect, useState } from "react"
-import { ManageItemProps, GroceryItem, MongoDBInsertOneResult, ManageItemMode, DefaultGroceryItem } from "../types/types"
+import { ManageItemProps, GroceryItem, MongoDBInsertOneResult, ManageItemMode, DefaultGroceryItem, MongoDBUpdateResult, UpdateItemProps } from "../types/types"
 import { addItem, updateItem } from "../database"
 import { useLocation, useNavigate } from "react-router-dom"
 import { URL } from "../constants/URL"
@@ -26,6 +26,7 @@ const ManageItem = () => {
   const [coupon, setCoupon] = useState<number>(item.coupon);
   const [imageURL, setImageURL] = useState<string>(item.image_url);
   const [isAddMode, setIsAddMode] = useState<boolean>(true);
+  const [oldBarcode, setOldBarcode] = useState<string>(item.barcode);
 
   useEffect(() => {
     if (state !== null) {
@@ -35,6 +36,7 @@ const ManageItem = () => {
       setBarcode(item.barcode);
 
       if (!isAdd) {
+        setOldBarcode(item.barcode);
         setName(item.name);
         setBrand(item.brand);
         setSize(item.size);
@@ -79,10 +81,14 @@ const ManageItem = () => {
       }
     }
     else {
-      const result: MongoDBInsertOneResult = await updateItem(product);
+      const props : UpdateItemProps = {
+        item: product,
+        oldBarcode: oldBarcode
+      }
+      const result: MongoDBUpdateResult= await updateItem(props);
       console.log("Edit item result", result)
 
-      if (result && result.acknowledged && result.insertedId) {
+      if (result && result.acknowledged && result.modifiedCount) {
         navigate(URL.LoadItemBase + barcode);
       }    
     }

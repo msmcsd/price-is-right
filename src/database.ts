@@ -1,4 +1,4 @@
-import { DeleteItemResult, GroceryItem, MongoDBInsertOneResult } from "./types/types";
+import { MongoDBDeleteItemResult, GroceryItem, MongoDBInsertOneResult, MongoDBUpdateResult, UpdateItemProps } from "./types/types";
 
 export async function loadItems() : Promise<GroceryItem[]> {
   const response = await fetch(process.env.REACT_APP_PRICE_IS_RIGHT_SERVER as string + "/items", {
@@ -95,7 +95,7 @@ export async function addItem(item: GroceryItem): Promise<MongoDBInsertOneResult
   return {acknowledged: false};
 }
 
-export async function deleteHistory(_id: string): Promise<DeleteItemResult> {
+export async function deleteHistory(_id: string): Promise<MongoDBDeleteItemResult> {
   console.log("[database.ts] Deleting history. _id:", _id)
 
   try {
@@ -104,7 +104,7 @@ export async function deleteHistory(_id: string): Promise<DeleteItemResult> {
       method: "POST"
     });
 
-    const result : DeleteItemResult = await response.json();
+    const result: MongoDBDeleteItemResult = await response.json();
     console.log("[database.ts] Delete item history. result:", result)
     return result;
   }
@@ -116,8 +116,8 @@ export async function deleteHistory(_id: string): Promise<DeleteItemResult> {
 }
 
 // Updates item info other than price and coupon
-export async function updateItem(item: GroceryItem): Promise<MongoDBInsertOneResult> {
-  console.log("Add item", item)
+export async function updateItem(props: UpdateItemProps): Promise<MongoDBUpdateResult> {
+  console.log("Add item", props.item)
 
   try {
     const response = await fetch(`${process.env.REACT_APP_PRICE_IS_RIGHT_SERVER}/update`, {
@@ -126,14 +126,14 @@ export async function updateItem(item: GroceryItem): Promise<MongoDBInsertOneRes
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ payload: item }),
+      body: JSON.stringify({ payload: props }),
     });
 
-    const result: MongoDBInsertOneResult = await response.json();
+    const result: MongoDBUpdateResult = await response.json();
     return result;
   }
   catch (error) {
     console.log(error);
   }
-  return { acknowledged: false };
+  return { acknowledged: false, modifiedCount: 0 };
 }

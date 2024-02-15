@@ -33,7 +33,7 @@ export type FoodApiResult = {
   status_verbose: string,
 }
 
-export type DeleteItemResult = {
+export type MongoDBDeleteItemResult = {
   acknowledged: boolean,
   deletedCount: number
 }
@@ -51,4 +51,14 @@ export type ManageItemProps = {
 export type MongoDBInsertOneResult = {
   acknowledged: boolean,
   insertedId?: string
+}
+
+export type MongoDBUpdateResult = {
+  acknowledged: boolean,
+  modifiedCount: number
+}
+
+export type UpdateItemProps = {
+  item: GroceryItem,
+  oldBarcode: string
 }

@@ -210,8 +210,8 @@ export async function deleteItemHistory(id) {
   Updates item info except price and coupon.
 ---------------------------------------------------------------------
 */
-export async function updateItem(item) {
-  console.log("[database.js] Item to update", item.barcode)
+export async function updateItem(props) {
+  console.log("[database.js] Item to update", props)
   await client.connect();
 
   console.log('Connected successfully to server');
@@ -219,14 +219,14 @@ export async function updateItem(item) {
   const collection = db.collection(tableName);
 
   const result = await collection.updateMany(
-    { barcode: item.barcode },
+    { barcode: props.oldBarcode },
     {
       $set: {
-        name: item.name,
-        barcode: item.barcode,
-        brand: item.brand,
-        size: item.size,
-        image_url: item.image_url
+        name: props.item.name,
+        barcode: props.item.barcode,
+        brand: props.item.brand,
+        size: props.item.size,
+        image_url: props.item.image_url
       }
     });
 
