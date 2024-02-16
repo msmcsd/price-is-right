@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ManageItemProps, FoodApiResult, ManageItemMode, DefaultGroceryItem } from "../types/types";
 import { loadItemHistory } from "../database";
 import { useNavigate } from "react-router-dom";
@@ -17,6 +17,10 @@ const ItemLookup = () => {
   const [apiStatus, setApiStatus] = useState<number>(1);
   const [apiStatusMessage, setApiStatusMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+useEffect(()=>{
+  makeButtonsLarger()
+}, [])
 
   const navigate = useNavigate();
 
@@ -112,6 +116,16 @@ const ItemLookup = () => {
       // Id comes from https://github.com/mebjas/html5-qrcode/blob/91a7d639512305cffc887a2f348209be97698635/src/ui/scanner/base.ts
       const stopScanningButton = document.getElementById("html5-qrcode-button-camera-stop") as HTMLInputElement
       stopScanningButton?.click();
+    }
+  }
+
+  const makeButtonsLarger = () => {
+    if (isMobile) {
+      // Id comes from https://github.com/mebjas/html5-qrcode/blob/91a7d639512305cffc887a2f348209be97698635/src/ui/scanner/base.ts
+      const stopScanningButton = document.getElementById("html5-qrcode-button-camera-stop") as HTMLInputElement
+      stopScanningButton && stopScanningButton.setAttribute("style", "font-size: 25px");
+      const startScanningButton = document.getElementById("html5-qrcode-button-camera-start") as HTMLInputElement
+      startScanningButton && startScanningButton.setAttribute("style", "font-size: 25px");
     }
   }
 
