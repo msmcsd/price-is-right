@@ -31,10 +31,10 @@ const ItemLookup = () => {
 
       setIsLoading(true);
       const history = await loadItemHistory(bar_code);
-      setIsLoading(false);
 
       // console.log(history.length)
       if (history && history.length > 0) {
+        setIsLoading(false);
         closeCamera();
         navigate(URL.LoadItemBase + history[0].barcode, { state: history });
         return;
@@ -149,9 +149,9 @@ const ItemLookup = () => {
         </form>
         <div className="status-area">
           <h2>{firstLetterToUpperCase(apiStatusMessage)}</h2>
-          <p>{isLoading ? 
-                "Loading..." : 
-                apiStatus !== ApiItemStatus.Found && <p>Click <a href="" onClick={handleAddItemOnItemNotFound}>here</a> to add the item</p>}</p>
+          {isLoading ? 
+            <p>Loading...</p> : 
+            apiStatus !== ApiItemStatus.Found && <p>Click <a href="" onClick={handleAddItemOnItemNotFound}>here</a> to add the item</p>}
         </div>
         {isMobile &&
           <div className="App">
