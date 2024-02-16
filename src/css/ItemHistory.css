@@ -61,6 +61,11 @@
 
   }
 
+  .image-delete {
+    width: 24px;
+    height: 24px;
+  }
+
   /* 
   @media all and (max-width: 767px) {
     .table-header {
