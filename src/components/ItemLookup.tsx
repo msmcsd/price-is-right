@@ -78,8 +78,10 @@ useEffect(()=>{
         navigate(URL.AddItem, { state: newItem });
       }
       else {
-        setApiStatus(ApiItemStatus.NotFound);
-        setApiStatusMessage(json.status === ApiItemStatus.NotFound ? json.status_verbose : "Item not found");
+        // Got not found error on Mobile
+        // setApiStatus(ApiItemStatus.NotFound);
+        // setApiStatusMessage(json.status === ApiItemStatus.NotFound ? json.status_verbose : "Item not found");
+        handleAddItemOnItemNotFound()
       }
 
     }
