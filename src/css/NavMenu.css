@@ -86,7 +86,14 @@
   background: #8ee4af !important;
 }
 
+@media (max-width: 768px) {
+  .nav li a {
+    font-size: 23px;
+  }
+}
+
 @media (min-width: 800px) {
+
   .nav li:first-child:hover~.background {
     background: #05386b;
   }
