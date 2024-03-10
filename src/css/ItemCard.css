@@ -99,10 +99,10 @@ img {
     text-transform: capitalize;
   }
 
-  span {
+  /* span {
     font-size: 0.7em;
     color: #a6a6a6;
-  }
+  } */
 }
 
 .variant {

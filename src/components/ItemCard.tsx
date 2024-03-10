@@ -6,6 +6,7 @@ import editIcon from "../images/edit.png";
 import { useNavigate } from "react-router-dom";
 import { URL } from "../constants/URL";
 import ProductPhoto from "./ProductPhoto";
+import ProductInfo from "./ProductInfo";
 
 type CardProps = {
   item: GroceryItem
@@ -35,7 +36,12 @@ const ItemCard = ({ item, handlePriceChange, handleCouponChange, addHistory }: C
         </div>
       </div> */}
       <ProductPhoto url={item?.image_url} description={item?.name} />
-      <div className="product__info">
+      <ProductInfo item={item} 
+                   handleCouponChange={handleCouponChange}
+                   handleEditItem={handleEditItem}
+                   handlePriceChange={handleCouponChange}
+                   addHistory={addHistory} />
+      {/* <div className="product__info">
         <div style={{ display: "flex", flexDirection: "row" }}>
           <div className="title">
             <h1>{item?.name}</h1>
@@ -63,7 +69,7 @@ const ItemCard = ({ item, handlePriceChange, handleCouponChange, addHistory }: C
           <input type="submit" className="buy--btn" value="Add Price" />
         </form>
 
-      </div>
+      </div> */}
     </section>
   );
 }
