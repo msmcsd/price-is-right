@@ -1,11 +1,14 @@
 import NumericField from "./NumericField"
-import "../css/ItemCard.css"
 import InputField from "./InputField"
 import { useEffect, useState } from "react"
 import { ManageItemProps, GroceryItem, MongoDBInsertOneResult, ManageItemMode, DefaultGroceryItem, MongoDBUpdateResult, UpdateItemProps } from "../types/types"
 import { addItem, updateItem } from "../database"
 import { useLocation, useNavigate } from "react-router-dom"
 import { URL } from "../constants/URL"
+import ProductPhoto from "./ProductPhoto"
+
+import "../css/ManageItem.css"
+import "../css/ItemCard.css"
 
 /*
 // Used to Add or Edit an item.
@@ -95,15 +98,17 @@ const ManageItem = () => {
   }
 
   return (
-    <section className="product" style={{width: "700px", height: "480px", margin: "100px auto auto auto"}}>
-      <div className="product__photo" style={{width: "300px", height:"480px"}}>
+    // <section className="product" style={{width: "700px", height: "480px", margin: "100px auto auto auto"}}>
+    <section className="product" >
+      {/* <div className="product__photo" style={{width: "300px", height:"480px"}}>
         <div className="photo-container">
           <div className="photo-main">
             <img src={imageURL} alt={name} style={{ maxWidth: '100%', maxHeight: "100%" , objectFit: "contain"}} />
           </div>
         </div>
-      </div>
-      <div className="product__info" style={{ paddingLeft: "0px" }}>
+      </div> */}
+      <ProductPhoto url={imageURL} description={name} />
+      <div className="product-details">
         <form onSubmit={handleAddItem}>
           <div className="container" style={{height: "500px"}}>
             <InputField label="Name" required
@@ -131,7 +136,9 @@ const ManageItem = () => {
                         handleChange={handleImageULRChange} 
                         value={imageURL}
                         handleInput={() => { }} />
-            <input type="submit" className="buy--btn" value={isAddMode ? "Add Item" : "Update Item"} style={{ margin: "30px" }} />
+            <div className="red-btn-container">
+              <input type="submit" className="red-btn" value={isAddMode ? "Add Item" : "Update Item"}/>
+            </div>
           </div>
         </form> 
 

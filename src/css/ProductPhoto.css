@@ -1,11 +1,11 @@
 /* ----- Photo Section ----- */
 .product-photo {
-  position: relative;
-  left: 10px;
+  /* position: relative; */
+  left: 0px;
 }
 
 .product-photo-container {
-  position: absolute;
+  /* position: absolute; */
   /* left: -2.5em; */
   display: grid;
   grid-template-rows: 1fr;
@@ -13,6 +13,7 @@
   height: 100%;
   border-radius: 6px;
   box-shadow: 4px 4px 25px -2px rgba(0, 0, 0, 0.3);
+  margin-left: 10px;
 }
 
 .product-photo-main {

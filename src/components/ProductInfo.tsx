@@ -35,8 +35,8 @@ const ProductInfo = ({item, handlePriceChange, handleCouponChange, handleEditIte
           <NumericField label="Price" required handleChange={handlePriceChange} />
           <NumericField label="Coupon" handleChange={handleCouponChange} />
         </div>
-        <div className="add-price-btn-container">
-          <input type="submit" className="add-price-btn" value="Add Price" />
+        <div className="red-btn-container">
+          <input type="submit" className="red-btn" value="Add Price" />
         </div>
       </form>
 
