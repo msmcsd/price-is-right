@@ -8,10 +8,10 @@ type ProductPhotoProps = {
 const ProductPhoto = ({url, description} : ProductPhotoProps) => {
   return (
     // <div className="product-photo">
-      <div className="product-photo-container">
-        <div className="product-photo-main">
+      // <div className="product-photo-container">
+        <div className="product-photo-container">
           <img src={url} alt={description} />
-        </div>
+        {/* </div> */}
       </div>
     // </div>
   )

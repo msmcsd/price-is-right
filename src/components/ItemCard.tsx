@@ -28,49 +28,13 @@ const ItemCard = ({ item, handlePriceChange, handleCouponChange, addHistory }: C
 
   return (
     <section className="product" style={{ marginTop: "100px" }}>
-      {/* <div className="product__photo">
-        <div className="photo-container">
-          <div className="photo-main">
-            <img src={item?.image_url} alt={item?.name} />
-          </div>
-        </div>
-      </div> */}
       <ProductPhoto url={item?.image_url} description={item?.name} />
       <ProductInfo item={item} 
                    handleCouponChange={handleCouponChange}
                    handleEditItem={handleEditItem}
                    handlePriceChange={handleCouponChange}
                    addHistory={addHistory} />
-      {/* <div className="product__info">
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          <div className="title">
-            <h1>{item?.name}</h1>
-            <span>{item?.barcode}</span>
-          </div>
-          <img src={editIcon}
-            onClick={handleEditItem}
-            style={{ width: "32px", height: "32px", cursor: "pointer" }} />
-        </div>
-        <div className="description">
-          <h3>INFO</h3>
-          <ul>
-            <li>Manufactured by {item?.brand}</li>
-            <li>{item?.size}</li>
-          </ul>
-        </div>
-        <div className="variant">
-
-        </div>
-        <form onSubmit={addHistory}>
-          <div className="container">
-            <NumericField label="Price" required handleChange={handlePriceChange} />
-            <NumericField label="Coupon" handleChange={handleCouponChange} />
-          </div>
-          <input type="submit" className="buy--btn" value="Add Price" />
-        </form>
-
-      </div> */}
-    </section>
+     </section>
   );
 }
 
