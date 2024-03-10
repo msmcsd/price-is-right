@@ -51,7 +51,7 @@ const ItemInfoCard = ({ item, onClick }: ItemInfoProps) => {
           <div className="item-name">{item?.name}</div>
           <img className="item-edit" src={editIcon} onClick={onEditClick}/>
         </div>
-        <div className="item-barcode">{item?.barcode}</div>
+        <div className="item-barcode">{item?.size}</div>
         <div className="item-price-date-container">
           <div className="item-price">{showPrice(item?.price, item?.coupon)}</div>
           <div className="item-date">{new Date(item?.date).toLocaleDateString()}</div>

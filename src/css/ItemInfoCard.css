@@ -62,7 +62,7 @@
     }
 
     .item-barcode {
-      color: grey;
+      color: rgb(50, 50, 50);
       font-size: 14px;
       height: 25%;
     }
@@ -111,12 +111,14 @@
       border-right: 4px solid #dddddd;
       border-bottom: 4px solid #dddddd;
 
-      .item-name {
-        font-size: 26px;
+      .item-name-container {
+        .item-name {
+          font-size: 24px;
+        }
       }
 
       .item-barcode {
-        font-size: 18px
+        font-size: 20px
       }
 
       .item-price-date-container {
