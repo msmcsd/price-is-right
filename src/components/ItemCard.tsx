@@ -5,6 +5,7 @@ import { DefaultGroceryItem, GroceryItem, ManageItemMode, ManageItemProps } from
 import editIcon from "../images/edit.png";
 import { useNavigate } from "react-router-dom";
 import { URL } from "../constants/URL";
+import ProductPhoto from "./ProductPhoto";
 
 type CardProps = {
   item: GroceryItem
@@ -26,13 +27,14 @@ const ItemCard = ({ item, handlePriceChange, handleCouponChange, addHistory }: C
 
   return (
     <section className="product" style={{ marginTop: "100px" }}>
-      <div className="product__photo">
+      {/* <div className="product__photo">
         <div className="photo-container">
           <div className="photo-main">
             <img src={item?.image_url} alt={item?.name} />
           </div>
         </div>
-      </div>
+      </div> */}
+      <ProductPhoto url={item?.image_url} description={item?.name} />
       <div className="product__info">
         <div style={{ display: "flex", flexDirection: "row" }}>
           <div className="title">
