@@ -15,7 +15,7 @@ type ProductInfoProps = {
 const ProductInfo = ({item, handlePriceChange, handleCouponChange, handleEditItem, addHistory} : ProductInfoProps) => {
   return (
     <div className="product-info">
-      <div style={{ display: "flex", flexDirection: "row" }}>
+      <div className="title-container">
         <div className="title">
           <h1>{item?.name}</h1>
           <span className="barcode">{item?.barcode}</span>
