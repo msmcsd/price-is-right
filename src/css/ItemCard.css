@@ -218,6 +218,13 @@ $gray: #9b9b9b;
   pointer-events: none;
 }
 
+@media all and (max-width: 768px) {
+  .inp .label {
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.7);
+  }
+}
+
 .inp input {
   -webkit-appearance: none;
   -moz-appearance: none;
