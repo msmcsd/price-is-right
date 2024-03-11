@@ -13,14 +13,8 @@
       color: #4c4c4c;
       font-size: 1.5em;
       font-weight: 900;
-      /* width: 250px; */
       text-transform: capitalize;
     }
-
-    /* span {
-      font-size: 0.7em;
-      color: #a6a6a6;
-    } */
   }
 
   .edit-icon {
@@ -92,10 +86,12 @@
   color: #a6a6a6;
 }
 
+
+
 @media (max-width: 768px) {
 
   .barcode {
-    font-size: 1em;
+    font-size: 22px;
   }
 
   .product-info .container {
@@ -105,7 +101,22 @@
 
   .product-info .description {
     ul {
-        font-size: 1em;
-      }
+        font-size: 22px;
+    }
   }
+
+  h3 {
+    font-size: 20px;
+  }
+
+  .product-info .title {
+    h1 {
+      font-size: 2rem;
+    }
+  }
+
+  .red-btn {
+    font-size: 1.2rem;
+  }
+
 }
