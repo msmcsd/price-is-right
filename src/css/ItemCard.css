@@ -154,6 +154,7 @@ img {
   }
 
   .inp input {
-    height: 50px;
+    height: 60px;
+    font-size: 25px;
   }
 }
