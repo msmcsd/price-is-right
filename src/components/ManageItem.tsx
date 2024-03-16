@@ -110,7 +110,7 @@ const ManageItem = () => {
       <ProductPhoto url={imageURL} description={name} />
       <div className="product-details">
         <form onSubmit={handleAddItem}>
-          <div className="container" style={{height: "500px"}}>
+          <div className="container">
             <InputField label="Name" required
                         handleChange={(e: React.FormEvent<HTMLInputElement>) => setName(e.currentTarget.value as string)} 
                         value={name}

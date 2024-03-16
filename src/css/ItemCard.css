@@ -23,15 +23,6 @@ img {
   /* left: 50px; */
 }
 
-@media all and (max-width: 768px) {
-  .product {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      border-radius: 5px;
-    }
-}
-
 .photo-container {
   position: absolute;
   /* left: -2.5em; */
@@ -72,6 +63,7 @@ img {
   /* width: 200px; */
   margin-left: 0px;
   padding-left: 0px;
+  gap: 5px;
 }
 
 .inp {
@@ -96,12 +88,6 @@ img {
   pointer-events: none;
 }
 
-@media all and (max-width: 768px) {
-  .inp .label {
-    font-size: 20px;
-  }
-}
-
 .inp input {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -110,7 +96,6 @@ img {
   border: 0;
   font-family: inherit;
   padding: 16px 12px 0 12px;
-  height: 56px;
   font-size: 16px;
   font-weight: 400;
   background: rgba(0, 0, 0, 0.02);
@@ -156,3 +141,19 @@ img {
   transition: all 0.1s ease;
 }
 
+@media all and (max-width: 768px) {
+  .product {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 5px;
+  }
+
+  .inp .label {
+    font-size: 22px;
+  }
+
+  .inp input {
+    height: 50px;
+  }
+}
