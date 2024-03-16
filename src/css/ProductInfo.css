@@ -109,9 +109,14 @@
     font-size: 20px;
   }
 
-  .product-info .title {
-    h1 {
+  .product-info {
+    .title {
+      flex-grow: 1
+    }
+
+    .title h1 {
       font-size: 2rem;
+      width: 100%;
     }
   }
 
