@@ -45,7 +45,7 @@
   }
 
   .container {
-    height: 18vh;
+    /* height: 18vh; */
     display: grid;
     font-family: inherit;
     /* width: 200px; */
@@ -60,6 +60,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 20px;
 }
 
 .red-btn {
@@ -86,6 +87,9 @@
   color: #a6a6a6;
 }
 
+.add-price-form {
+  margin-top: 50px;
+}
 
 
 @media (max-width: 768px) {

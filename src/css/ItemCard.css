@@ -1,9 +1,3 @@
-/* ----- Variables ----- 
-$color-primary: #4c4c4c;
-$color-secondary: #a6a6a6;
-$color-highlight: #ff3f40;
-*/
-/* ----- Global ----- */
 
 h3 {
   font-size: 0.7em;
@@ -38,12 +32,6 @@ img {
     }
 }
 
-/* ----- Photo Section ----- */
-/* .product__photo {
-  position: relative;
-  left: 10px;
-} */
-
 .photo-container {
   position: absolute;
   /* left: -2.5em; */
@@ -54,23 +42,6 @@ img {
   border-radius: 6px;
   box-shadow: 4px 4px 25px -2px rgba(0, 0, 0, 0.3);
 }
-
-/* .photo-main {
-  border-radius: 6px;
-  display: flex;
-  background-color: #9be010;
-  background: radial-gradient(#e5f89e, #96e001);
-  justify-content: center;
-  align-items: center;
-
-  img {
-    padding: 5px;
-    top: 2em;
-    max-width: 95%;
-    max-height: 95%;
-    filter: saturate(150%) contrast(120%) hue-rotate(10deg) drop-shadow(1px 20px 10px rgba(0, 0, 0, 0.3));
-  }
-} */
 
 /* ----- Informations Section ----- */
 .product__info {
@@ -93,102 +64,9 @@ img {
   } */
 }
 
-
-/* .buy--btn {
-  padding: 1.5em 3.1em;
-  border: none;
-  border-radius: 7px;
-  font-size: 0.8em;
-  font-weight: 700;
-  letter-spacing: 1.3px;
-  color: #fff;
-  background-color: #ff3f40;
-  box-shadow: 2px 2px 25px -7px #4c4c4c;
-  cursor: pointer;
-  text-transform: uppercase;
-
-  &:active {
-    transform: scale(0.97);
-  }
-} */
-
-/* Input fields Price and Coupon 
-$primary: #11998e;
-$secondary: #38ef7d;
-$white: #000;
-$gray: #9b9b9b;
-*/
-
-/* .form__group {
-  position: relative;
-  padding: 15px 0 0;
-  margin-top: 10px;
-  width: 80%;
-} */
-
-/* .form__field {
-  font-family: inherit;
-  width: 100%;
-  border: 0;
-  border-bottom: 2px solid #9b9b9b;
-  outline: 0;
-  font-size: 1.3rem;
-  color: #000;
-  padding: 7px 0;
-  background: transparent;
-  transition: border-color 0.2s;
-
-  &::placeholder {
-    color: transparent;
-  }
-
-  &:placeholder-shown~.form__label {
-    font-size: 1rem;
-    cursor: text;
-    top: 30px;
-  }
-} */
-
-/* .form__label {
-  position: absolute;
-  top: 0;
-  display: block;
-  transition: 0.2s;
-  font-size: 1rem;
-  color: #9b9b9b;
-}
-
-.form__field:focus {
-  ~.form__label {
-    position: absolute;
-    top: 0;
-    display: block;
-    transition: 0.2s;
-    font-size: 1rem;
-    color: #11998e;
-    font-weight: 700;
-  }
-
-  padding-bottom: 6px;
-  font-weight: 700;
-  border-width: 3px;
-  border-image: linear-gradient(to right, #11998e, #38ef7d);
-  border-image-slice: 1;
-} */
-
-/* reset input */
-/* .form__field {
-
-  &:required,
-  &:invalid {
-    box-shadow: none;
-  }
-} */
-
-
 /* Input fields Price and Coupon  */
 .container {
-  height: 18vh;
+  /* height: 18vh; */
   display: grid;
   font-family: inherit;
   /* width: 200px; */
@@ -198,7 +76,7 @@ $gray: #9b9b9b;
 
 .inp {
   position: relative;
-  margin: auto;
+  /* margin: auto; */
   width: 100%;
   /* max-width: 280px; */
   border-radius: 3px;
@@ -278,11 +156,3 @@ $gray: #9b9b9b;
   transition: all 0.1s ease;
 }
 
-.add-image-button {
-  border: "1px solid #000";
-  border-radius: "5px";
-  display: "inline-block";
-  padding: "6px 12px";
-  cursor: "pointer";
-  background-color: "white";
-}

@@ -30,7 +30,7 @@ const ProductInfo = ({item, handlePriceChange, handleCouponChange, handleEditIte
         </ul>
       </div>
 
-      <form onSubmit={addHistory}>
+      <form className="add-price-form" onSubmit={addHistory}>
         <div className="container">
           <NumericField label="Price" required handleChange={handlePriceChange} />
           <NumericField label="Coupon" handleChange={handleCouponChange} />
