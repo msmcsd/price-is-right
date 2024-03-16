@@ -44,7 +44,7 @@
     }
   }
 
-  .container {
+  .price-container {
     /* height: 18vh; */
     display: grid;
     font-family: inherit;
@@ -98,7 +98,7 @@
     font-size: 22px;
   }
 
-  .product-info .container {
+  .product-info .price-container {
     display: flex;
     gap: 10px;
   }
