@@ -66,33 +66,17 @@
     height: 24px;
   }
 
-  /* 
-  @media all and (max-width: 767px) {
+}
+
+@media all and (max-width: 768px) {
+  .responsive-table {
     .table-header {
-      display: none;
+      font-size: 20px;
     }
 
     li {
-      display: block;
+      font-size: 21px;
+      font-weight: 600;
     }
-
-    .col {
-
-      flex-basis: 100%;
-
-    }
-
-    .col {
-      display: flex;
-      padding: 10px 0;
-
-      &:before {
-        color: #6C7A89;
-        padding-right: 10px;
-        content: attr(data-label);
-        flex-basis: 50%;
-        text-align: right;
-      }
-    }
-  } */
+  }
 }
