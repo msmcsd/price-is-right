@@ -32,7 +32,7 @@ const ItemCard = ({ item, handlePriceChange, handleCouponChange, addHistory }: C
       <ProductInfo item={item} 
                    handleCouponChange={handleCouponChange}
                    handleEditItem={handleEditItem}
-                   handlePriceChange={handleCouponChange}
+                   handlePriceChange={handlePriceChange}
                    addHistory={addHistory} />
      </section>
   );
