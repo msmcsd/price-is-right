@@ -38,10 +38,10 @@ export async function addInventory(item) {
 
 /*
 ---------------------------------------------------------------------
-  Add an inventory item.
+  Update an inventory item.
 ---------------------------------------------------------------------
 */
-export async function updateInventoryCount(item) {
+export async function updateInventoryItem(item) {
   console.log("[invenotry.js] Invenotry item to update", item)
   await client.connect();
 
@@ -50,14 +50,14 @@ export async function updateInventoryCount(item) {
   const collection = db.collection(tableName);
 
   const result = await collection.updateMany(
-    { _id: item._id },
+    { _id: new ObjectId(item._id) },
     {
       $set: {
         name: item.name,
         barcode: item.barcode,
         count: item.count,
         expiration_date: item.expiration_date,
-        image_url: props.item.image_url
+        image_url: item.image_url
       }
     });
 

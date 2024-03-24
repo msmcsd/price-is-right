@@ -5,7 +5,7 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 import bodyParser from "body-parser";
 import cors from "cors"
-import { addInventory, loadInventories } from "./services/inventory.js";
+import { addInventory, loadInventories, updateInventoryItem } from "./services/inventory.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -149,11 +149,6 @@ app.post("/update", async (req, res) => {
   res.send(result);
 })
 
-app.listen(port, () =>
-  console.log(`Listening on port ${port}`)
-);
-
-
 
 // ---------------------------------------------- Invenotry functions ----------------------------------------------
 
@@ -191,3 +186,33 @@ app.post("/addinventory", async (req, res) => {
 
   res.send(result);
 })
+
+/* 
+---------------------------------------------------------------------
+  Updates an inventory item.
+---------------------------------------------------------------------
+*/
+app.options("/updateinventory", cors());
+app.post("/updateinventory", async (req, res) => {
+  setAllowedOrigin(req, res);
+
+  const item = req.body;
+  console.log("[index.js] Inventory item to update", item)
+  const result = await updateInventoryItem(item.payload);
+
+  console.log("Update result", result)
+
+  res.send(result);
+})
+
+
+
+
+
+
+
+
+// This should be on the bottom of this file.
+app.listen(port, () =>
+  console.log(`Listening on port ${port}`)
+);

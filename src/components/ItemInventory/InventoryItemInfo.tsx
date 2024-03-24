@@ -3,6 +3,7 @@ import PlusIcon from "../../images/plus.png";
 import MinusIcon from "../../images/minus.png";
 import "../../css/ItemInventory/InventoryItemCard.css";
 import { useState } from "react";
+import { updateInventoryItem } from "../../services/inventory";
 
 
 type InventoryItemInfoProps = {
@@ -12,15 +13,24 @@ type InventoryItemInfoProps = {
 const InventoryItemInfo = ({item}: InventoryItemInfoProps) => {
   const [count, setCount] = useState(item?.count)
 
-  const decreaseCount = () => {
-    setCount(prev => {
-      if (prev - 1 < 0) return 0;
-      return prev -1;
-    })
+  const decreaseCount = async () => {
+    const new_count = count - 1;
+    // console.log("decrease", count)
+    if (new_count < 0) return;
+
+    const result = await updateInventoryItem({...item, count: new_count});
+    if (result.modifiedCount >= 1)
+    {
+      setCount(new_count);
+    }
   }
 
-  const increaseCount = () => {
-    setCount(prev => prev + 1);
+  const increaseCount = async () => {
+    const new_count = count + 1;
+    const result = await updateInventoryItem({...item, count: new_count});
+    if (result.modifiedCount >= 1) {
+      setCount(new_count);
+    }
   }
 
   const isExpired = () => {

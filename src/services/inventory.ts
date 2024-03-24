@@ -42,5 +42,23 @@ export async function addInventoryItem(item: InventoryItem): Promise<MongoDBInse
 }
 
 export async function updateInventoryItem(item: InventoryItem): Promise<MongoDBUpdateResult> {
+  try {
+    const response = await fetch(`${process.env.REACT_APP_PRICE_IS_RIGHT_SERVER}${URL.UpdateInventory}`, {
+      mode: "cors",
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ payload: item }),
+    });
+    // console.log("update inv item", item)
+    const result: MongoDBUpdateResult = await response.json();
+    // console.log("Update inv item result", result)
+    return result;
+  }
+  catch (error) {
+    console.log(error);
+  }
+  
   return { acknowledged: false, modifiedCount: 1}; 
 }
