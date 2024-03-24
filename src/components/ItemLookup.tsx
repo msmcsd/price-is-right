@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ManageItemProps, FoodApiResult, ManageItemMode, DefaultGroceryItem } from "../types/types";
-import { loadItemHistory } from "../database";
+import { loadItemHistory } from "../services/database";
 import { useNavigate } from "react-router-dom";
 import { isMobile } from 'react-device-detect';
 import Html5QrcodePlugin from "./Html5QrcodeScannerPlugin";

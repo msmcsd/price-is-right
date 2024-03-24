@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { DefaultGroceryItem, GroceryItem } from "../types/types";
-import { loadItemHistory, upsertItem } from "../database";
+import { loadItemHistory, upsertItem } from "../services/database";
 import ItemCard from "./ItemCard";
 import { useLocation, useParams } from "react-router-dom";
 import ItemHistory from "./ItemHistory";

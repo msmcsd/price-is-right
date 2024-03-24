@@ -64,9 +64,27 @@ export type UpdateItemProps = {
 }
 
 export type InventoryItem = {
+  _id?: string,
   name: string,
   barcode: string,
   count: number,
-  expiration: Date,
-  imageUrl: string
+  expiration_date: Date,
+  image_url: string
+}
+
+export const DefaultInventoryItem: InventoryItem = {
+  name: "",
+  barcode: "",
+  count: 1,
+  image_url: "",
+  expiration_date: new Date()
+}
+
+export type ManageInventoryItemProps = {
+  item: InventoryItem,
+  mode: ManageItemMode
+}
+
+export type UpdateInventoryItemProps = {
+  item: InventoryItem
 }

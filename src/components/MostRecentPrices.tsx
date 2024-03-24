@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { GroceryItem } from '../types/types';
-import { loadItems } from '../database';
+import { loadItems } from '../services/database';
 import { useNavigate } from "react-router-dom";
 import "../css/ItemHistory.css";
 import ItemInfoCard from './ItemInfoCard';

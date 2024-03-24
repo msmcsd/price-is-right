@@ -11,7 +11,7 @@ const InventoryItemCard = ({item} : InventoryItemCardProps) => {
   return (
     <div className="inv-item-card-container">
       <div style={{width: "250px"}}>
-        <ProductPhoto url={item?.imageUrl} description={item?.name} />
+        <ProductPhoto url={item?.image_url} description={item?.name} />
       </div>
       <InventoryItemInfo item={item}/>
     </div>

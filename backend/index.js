@@ -1,10 +1,11 @@
 import express from "express";
-import { addItem, getLatestPriceForEachItem, loadItemHistory, upsertItem, deleteItemHistory, updateItem } from "./database.js";
+import { addItem, getLatestPriceForEachItem, loadItemHistory, upsertItem, deleteItemHistory, updateItem } from "./services/database.js";
 import dotenv from "dotenv";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import bodyParser from "body-parser";
 import cors from "cors"
+import { addInventory } from "./services/inventory.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -151,3 +152,25 @@ app.post("/update", async (req, res) => {
 app.listen(port, () =>
   console.log(`Listening on port ${port}`)
 );
+
+
+
+// ---------------------------------------------- Invenotry functions ----------------------------------------------
+
+/* 
+---------------------------------------------------------------------
+  Add an inventory item.
+---------------------------------------------------------------------
+*/
+app.options("/addinventory", cors());
+app.post("/addinventory", async (req, res) => {
+  setAllowedOrigin(req, res);
+
+  const item = req.body;
+  console.log("[index.js] Invenotry item to add", item)
+  const result = await addInventory(item.payload);
+
+  console.log("Add invenotry result", result)
+
+  res.send(result);
+})

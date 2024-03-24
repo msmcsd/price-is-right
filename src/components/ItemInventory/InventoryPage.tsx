@@ -3,8 +3,8 @@ import InventoryList from "./InventoryList";
 import { InventoryItem } from "../../types/types";
 
 const items: InventoryItem[] = [
-  { name: "Aveeno Lotion", barcode: "381371151035", expiration: new Date('2024-05-25'), count: 10, imageUrl: "https://i5.walmartimages.com/seo/Aveeno-Active-Naturals-Daily-Moisturizing-Lotion-Twin-Pack-20-OZ_52018562-4ab6-40dd-9a37-96c766935680.7f924c174ca9d9fba42d0e4059ef363e.jpeg?odnHeight=640&odnWidth=640&odnBg=FFFFFF" },
-  { name: "Avocado Oil Class Mayonnaise ", barcode: "815074022809", expiration: new Date('2024-01-25'), count: 20, imageUrl: "https://m.media-amazon.com/images/I/71Mt9KBe-fL._SX679_.jpg" }
+  { _id: "1", name: "Aveeno Lotion", barcode: "381371151035", expiration_date: new Date('2024-05-25'), count: 10, image_url: "https://i5.walmartimages.com/seo/Aveeno-Active-Naturals-Daily-Moisturizing-Lotion-Twin-Pack-20-OZ_52018562-4ab6-40dd-9a37-96c766935680.7f924c174ca9d9fba42d0e4059ef363e.jpeg?odnHeight=640&odnWidth=640&odnBg=FFFFFF" },
+  { _id: "2", name: "Avocado Oil Class Mayonnaise ", barcode: "815074022809", expiration_date: new Date('2024-01-25'), count: 20, image_url: "https://m.media-amazon.com/images/I/71Mt9KBe-fL._SX679_.jpg" }
 ]
 
 const InventoryPage = () => {
@@ -27,7 +27,7 @@ const InventoryPage = () => {
     let itms = items.filter(i => i.name?.toLowerCase().includes(searchText?.toLowerCase()));
     console.log(expiredChecked)
     if (expiredChecked) {
-      itms = itms.filter(i => new Date() > new Date(i?.expiration));
+      itms = itms.filter(i => new Date() > new Date(i?.expiration_date));
     }
     return itms;
   }

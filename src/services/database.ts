@@ -1,4 +1,4 @@
-import { MongoDBDeleteItemResult, GroceryItem, MongoDBInsertOneResult, MongoDBUpdateResult, UpdateItemProps } from "./types/types";
+import { MongoDBDeleteItemResult, GroceryItem, MongoDBInsertOneResult, MongoDBUpdateResult, UpdateItemProps } from "../types/types";
 
 export async function loadItems() : Promise<GroceryItem[]> {
   const response = await fetch(process.env.REACT_APP_PRICE_IS_RIGHT_SERVER as string + "/items", {

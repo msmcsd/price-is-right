@@ -9,7 +9,7 @@ type InventoryListProps = {
 const InventoryList = ({items} : InventoryListProps) => {
   return (
     <>
-      {items.map(i => <InventoryItemCard item={i} />)}
+      {items.map(i => <InventoryItemCard key={i._id} item={i} />)}
     </>
   )
 }

@@ -2,7 +2,7 @@ import "../css/ItemLookup.css";
 import "../css/ItemHistory.css";
 import { GroceryItem, MongoDBDeleteItemResult } from "../types/types";
 import deleteIcon from "../images/delete.png";
-import { deleteHistory } from "../database";
+import { deleteHistory } from "../services/database";
 import { Dispatch, SetStateAction } from "react";
 
 type ItemHistoryProps = {
