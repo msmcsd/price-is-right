@@ -18,7 +18,7 @@ const ManageInventoryItem = () => {
   const [barcode, setBarcode] = useState<string>(item.barcode);
   const [image_url, setImageUrl] = useState<string>(item.image_url);
   const [count, setCount] = useState<number>(item.count);
-  const [exp_date, setExpDate] = useState<Date>(new Date());
+  const [exp_date, setExpDate] = useState<string>(new Date().toLocaleDateString());
   const [isAddMode, setIsAddMode] = useState<boolean>(true);
 
   useEffect(() => {
@@ -45,7 +45,7 @@ const ManageInventoryItem = () => {
       barcode: barcode,
       count: count,
       image_url: image_url,
-      expiration_date: exp_date
+      expiration_date: new Date(exp_date)
     }
 
     if (isAddMode) {
@@ -94,8 +94,8 @@ const ManageInventoryItem = () => {
               value={count}/>
 
             <InputField label="Expiration Date"
-              handleChange={(e: React.FormEvent<HTMLInputElement>) => setExpDate(new Date(e.currentTarget.value))}
-              value={exp_date.toString()}
+              handleChange={(e: React.FormEvent<HTMLInputElement>) => setExpDate(e.currentTarget.value)}
+              value={exp_date}
               handleInput={() => { }} />
 
             <InputField label="Image URL"
