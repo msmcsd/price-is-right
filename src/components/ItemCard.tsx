@@ -1,6 +1,6 @@
 import { FormEventHandler } from "react";
 import "../css/ItemCard.css";
-import NumericField from "./NumericField";
+import NumericField from "./Shared/NumericField";
 import { DefaultGroceryItem, GroceryItem, ManageItemMode, ManageItemProps } from "../types/types";
 import editIcon from "../images/edit.png";
 import { useNavigate } from "react-router-dom";

@@ -1,6 +1,6 @@
 import { FormEventHandler } from "react";
 import { GroceryItem } from "../types/types";
-import NumericField from "./NumericField";
+import NumericField from "./Shared/NumericField";
 import editIcon from "../images/edit.png";
 import "../css/ProductInfo.css";
 

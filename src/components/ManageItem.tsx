@@ -1,5 +1,5 @@
-import NumericField from "./NumericField"
-import InputField from "./InputField"
+import NumericField from "./Shared/NumericField"
+import InputField from "./Shared/InputField"
 import { useEffect, useState } from "react"
 import { ManageItemProps, GroceryItem, MongoDBInsertOneResult, ManageItemMode, DefaultGroceryItem, MongoDBUpdateResult, UpdateItemProps } from "../types/types"
 import { addItem, updateItem } from "../services/database"

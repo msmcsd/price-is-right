@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import InputField from "../InputField";
+import InputField from "../Shared/InputField";
 import ProductPhoto from "../ProductPhoto";
-import NumericField from "../NumericField";
+import NumericField from "../Shared/NumericField";
 import { DefaultInventoryItem, InventoryItem, ManageInventoryItemProps, ManageItemMode, MongoDBInsertOneResult, MongoDBUpdateResult, UpdateInventoryItemProps } from "../../types/types";
 import { useLocation, useNavigate } from "react-router-dom";
 import { addInventoryItem, updateInventoryItem } from "../../services/inventory";
