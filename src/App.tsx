@@ -7,6 +7,7 @@ import MostRecentPrices from './components/MostRecentPrices';
 import ManageItem from './components/ManageItem';
 import ItemDetail from './components/ItemDetail';
 import { URL } from './constants/URL';
+import InventoryPage from './components/ItemInventory/InventoryPage';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Route path={URL.AddItem} element={<ManageItem />}/>
         <Route path={URL.LoadItem} element={<ItemDetail />}/>
         <Route path={URL.EditItem} element={<ManageItem />}/>
+        <Route path={URL.Inventory} element={<InventoryPage />} />
       </Routes>
     </>
 

@@ -6,4 +6,5 @@ export enum URL {
   LoadItem= "/item/:id",
   EditItemBase = "/edit/",
   EditItem= "/edit/:id",
+  Inventory="/inventory"
 }

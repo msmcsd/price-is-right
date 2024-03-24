@@ -62,3 +62,11 @@ export type UpdateItemProps = {
   item: GroceryItem,
   oldBarcode: string
 }
+
+export type InventoryItem = {
+  name: string,
+  barcode: string,
+  count: number,
+  expiration: Date,
+  imageUrl: string
+}

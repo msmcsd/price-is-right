@@ -1,0 +1,60 @@
+.inv-item-card-container {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 8px;
+  width: 250px;
+  padding: 5px;
+  margin: 8px;
+  border-right: 3px solid #dddddd;
+  border-bottom: 3px solid #dddddd;
+}
+
+.up-down-button {
+  width: 50px;
+  height: 50px;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.inv-adjust-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 10px 30px 10px 30px;
+}
+
+.inv-count {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.inv-item-exp-date {
+  padding: 10px 0 10px 0;
+  font-size: 20px;;
+}
+
+.inv-item-exp-date-expired {
+  padding: 10px 0 10px 0;
+  font-size: 25px;
+  color: red;
+  font-weight:bold;
+}
+
+.blink-date {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+.inv-items-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}

@@ -32,7 +32,7 @@ const NavMenu = () => {
         </li>
 
         <li>
-          <Link to="/">TBD
+          <Link to="/inventory">Expiring
             {/* <i className="fab fa-github fa-3x github">
               <div className="circle"></div></i>
             <div className="title"></div> */}
