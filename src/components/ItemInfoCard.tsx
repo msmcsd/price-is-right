@@ -68,7 +68,7 @@ const ItemInfoCard = ({ item, onClick }: ItemInfoProps) => {
       <div className="item-info-container">
         <div className="item-name-container">
           <div className="item-name">{item?.name}</div>
-          <img className="item-edit" src={addInvIcon} onClick={onAddInventoryClick}/>
+          <img className="item-edit" style={{paddingRight: "10px"}} src={addInvIcon} onClick={onAddInventoryClick}/>
           <img className="item-edit" src={editIcon} onClick={onEditClick}/>
         </div>
         <div className="item-barcode">{item?.size}</div>
