@@ -26,14 +26,14 @@ const ManageInventoryItem = () => {
       const { item, mode } = state as ManageInventoryItemProps;
       const isAdd = mode === ManageItemMode.Add;
       setIsAddMode(isAdd);
-      setBarcode(item.barcode);
-
-      if (!isAdd) {
+      // setBarcode(item.barcode);
+// console.log(item.count)
+      // if (!isAdd) {
         setBarcode(item.barcode);
         setName(item.name);
         setCount(item.count);
         setImageUrl(item.image_url);
-      }
+      // }
     }
   }, []);
 
@@ -90,7 +90,7 @@ const ManageInventoryItem = () => {
               handleInput={() => { }} />
 
             <NumericField label="Count" required
-              handleChange={(e: React.FormEvent<HTMLInputElement>) => setCount(Number(e.currentTarget.value))}/>
+              handleChange={(e: React.FormEvent<HTMLInputElement>) => setCount(Number(e.currentTarget.value))} />
 
             <InputField label="Expiration Date"
               handleChange={(e: React.FormEvent<HTMLInputElement>) => setExpDate(new Date(e.currentTarget.value))}

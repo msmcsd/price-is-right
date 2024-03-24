@@ -1,6 +1,7 @@
-import { GroceryItem, ManageItemMode, ManageItemProps } from "../types/types";
+import { DefaultInventoryItem, GroceryItem, ManageInventoryItemProps, ManageItemMode, ManageItemProps } from "../types/types";
 import "../css/ItemInfoCard.css";
 import editIcon from "../images/edit.png";
+import addInvIcon from "../images/add-list.png";
 import { useNavigate } from "react-router-dom";
 import { URL } from "../constants/URL";
 /*
@@ -41,6 +42,24 @@ const ItemInfoCard = ({ item, onClick }: ItemInfoProps) => {
     navigate(URL.EditItemBase + item.barcode, {state: payload});
   }
 
+  const onAddInventoryClick = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+
+    const payload: ManageInventoryItemProps = {
+      item: {
+        name: item.name,
+        barcode: item.barcode,
+        count: 1,
+        image_url: item.image_url,
+        expiration_date: new Date()
+      },
+      mode: ManageItemMode.Add
+    }
+    
+    navigate(URL.AddInventory, {state: payload});
+  }
+  
+
   return (
     <div className="item-info-card" onClick={onClick}>
       <div className="image-container">
@@ -49,6 +68,7 @@ const ItemInfoCard = ({ item, onClick }: ItemInfoProps) => {
       <div className="item-info-container">
         <div className="item-name-container">
           <div className="item-name">{item?.name}</div>
+          <img className="item-edit" src={addInvIcon} onClick={onAddInventoryClick}/>
           <img className="item-edit" src={editIcon} onClick={onEditClick}/>
         </div>
         <div className="item-barcode">{item?.size}</div>

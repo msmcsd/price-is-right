@@ -63,6 +63,9 @@ export type UpdateItemProps = {
   oldBarcode: string
 }
 
+
+// -------------- Inventory types --------------------
+
 export type InventoryItem = {
   _id?: string,
   name: string,
