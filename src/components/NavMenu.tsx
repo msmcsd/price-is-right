@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "../css/NavMenu.css";
+import { URL } from "../constants/URL";
 
 const NavMenu = () => {
   return (
@@ -32,7 +33,7 @@ const NavMenu = () => {
         </li>
 
         <li>
-          <Link to="/inventory">Expiring
+          <Link to={URL.Inventory}>Expiring
             {/* <i className="fab fa-github fa-3x github">
               <div className="circle"></div></i>
             <div className="title"></div> */}

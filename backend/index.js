@@ -5,7 +5,7 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 import bodyParser from "body-parser";
 import cors from "cors"
-import { addInventory } from "./services/inventory.js";
+import { addInventory, loadInventories } from "./services/inventory.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -156,6 +156,23 @@ app.listen(port, () =>
 
 
 // ---------------------------------------------- Invenotry functions ----------------------------------------------
+
+/* 
+---------------------------------------------------------------------
+  Load all inventory items.
+---------------------------------------------------------------------
+*/
+app.options("/inventories", cors());
+app.get("/inventories", async (req, res) => {
+  setAllowedOrigin(req, res);
+
+  console.log("[index.js] Load inventories")
+  const result = await loadInventories();
+
+  console.log("Load invenotries result", result)
+
+  res.send(result);
+})
 
 /* 
 ---------------------------------------------------------------------

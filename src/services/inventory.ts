@@ -1,5 +1,23 @@
+import { URL } from "../constants/URL";
 import { InventoryItem, MongoDBInsertOneResult, MongoDBUpdateResult } from "../types/types";
 
+export async function loadInventories(): Promise<InventoryItem[]> {
+  try {
+    const response = await fetch(`${process.env.REACT_APP_PRICE_IS_RIGHT_SERVER}${URL.Inventory}`, {
+      mode: "cors",
+      method: "GET"
+    });
+    
+    const items: InventoryItem[] = await response.json();
+    // console.log("[inventory.ts] Loading inventories. result:", items)
+    return items;
+  }
+  catch (error) {
+    console.log(error)
+  }
+
+  return [];
+}
 
 export async function addInventoryItem(item: InventoryItem): Promise<MongoDBInsertOneResult> {
   console.log("Add inventory item", item)

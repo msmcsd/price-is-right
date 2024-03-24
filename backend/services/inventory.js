@@ -30,7 +30,7 @@ export async function addInventory(item) {
     barcode: item.barcode,
     count: item.count,
     image_url: item.image_url,
-    date: item.expiration_date
+    expiration_date: item.expiration_date
   });
 
   return result;
@@ -62,4 +62,21 @@ export async function updateInventoryCount(item) {
     });
 
   return result;
+}
+
+/*
+---------------------------------------------------------------------
+  Load all inventory items.
+---------------------------------------------------------------------
+*/
+export async function loadInventories() {
+  await client.connect();
+
+  const db = client.db(dbName);
+  const docs = db.collection(tableName)
+    .find({}, { projection: {} })
+    .sort({ expiration_date: 1 })
+    .toArray();
+
+  return docs;
 }
