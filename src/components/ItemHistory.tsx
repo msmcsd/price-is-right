@@ -1,7 +1,7 @@
 import "../css/ItemLookup.css";
 import "../css/ItemHistory.css";
 import { GroceryItem, MongoDBDeleteItemResult } from "../types/types";
-import deleteIcon from "../images/delete.png";
+import deleteIcon from "../images/trash-can.png";
 import { deleteHistory } from "../services/database";
 import { Dispatch, SetStateAction } from "react";
 
