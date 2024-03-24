@@ -90,7 +90,8 @@ const ManageInventoryItem = () => {
               handleInput={() => { }} />
 
             <NumericField label="Count" required
-              handleChange={(e: React.FormEvent<HTMLInputElement>) => setCount(Number(e.currentTarget.value))} />
+              handleChange={(e: React.FormEvent<HTMLInputElement>) => setCount(Number(e.currentTarget.value))} 
+              value={count}/>
 
             <InputField label="Expiration Date"
               handleChange={(e: React.FormEvent<HTMLInputElement>) => setExpDate(new Date(e.currentTarget.value))}

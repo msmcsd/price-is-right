@@ -3,10 +3,11 @@ import InputField from "./InputField";
 type NumericFieldProps = {
   label: string,
   handleChange: React.FormEventHandler,
-  required?: boolean
+  required?: boolean,
+  value?: number
 }
 
-const NumericField = ({label, required, handleChange}: NumericFieldProps) => {
+const NumericField = ({label, required, value, handleChange}: NumericFieldProps) => {
 
   // Numbers only. Only one decimal allowed.
   const handlePriceInput = (e: React.FormEvent<HTMLInputElement>) => {
@@ -14,7 +15,7 @@ const NumericField = ({label, required, handleChange}: NumericFieldProps) => {
   }
 
   return (
-    <InputField label={label} inputMode="numeric" handleChange={handleChange} handleInput={handlePriceInput} required={required}/>
+    <InputField value={value?.toString()} label={label} inputMode="numeric" handleChange={handleChange} handleInput={handlePriceInput} required={required}/>
   )
 }
 
