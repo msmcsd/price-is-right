@@ -80,3 +80,23 @@ export async function loadInventories() {
 
   return docs;
 }
+
+/*
+---------------------------------------------------------------------
+  Deletes an inventory item.
+---------------------------------------------------------------------
+*/
+export async function deleteInventoryItem(id) {
+  console.log("[inventory.js] Inventory item to delete", id)
+  await client.connect();
+
+  console.log('Connected successfully to server');
+  const db = client.db(dbName);
+  const collection = db.collection(tableName);
+
+  const result = await collection.deleteOne({
+    _id: new ObjectId(id)
+  });
+
+  return result;
+}

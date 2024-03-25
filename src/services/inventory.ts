@@ -1,5 +1,5 @@
 import { URL } from "../constants/URL";
-import { InventoryItem, MongoDBInsertOneResult, MongoDBUpdateResult } from "../types/types";
+import { InventoryItem, MongoDBDeleteItemResult, MongoDBInsertOneResult, MongoDBUpdateResult } from "../types/types";
 
 export async function loadInventories(): Promise<InventoryItem[]> {
   try {
@@ -61,4 +61,24 @@ export async function updateInventoryItem(item: InventoryItem): Promise<MongoDBU
   }
   
   return { acknowledged: false, modifiedCount: 1}; 
+}
+
+export async function deleteInventoryItem(_id: string): Promise<MongoDBDeleteItemResult> {
+  console.log("[inventory.ts] Deleting inventory item. _id:", _id)
+
+  try {
+    const response = await fetch(`${process.env.REACT_APP_PRICE_IS_RIGHT_SERVER}/deleteinventory/${_id}`, {
+      mode: "cors",
+      method: "POST"
+    });
+
+    const result: MongoDBDeleteItemResult = await response.json();
+    console.log("[database.ts] Delete inventory item. result:", result)
+    return result;
+  }
+  catch (error) {
+    console.log(error)
+  }
+
+  return { acknowledged: false, deletedCount: 0 };
 }

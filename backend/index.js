@@ -5,7 +5,7 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 import bodyParser from "body-parser";
 import cors from "cors"
-import { addInventory, loadInventories, updateInventoryItem } from "./services/inventory.js";
+import { addInventory, deleteInventoryItem, loadInventories, updateInventoryItem } from "./services/inventory.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -205,7 +205,22 @@ app.post("/updateinventory", async (req, res) => {
   res.send(result);
 })
 
+/* 
+---------------------------------------------------------------------
+  Deletes an inventory item.
+---------------------------------------------------------------------
+*/
+app.options("/deleteinventory/:id", cors());
+app.post("/deleteinventory/:id", async (req, res) => {
+  setAllowedOrigin(req, res);
 
+  console.log("[index.js] Inventory to delete", req.params.id)
+  const result = await deleteInventoryItem(req.params.id);
+
+  console.log("Delete inventory item", result)
+
+  res.send(result);
+})
 
 
 
