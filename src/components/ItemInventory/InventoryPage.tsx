@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import InventoryList from "./InventoryList";
 import { InventoryItem } from "../../types/types";
-import { loadInventories } from "../../services/inventory";
+import { deleteInventoryItem, loadInventories } from "../../services/inventory";
 
 // const items: InventoryItem[] = [
 //   { _id: "1", name: "Aveeno Lotion", barcode: "381371151035", expiration_date: new Date('2024-05-25'), count: 10, image_url: "https://i5.walmartimages.com/seo/Aveeno-Active-Naturals-Daily-Moisturizing-Lotion-Twin-Pack-20-OZ_52018562-4ab6-40dd-9a37-96c766935680.7f924c174ca9d9fba42d0e4059ef363e.jpeg?odnHeight=640&odnWidth=640&odnBg=FFFFFF" },
@@ -44,6 +44,13 @@ const InventoryPage = () => {
     return itms;
   }
 
+  const deleteInventory = async (id: string) => {
+    const result = await deleteInventoryItem(id); 
+    if (result.deletedCount > 0) {
+      setItems(items.filter(i => i._id !== id));
+    }
+  }
+
   return (
     <>
       <div className="flex-form">
@@ -58,7 +65,7 @@ const InventoryPage = () => {
         <label htmlFor="expired">Expired</label>
       </div>
       <div className="inv-items-container" style={{ margin: "auto auto auto auto" }} >
-        <InventoryList items={getFilteredItem()}/>
+        <InventoryList items={getFilteredItem()} deleteItem={deleteInventory}/>
       </div>
     </>
   )

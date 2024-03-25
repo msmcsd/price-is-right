@@ -1,15 +1,17 @@
+import { Dispatch, SetStateAction } from "react";
 import { InventoryItem } from "../../types/types";
 import InventoryItemCard from "./InventoryItemCard";
 
 type InventoryListProps = {
-  items: InventoryItem[] | []
+  items: InventoryItem[] | [],
+  deleteItem(id: string| undefined): void
 }
 
 
-const InventoryList = ({items} : InventoryListProps) => {
+const InventoryList = ({items, deleteItem} : InventoryListProps) => {
   return (
     <>
-      {items.map(i => <InventoryItemCard key={i._id} item={i} />)}
+      {items.map(i => <InventoryItemCard key={i._id} item={i} deleteItem={deleteItem} />)}
     </>
   )
 }
