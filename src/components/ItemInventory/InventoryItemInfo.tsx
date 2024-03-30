@@ -33,9 +33,9 @@ const InventoryItemInfo = ({item}: InventoryItemInfoProps) => {
     }
   }
 
-  const isExpired = () => {
-    return new Date() > new Date(item?.expiration_date);
-  }
+  // const isExpired = () => {
+  //   return new Date() > item?.expiration_date;
+  // }
 
   return (
     <div className="inv-item-info-container">
@@ -43,8 +43,9 @@ const InventoryItemInfo = ({item}: InventoryItemInfoProps) => {
         <h1 className="">{item?.name}</h1>
         <label className="">{item?.barcode}</label>
       </div>
-      {isExpired() ? <div className="inv-item-exp-date-expired blink-date">EXPIRED: {new Date(item?.expiration_date).toLocaleDateString()}</div> :
-                     <div className="inv-item-exp-date">Expiration Date: {new Date(item?.expiration_date).toLocaleDateString()}</div>}
+      {/* {isExpired() ? <div className="inv-item-exp-date-expired blink-date">EXPIRED: {new Date(item?.expiration_date).toLocaleDateString()}</div> :
+                     <div className="inv-item-exp-date">Expiration Date: {new Date(item?.expiration_date).toLocaleDateString()}</div>} */}
+      <div className="inv-item-exp-date">Expiration: {new Date(item?.expiration_date).toLocaleDateString()}</div>
       <div className="inv-adjust-container">
         <img className="up-down-button" src={PlusIcon} onClick={increaseCount}/>
         <label className="inv-count">{count}</label>

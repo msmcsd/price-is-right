@@ -10,6 +10,14 @@
   border-bottom: 3px solid #dddddd;
 }
 
+.inv-item-card-container-expiring {
+  background-color: rgb(248, 248, 74);
+}
+
+.inv-item-card-container-expired {
+  background-color: rgb(249, 79, 79);
+}
+
 .inv-image-container {
   position: relative;
   display: inline-block;
@@ -37,10 +45,11 @@
 
 .inv-item-exp-date {
   padding: 10px 0 10px 0;
-  font-size: 20px;;
+  font-size: 24px;
+  font-weight: bold;
 }
 
-.inv-item-exp-date-expired {
+/* .inv-item-exp-date-expired {
   padding: 10px 0 10px 0;
   font-size: 25px;
   color: red;
@@ -55,7 +64,7 @@
   50% {
     opacity: 0;
   }
-}
+} */
 
 .inv-items-container {
   display: flex;
