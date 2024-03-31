@@ -45,12 +45,14 @@ const InventoryItemInfo = ({item}: InventoryItemInfoProps) => {
       </div>
       {/* {isExpired() ? <div className="inv-item-exp-date-expired blink-date">EXPIRED: {new Date(item?.expiration_date).toLocaleDateString()}</div> :
                      <div className="inv-item-exp-date">Expiration Date: {new Date(item?.expiration_date).toLocaleDateString()}</div>} */}
-      <div className="inv-item-exp-date">Expiration: {new Date(item?.expiration_date).toLocaleDateString()}</div>
-      <div className="inv-adjust-container">
-        <img className="up-down-button" src={PlusIcon} onClick={increaseCount}/>
-        <label className="inv-count">{count}</label>
-        <img className="up-down-button" src={MinusIcon} onClick={decreaseCount}/>
-      </div>
+      <div>
+        <div className="inv-item-exp-date">Expiration: {new Date(item?.expiration_date).toLocaleDateString()}</div>
+          <div className="inv-adjust-container">
+            <img className="up-down-button" src={PlusIcon} onClick={increaseCount}/>
+            <label className="inv-count">{count}</label>
+            <img className="up-down-button" src={MinusIcon} onClick={decreaseCount}/>
+          </div>
+        </div>
     </div>
   )
 }
