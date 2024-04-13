@@ -81,7 +81,7 @@ useEffect(()=>{
         // Got not found error on Mobile
         // setApiStatus(ApiItemStatus.NotFound);
         // setApiStatusMessage(json.status === ApiItemStatus.NotFound ? json.status_verbose : "Item not found");
-        handleAddItemOnItemNotFound()
+        handleAddItemOnItemNotFound(bar_code)
       }
 
     }
@@ -137,10 +137,10 @@ useEffect(()=>{
     return message.charAt(0).toUpperCase() + message.slice(1);
   }
 
-  const handleAddItemOnItemNotFound = () => {
+  const handleAddItemOnItemNotFound = (barcode_text: string) => {
     closeCamera();
     const item : ManageItemProps = {
-      item : {...DefaultGroceryItem, barcode: barcodeText},
+      item : {...DefaultGroceryItem, barcode: barcode_text},
       mode : ManageItemMode.Add
     }
     navigate(URL.AddItem, {
@@ -167,7 +167,7 @@ useEffect(()=>{
           <h2>{firstLetterToUpperCase(apiStatusMessage)}</h2>
           {isLoading ? 
             <p>Loading...</p> : 
-            apiStatus !== ApiItemStatus.Found && <p>Click <a href="" onClick={handleAddItemOnItemNotFound}>here</a> to add the item</p>}
+            apiStatus !== ApiItemStatus.Found && <p>Click <a href="" onClick={() => handleAddItemOnItemNotFound(barcodeText)}>here</a> to add the item</p>}
         </div>
         {isMobile &&
           <div className="App">
